@@ -14,7 +14,9 @@
           </div>
         </div>
         <div class="authentication">
-          <span class="is-selected">Sign Up</span>
+          <span :class="{ 'is-selected': $route.path === '/register' }"
+            >Sign Up</span
+          >
           <span>Login</span>
         </div>
         <div class="search">
