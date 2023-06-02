@@ -1,13 +1,15 @@
 <template>
   <theHeader />
   <router-view></router-view>
+  <TheFooter />
 </template>
 
 <script>
 import TheHeader from "@/components/common/TheHeader";
+import TheFooter from "@/components/common/TheFooter";
 
 export default {
-  components: { TheHeader },
+  components: { TheHeader, TheFooter },
 };
 </script>
 
