@@ -1,7 +1,7 @@
 <template>
   <footer>
     <base-container>
-      <el-row>
+      <el-row justify="space-between">
         <el-col :span="4">
           <img class="logo" src="../../assets/logo.png" alt="" />
         </el-col>
