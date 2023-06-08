@@ -6,6 +6,7 @@ import ForgotPassword from "@/pages/ForgotPassword.vue";
 import ResetPassword from "@/pages/ResetPassword.vue";
 import ResetSuccessful from "@/pages/ResetSuccessful.vue";
 import Home from "@/pages/Home.vue";
+import ProductDetail from "@/pages/ProductDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,6 +18,7 @@ const router = createRouter({
     { path: "/forgot-password", component: ForgotPassword },
     { path: "/reset-password", component: ResetPassword },
     { path: "/reset-password-successful", component: ResetSuccessful },
+    { path: "/product-detail", component: ProductDetail },
   ],
 });
 

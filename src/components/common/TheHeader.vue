@@ -1,10 +1,19 @@
 <template>
   <header>
     <base-container>
-      <img class="logo" src="../../assets/logo.png" alt="" />
+      <img
+        class="logo"
+        @click="$router.push('/')"
+        src="../../assets/logo.png"
+        alt=""
+      />
       <div class="content">
         <div class="menu-list">
-          <span>Home</span>
+          <span
+            @click="$router.push('/home')"
+            :class="{ 'is-selected': $route.path === '/home' }"
+            >Home</span
+          >
           <span>About Us</span>
           <span>Product</span>
           <span>Test Drive Request</span>
@@ -14,10 +23,16 @@
           </div>
         </div>
         <div class="authentication">
-          <span :class="{ 'is-selected': $route.path === '/register' }"
+          <span
+            @click="$router.push('/register')"
+            :class="{ 'is-selected': $route.path === '/register' }"
             >Sign Up</span
           >
-          <span>Login</span>
+          <span
+            @click="$router.push('/login')"
+            :class="{ 'is-selected': $route.path === '/login' }"
+            >Login</span
+          >
         </div>
         <div class="search">
           <el-dropdown>
@@ -74,6 +89,7 @@ header .container {
 
 .logo {
   width: 12rem;
+  cursor: pointer;
 }
 
 .content {
@@ -132,7 +148,8 @@ span {
   margin-right: 1rem;
 }
 
-.authentication span.is-selected {
+.authentication span.is-selected,
+.menu-list span.is-selected {
   color: #384967;
   border-bottom: 4px solid #384967;
 }
