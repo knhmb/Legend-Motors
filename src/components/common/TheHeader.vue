@@ -16,7 +16,11 @@
           >
           <span>About Us</span>
           <span>Product</span>
-          <span>Test Drive Request</span>
+          <span
+            @click="$router.push('/test-drive-request')"
+            :class="{ 'is-selected': $route.path.includes('/test-drive') }"
+            >Test Drive Request</span
+          >
           <div class="img-content">
             <img src="../../assets/shopping-cart.png" alt="" />
             <div class="pill">99+</div>

@@ -7,6 +7,8 @@ import ResetPassword from "@/pages/ResetPassword.vue";
 import ResetSuccessful from "@/pages/ResetSuccessful.vue";
 import Home from "@/pages/Home.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
+import TestDriveRequest from "@/pages/TestDriveRequest.vue";
+import TestDriveRecieved from "@/pages/TestDriveRecieved.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,6 +21,8 @@ const router = createRouter({
     { path: "/reset-password", component: ResetPassword },
     { path: "/reset-password-successful", component: ResetSuccessful },
     { path: "/product-detail", component: ProductDetail },
+    { path: "/test-drive-request", component: TestDriveRequest },
+    { path: "/test-drive-recieved", component: TestDriveRecieved },
   ],
 });
 
