@@ -21,7 +21,7 @@
             :class="{ 'is-selected': $route.path.includes('/test-drive') }"
             >Test Drive Request</span
           >
-          <div class="img-content">
+          <div class="img-content" @click="$router.push('/cart')">
             <img src="../../assets/shopping-cart.png" alt="" />
             <div class="pill">99+</div>
           </div>

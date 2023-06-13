@@ -9,6 +9,7 @@ import Home from "@/pages/Home.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
 import TestDriveRequest from "@/pages/TestDriveRequest.vue";
 import TestDriveRecieved from "@/pages/TestDriveRecieved.vue";
+import Cart from "@/pages/Cart.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -23,6 +24,7 @@ const router = createRouter({
     { path: "/product-detail", component: ProductDetail },
     { path: "/test-drive-request", component: TestDriveRequest },
     { path: "/test-drive-recieved", component: TestDriveRecieved },
+    { path: "/cart", component: Cart },
   ],
 });
 
