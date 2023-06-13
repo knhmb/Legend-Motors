@@ -77,5 +77,6 @@ p {
 :deep(.el-carousel__indicators--horizontal) {
   bottom: 2rem;
   left: 4rem;
+  transform: translateX(0);
 }
 </style>

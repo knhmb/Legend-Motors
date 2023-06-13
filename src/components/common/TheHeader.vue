@@ -22,7 +22,14 @@
             >Test Drive Request</span
           >
           <div class="img-content" @click="$router.push('/cart')">
-            <img src="../../assets/shopping-cart.png" alt="" />
+            <img
+              v-if="
+                $route.path === '/cart' || $route.path === '/order-confirmed'
+              "
+              src="../../assets/shopping-cart-2.png"
+              alt=""
+            />
+            <img v-else src="../../assets/shopping-cart.png" alt="" />
             <div class="pill">99+</div>
           </div>
         </div>
