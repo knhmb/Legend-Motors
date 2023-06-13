@@ -11,6 +11,8 @@ import TestDriveRequest from "@/pages/TestDriveRequest.vue";
 import TestDriveRecieved from "@/pages/TestDriveRecieved.vue";
 import Cart from "@/pages/Cart.vue";
 import PaymentSuccessful from "@/pages/PaymentSuccessful.vue";
+import Profile from "@/pages/Profile.vue";
+import EditProfile from "@/pages/EditProfile.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +29,12 @@ const router = createRouter({
     { path: "/test-drive-recieved", component: TestDriveRecieved },
     { path: "/cart", component: Cart },
     { path: "/order-confirmed", component: PaymentSuccessful },
+    {
+      path: "/profile",
+      component: Profile,
+      name: "profile",
+      children: [{ path: "edit-profile", component: EditProfile }],
+    },
   ],
 });
 
