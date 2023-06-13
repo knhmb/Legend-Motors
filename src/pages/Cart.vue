@@ -30,12 +30,18 @@
           <p>$1,000</p>
         </div>
       </div>
+      <cart-form></cart-form>
     </base-container>
   </section>
 </template>
 
 <script>
+import CartForm from "@/components/cart/Form.vue";
+
 export default {
+  components: {
+    CartForm,
+  },
   data() {
     return {
       tableData: [
