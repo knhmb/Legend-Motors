@@ -8,13 +8,13 @@
         <el-col :span="6">
           <p>Company</p>
           <div class="list">
-            <p>Home</p>
+            <p @click="$router.push('/home')">Home</p>
           </div>
           <div class="list">
             <p>About Us</p>
           </div>
           <div class="list">
-            <p>Contact Us</p>
+            <p @click="$router.push('/contact-us')">Contact Us</p>
           </div>
           <div class="list">
             <p>Terms & Conditions</p>
@@ -26,10 +26,12 @@
             <p>Product</p>
           </div>
           <div class="list">
-            <p>Test Drive Request</p>
+            <p @click="$router.push('/test-drive-request')">
+              Test Drive Request
+            </p>
           </div>
           <div class="list">
-            <p>Shopping Cart</p>
+            <p @click="$router.push('/cart')">Shopping Cart</p>
           </div>
         </el-col>
         <el-col :span="7">
@@ -90,11 +92,13 @@ p {
   color: #f2f3f5;
   margin-bottom: 0;
   text-transform: none;
+  cursor: pointer;
 }
 
 .list.icons p {
   font-size: 16px;
   display: inline-block;
+  cursor: default;
 }
 
 .list.icons img {

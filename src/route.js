@@ -16,6 +16,7 @@ import EditProfile from "@/pages/EditProfile.vue";
 import ChangePassword from "@/pages/ChangePassword.vue";
 import OrderHistory from "@/pages/OrderHistory.vue";
 import UserProfile from "@/pages/UserProfile.vue";
+import ContactUs from "@/pages/ContactUs.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,6 +33,7 @@ const router = createRouter({
     { path: "/test-drive-recieved", component: TestDriveRecieved },
     { path: "/cart", component: Cart },
     { path: "/order-confirmed", component: PaymentSuccessful },
+    { path: "/contact-us", component: ContactUs },
     {
       path: "/profile",
       component: Profile,
