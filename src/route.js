@@ -13,6 +13,8 @@ import Cart from "@/pages/Cart.vue";
 import PaymentSuccessful from "@/pages/PaymentSuccessful.vue";
 import Profile from "@/pages/Profile.vue";
 import EditProfile from "@/pages/EditProfile.vue";
+import ChangePassword from "@/pages/ChangePassword.vue";
+import OrderHistory from "@/pages/OrderHistory.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -33,7 +35,11 @@ const router = createRouter({
       path: "/profile",
       component: Profile,
       name: "profile",
-      children: [{ path: "edit-profile", component: EditProfile }],
+      children: [
+        { path: "edit-profile", component: EditProfile },
+        { path: "change-password", component: ChangePassword },
+        { path: "order-history", component: OrderHistory },
+      ],
     },
   ],
 });

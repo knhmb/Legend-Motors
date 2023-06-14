@@ -17,8 +17,16 @@
           :class="{ 'is-selected': $route.path === '/profile/edit-profile' }"
           >Edit Profile</span
         >
-        <span>Change Password</span>
-        <span>Order History</span>
+        <span
+          @click="$router.push('/profile/change-password')"
+          :class="{ 'is-selected': $route.path === '/profile/change-password' }"
+          >Change Password</span
+        >
+        <span
+          @click="$router.push('/profile/order-history')"
+          :class="{ 'is-selected': $route.path === '/profile/order-history' }"
+          >Order History</span
+        >
         <span>Logout</span>
       </div>
       <router-view></router-view>
