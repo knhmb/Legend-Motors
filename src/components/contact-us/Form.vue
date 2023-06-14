@@ -51,4 +51,13 @@ h4 {
   border-radius: 4px;
   /* padding: 0.2rem 1rem; */
 }
+
+:deep(.el-checkbox__label) {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 13px;
+  line-height: 20px;
+  color: #262f36;
+}
 </style>

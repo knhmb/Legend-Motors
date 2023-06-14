@@ -20,6 +20,10 @@ import ContactUs from "@/pages/ContactUs.vue";
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0, behavior: "smooth" };
+  },
   routes: [
     { path: "/", redirect: "/home" },
     { path: "/home", component: Home },
