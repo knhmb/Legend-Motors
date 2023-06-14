@@ -15,6 +15,7 @@ import Profile from "@/pages/Profile.vue";
 import EditProfile from "@/pages/EditProfile.vue";
 import ChangePassword from "@/pages/ChangePassword.vue";
 import OrderHistory from "@/pages/OrderHistory.vue";
+import UserProfile from "@/pages/UserProfile.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -39,6 +40,7 @@ const router = createRouter({
         { path: "edit-profile", component: EditProfile },
         { path: "change-password", component: ChangePassword },
         { path: "order-history", component: OrderHistory },
+        { path: "user-profile", component: UserProfile },
       ],
     },
   ],

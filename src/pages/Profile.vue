@@ -8,8 +8,8 @@
     <base-container>
       <div class="profile-menu">
         <span
-          @click="$router.push('/profile')"
-          :class="{ 'is-selected': $route.path === '/profile' }"
+          @click="$router.push('/profile/user-profile')"
+          :class="{ 'is-selected': $route.path === '/profile/user-profile' }"
           >Profile</span
         >
         <span
