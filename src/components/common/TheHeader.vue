@@ -14,7 +14,11 @@
             :class="{ 'is-selected': $route.path === '/home' }"
             >Home</span
           >
-          <span>About Us</span>
+          <span
+            @click="$router.push('/about-us')"
+            :class="{ 'is-selected': $route.path === '/about-us' }"
+            >About Us</span
+          >
           <span>Product</span>
           <span
             @click="$router.push('/test-drive-request')"

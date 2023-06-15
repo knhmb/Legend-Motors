@@ -11,13 +11,15 @@
             <p @click="$router.push('/home')">Home</p>
           </div>
           <div class="list">
-            <p>About Us</p>
+            <p @click="$router.push('/about-us')">About Us</p>
           </div>
           <div class="list">
             <p @click="$router.push('/contact-us')">Contact Us</p>
           </div>
           <div class="list">
-            <p>Terms & Conditions</p>
+            <p @click="$router.push('/terms-and-conditions')">
+              Terms & Conditions
+            </p>
           </div>
         </el-col>
         <el-col :span="5">

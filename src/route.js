@@ -17,6 +17,9 @@ import ChangePassword from "@/pages/ChangePassword.vue";
 import OrderHistory from "@/pages/OrderHistory.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import ContactUs from "@/pages/ContactUs.vue";
+import AboutUs from "@/pages/AboutUs.vue";
+import TermsConditions from "@/pages/TermsConditions.vue";
+import BookingTermsConditions from "@/pages/BookingTermsConditions.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,6 +41,12 @@ const router = createRouter({
     { path: "/cart", component: Cart },
     { path: "/order-confirmed", component: PaymentSuccessful },
     { path: "/contact-us", component: ContactUs },
+    { path: "/about-us", component: AboutUs },
+    { path: "/terms-and-conditions", component: TermsConditions },
+    {
+      path: "/booking-terms-and-conditions",
+      component: BookingTermsConditions,
+    },
     {
       path: "/profile",
       component: Profile,
