@@ -38,16 +38,25 @@
           </div>
         </div>
         <div class="authentication">
-          <span
-            @click="$router.push('/register')"
-            :class="{ 'is-selected': $route.path === '/register' }"
-            >Sign Up</span
-          >
-          <span
-            @click="$router.push('/login')"
-            :class="{ 'is-selected': $route.path === '/login' }"
-            >Login</span
-          >
+          <temlate v-if="!isLoggedIn">
+            <span
+              @click="$router.push('/register')"
+              :class="{ 'is-selected': $route.path === '/register' }"
+              >Sign Up</span
+            >
+            <span
+              @click="$router.push('/login')"
+              :class="{ 'is-selected': $route.path === '/login' }"
+              >Login</span
+            >
+          </temlate>
+          <template v-else>
+            <p>Hi, User Name</p>
+
+            <div class="icon-content">
+              <img src="../../assets/user.png" alt="" />
+            </div>
+          </template>
         </div>
         <div class="search">
           <el-dropdown>
@@ -88,6 +97,11 @@ export default {
       search: "",
     };
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"];
+    },
+  },
 };
 </script>
 
@@ -118,6 +132,20 @@ header .container {
   border-right: 1px solid #f2f3f5;
   padding-right: 2.5rem;
 }
+.icon-content {
+  background: #384967;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 1rem;
+}
+
+.icon-content img {
+  width: 1rem;
+}
 
 .img-content {
   position: relative;
@@ -133,7 +161,8 @@ header .container {
   right: -1.4rem;
 }
 
-span {
+span,
+.authentication p {
   font-family: "Avenir";
   font-style: normal;
   font-weight: 850;

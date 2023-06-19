@@ -64,7 +64,7 @@ p {
 }
 
 :deep(.el-carousel__container) {
-  height: 830px;
+  height: 670px;
 }
 
 :deep(.el-carousel__button) {

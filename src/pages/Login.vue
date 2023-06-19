@@ -3,11 +3,18 @@
   <section class="login">
     <base-container>
       <h3>Log in to your account</h3>
-      <el-form label-position="top">
-        <el-form-item label="Email">
+      <el-form
+        label-position="top"
+        hide-required-asterisk
+        :model="ruleForm"
+        ,
+        :rules="rules"
+        ref="ruleFormRef"
+      >
+        <el-form-item label="Email" prop="email">
           <base-input placeholder="Email" v-model="ruleForm.email"></base-input>
         </el-form-item>
-        <el-form-item label="Password">
+        <el-form-item label="Password" prop="password">
           <base-input
             show-password
             type="password"
@@ -16,7 +23,7 @@
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button>Login</base-button>
+          <base-button @click="login">Login</base-button>
         </el-form-item>
         <el-form-item>
           <p class="forgot-password" @click="$router.push('forgot-password')">
@@ -45,7 +52,33 @@ export default {
         email: "",
         password: "",
       },
+      rules: {
+        password: [
+          { required: true, message: "Password is required", trigger: "blur" },
+        ],
+        email: [
+          { required: true, message: "Email is required", trigger: "blur" },
+          {
+            type: "email",
+            message: "Email format is invalid",
+            trigger: "blur",
+          },
+        ],
+      },
     };
+  },
+  methods: {
+    login() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            username: this.ruleForm.email,
+            password: this.ruleForm.password,
+          };
+          this.$store.dispatch("auth/login", data).then(() => {});
+        }
+      });
+    },
   },
 };
 </script>
