@@ -7,7 +7,6 @@
         label-position="top"
         hide-required-asterisk
         :model="ruleForm"
-        ,
         :rules="rules"
         ref="ruleFormRef"
       >
@@ -23,13 +22,14 @@
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button @click="login">Login</base-button>
-        </el-form-item>
-        <el-form-item>
           <p class="forgot-password" @click="$router.push('forgot-password')">
             Forgot Password?
           </p>
         </el-form-item>
+        <el-form-item>
+          <base-button @click="login">Login</base-button>
+        </el-form-item>
+
         <el-form-item>
           <el-divider />
         </el-form-item>
@@ -45,6 +45,7 @@
 </template>
   
   <script>
+import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
@@ -75,7 +76,18 @@ export default {
             username: this.ruleForm.email,
             password: this.ruleForm.password,
           };
-          this.$store.dispatch("auth/login", data).then(() => {});
+          this.$store
+            .dispatch("auth/login", data)
+            .then(() => {
+              this.$router.replace("/home");
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
         }
       });
     },

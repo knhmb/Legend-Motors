@@ -27,7 +27,7 @@
           :class="{ 'is-selected': $route.path === '/profile/order-history' }"
           >Order History</span
         >
-        <span>Logout</span>
+        <span @click="logout">Logout</span>
       </div>
       <router-view></router-view>
     </base-container>
@@ -40,6 +40,13 @@ export default {
     return {
       activeName: "first",
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/Logout").then(() => {
+        this.$router.replace("/");
+      });
+    },
   },
 };
 </script>

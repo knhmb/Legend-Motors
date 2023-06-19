@@ -3,4 +3,10 @@ export default {
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
+  LOGOUT(state) {
+    state.isLoggedIn = false;
+    state.currentUser = {};
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+  },
 };

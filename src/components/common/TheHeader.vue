@@ -51,8 +51,9 @@
             >
           </temlate>
           <template v-else>
-            <p>Hi, User Name</p>
-
+            <p @click="$router.push('/profile')">
+              Hi, {{ currentUser.username }}
+            </p>
             <div class="icon-content">
               <img src="../../assets/user.png" alt="" />
             </div>
@@ -100,6 +101,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"];
+    },
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
     },
   },
 };

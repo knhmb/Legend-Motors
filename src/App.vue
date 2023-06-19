@@ -10,6 +10,14 @@ import TheFooter from "@/components/common/TheFooter";
 
 export default {
   components: { TheHeader, TheFooter },
+  created() {
+    this.$store
+      .dispatch("auth/validateUser")
+      .then(() => {})
+      .catch(() => {
+        this.$store.commit("auth/LOGOUT");
+      });
+  },
 };
 </script>
 
