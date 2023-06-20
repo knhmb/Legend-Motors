@@ -3,7 +3,7 @@
   <section class="profile">
     <div class="banner">
       <img src="../assets/Profile-banner.png" alt="" />
-      <p>Profile</p>
+      <p>{{ pageTitle }}</p>
     </div>
     <base-container>
       <div class="profile-menu">
@@ -40,6 +40,17 @@ export default {
     return {
       activeName: "first",
     };
+  },
+  computed: {
+    pageTitle() {
+      return this.$route.path === "/profile/edit-profile"
+        ? "Edit Profile"
+        : this.$route.path === "/profile/change-password"
+        ? "Change Password"
+        : this.$route.path === "/profile/order-history"
+        ? "Order History"
+        : "Profile";
+    },
   },
   methods: {
     logout() {

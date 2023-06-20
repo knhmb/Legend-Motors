@@ -15,8 +15,5 @@ export default {
     Carousel,
     Main,
   },
-  created() {
-    this.$store.dispatch("product/getProducts");
-  },
 };
 </script>

@@ -1,9 +1,10 @@
 <template>
   <section class="booking-terms-and-conditions">
     <base-container>
-      <h3>Booking Terms & Conditions</h3>
+      <h3>{{ cmsContent.title }}</h3>
+      <p>{{ cmsContent.content }}</p>
 
-      <p>
+      <!-- <p>
         1. I confirm that I am over 18 years old and have read and agreed to all
         the terms and conditions of this website and accept their constraints.
       </p>
@@ -39,12 +40,27 @@
         incorrect or inaccurate information, which prevents you from
         successfully completing the reservation process, Lijun Automobile Co.,
         Ltd. will not be held responsible. Responsible.
-      </p>
+      </p> -->
     </base-container>
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    cms() {
+      return this.$store.getters["dashboard/cms"];
+    },
+    cmsContent() {
+      return this.cms.find(
+        (item) => item.slug === "cms-booking-terms-condition"
+      );
+    },
+  },
+};
+</script>
   
-  <style scoped>
+<style scoped>
 .booking-terms-and-conditions {
   display: flex;
   justify-content: center;

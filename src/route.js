@@ -20,6 +20,7 @@ import ContactUs from "@/pages/ContactUs.vue";
 import AboutUs from "@/pages/AboutUs.vue";
 import TermsConditions from "@/pages/TermsConditions.vue";
 import BookingTermsConditions from "@/pages/BookingTermsConditions.vue";
+import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -46,6 +47,10 @@ const router = createRouter({
     {
       path: "/booking-terms-and-conditions",
       component: BookingTermsConditions,
+    },
+    {
+      path: "/privacy-policy",
+      component: PrivacyPolicy,
     },
     {
       path: "/profile",

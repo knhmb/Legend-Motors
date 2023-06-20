@@ -2,13 +2,13 @@
   <section class="about-us">
     <div class="banner">
       <img src="../assets/About-Us-banner.png" alt="" />
-      <h3>About Us</h3>
+      <h3>{{ cmsContent.title }}</h3>
     </div>
     <base-container>
       <el-row :gutter="60">
         <el-col :span="12">
-          <h4>DH Legend Motors Company Limited</h4>
-          <p>
+          <h4>{{ cmsContent.content }}</h4>
+          <!-- <p>
             DH Legend Motors was established as the general agent of
             SAIC-GM-Wuling (SGMW) electric vehicles in Hong Kong. An automobile
             trading company that sells SGMW electric vehicles in Hong Kong.
@@ -22,7 +22,7 @@
             understand the expectations of the market and the community, and
             move forward together with drivers to become their trusted mobility
             partners.
-          </p>
+          </p> -->
         </el-col>
         <el-col :span="12">
           <img src="../assets/image-39.png" alt="" />
@@ -31,6 +31,22 @@
     </base-container>
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    cms() {
+      return this.$store.getters["dashboard/cms"];
+    },
+    cmsContent() {
+      return this.cms.find((item) => item.slug === "cms-about-us");
+    },
+  },
+  created() {
+    console.log(this.cms);
+  },
+};
+</script>
 
 <style scoped>
 .banner {

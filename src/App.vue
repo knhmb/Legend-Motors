@@ -11,9 +11,14 @@ import TheFooter from "@/components/common/TheFooter";
 export default {
   components: { TheHeader, TheFooter },
   created() {
+    this.$store.dispatch("product/getProducts");
+    this.$store.dispatch("dashboard/getCMS");
+    this.$store.dispatch("dashboard/getBanners");
     this.$store
       .dispatch("auth/validateUser")
-      .then(() => {})
+      .then(() => {
+        // this.$store.commit("auth/LOGIN");
+      })
       .catch(() => {
         this.$store.commit("auth/LOGOUT");
       });

@@ -6,12 +6,7 @@
           <h4>Contact Information</h4>
           <div class="card">
             <p>
-              With our extensive experience in international and local sales and
-              trading of new and used cars, we aspire to Drive for a Better
-              Life. By working with SGMW, we trust each other and believe that
-              we can understand the expectations of the market and the
-              community, and move forward together with drivers to become your
-              reliable mobility partner.
+              {{ cmsContent.content }}
             </p>
             <div class="info">
               <img src="../assets/location.png" alt="" />
@@ -44,6 +39,14 @@ import Form from "@/components/contact-us/Form.vue";
 export default {
   components: {
     Form,
+  },
+  computed: {
+    cms() {
+      return this.$store.getters["dashboard/cms"];
+    },
+    cmsContent() {
+      return this.cms.find((item) => item.slug === "cms-contact-us");
+    },
   },
 };
 </script>

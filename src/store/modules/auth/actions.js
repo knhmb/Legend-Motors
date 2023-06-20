@@ -11,9 +11,9 @@ export default {
     localStorage.setItem("refreshToken", response.data.refreshToken);
     context.commit("LOGIN", response.data.item);
   },
-  async validateUser() {
+  async validateUser(context) {
     const response = await axios.get("api/v1/authenticate");
-    console.log(response);
+    context.commit("LOGIN", response.data.item);
   },
   async Logout(context) {
     await axios.delete("/api/v1/authenticate");

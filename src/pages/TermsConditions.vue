@@ -1,8 +1,9 @@
 <template>
   <section class="terms-and-conditions">
     <base-container>
-      <h3>Terms & Conditions</h3>
-      <p>Terms of Using Websites</p>
+      <h3>{{ cmsContent.title }}</h3>
+      <p>{{ cmsContent.content }}</p>
+      <!-- <p>Terms of Using Websites</p>
       <p>
         By accessing to use the site of DH Legend Motors Company Limited (“DH
         Legend”), you are complying to these Terms without limitation or
@@ -100,10 +101,23 @@
         the DH Legend site is at your own risk. These hyperlinks to other
         Internet sites do not constitute any endorsement by DH Legend of such
         websites or the information, products, advertising or o
-      </p>
+      </p> -->
     </base-container>
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    cms() {
+      return this.$store.getters["dashboard/cms"];
+    },
+    cmsContent() {
+      return this.cms.find((item) => item.slug === "cms-terms-condition");
+    },
+  },
+};
+</script>
 
 <style scoped>
 .terms-and-conditions {
