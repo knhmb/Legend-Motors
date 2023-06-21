@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "./store/store";
 
 import SignUp from "@/pages/SignUp.vue";
 import Login from "@/pages/Login.vue";
@@ -56,6 +57,13 @@ const router = createRouter({
       path: "/profile",
       component: Profile,
       name: "profile",
+      beforeEnter(to, from, next) {
+        if (store.getters["auth/isLoggedIn"]) {
+          next();
+        } else {
+          next("/");
+        }
+      },
       children: [
         { path: "edit-profile", component: EditProfile },
         { path: "change-password", component: ChangePassword },

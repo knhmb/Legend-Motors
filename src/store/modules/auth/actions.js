@@ -7,13 +7,11 @@ export default {
   },
   async login(context, payload) {
     const response = await axios.post("api/v1/authenticate", payload);
-    localStorage.setItem("accessToken", response.data.accessToken);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
-    context.commit("LOGIN", response.data.item);
+    context.commit("LOGIN", response.data);
   },
   async validateUser(context) {
     const response = await axios.get("api/v1/authenticate");
-    context.commit("LOGIN", response.data.item);
+    context.commit("LOGIN", response.data);
   },
   async Logout(context) {
     await axios.delete("/api/v1/authenticate");
