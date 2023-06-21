@@ -4,14 +4,24 @@
     <div class="icon-content">
       <img src="../assets/user.png" alt="" />
     </div>
-    <p class="username">User Name</p>
-    <p>user@mail.com</p>
-    <p>9123 9123</p>
+    <p class="username">{{ currentUser.username }}</p>
+    <p>{{ currentUser.email }}</p>
+    <p>{{ currentUser.phone }}</p>
     <p class="address">
-      Rm. 61, 8/F, Sino Industrial Plaza, 9 Kai Cheung Rd., Kowloon Bay, Kowloon
+      {{ currentUser.address }}
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
+  },
+};
+</script>
 
 <style scoped>
 .user-profile {

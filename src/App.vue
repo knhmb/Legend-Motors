@@ -21,6 +21,7 @@ export default {
       })
       .catch(() => {
         this.$store.commit("auth/LOGOUT");
+        this.$router.replace("/");
       });
   },
 };

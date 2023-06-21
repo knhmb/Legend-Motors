@@ -19,4 +19,14 @@ export default {
     await axios.delete("/api/v1/authenticate");
     context.commit("LOGOUT");
   },
+  async getOTP(_, payload) {
+    await axios.post("api/v1/accounts/forgot-password", payload);
+  },
+  async updateUser(context, payload) {
+    const response = await axios.put(
+      `api/v1/accounts/${payload.id}`,
+      payload.data
+    );
+    console.log(response);
+  },
 };
