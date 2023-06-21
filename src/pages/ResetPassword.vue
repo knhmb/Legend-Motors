@@ -3,8 +3,13 @@
   <section class="reset-password">
     <base-container>
       <h3>Reset Password</h3>
-      <el-form label-position="top">
-        <el-form-item label="Password">
+      <el-form
+        label-position="top"
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleFormRef"
+      >
+        <el-form-item label="Password" prop="password">
           <base-input
             show-password
             type="password"
@@ -12,7 +17,7 @@
             v-model="ruleForm.password"
           ></base-input>
         </el-form-item>
-        <el-form-item label="Confirm Password">
+        <el-form-item label="Confirm Password" prop="confirmPassword">
           <base-input
             show-password
             type="password"
@@ -21,7 +26,7 @@
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button>Reset Password</base-button>
+          <base-button @click="resetPassword">Reset Password</base-button>
         </el-form-item>
       </el-form>
     </base-container>
@@ -29,14 +34,79 @@
 </template>
       
   <script>
+import { ElNotification } from "element-plus";
 export default {
   data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Password is required"));
+      } else {
+        if (this.ruleForm.confirmPassword !== "") {
+          if (!this.$refs.ruleFormRef) return;
+          this.$refs.ruleFormRef.validateField("confirmPassword", () => null);
+        }
+        callback();
+      }
+    };
+    const validateConfirmPass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Confirm password is required"));
+      } else if (value !== this.ruleForm.password) {
+        callback(new Error("Password's do not match"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       ruleForm: {
-        email: "",
-        otp: "",
+        password: "",
+        confirmPassword: "",
+      },
+      rules: {
+        password: [{ validator: validatePass, trigger: "blur" }],
+        confirmPassword: [{ validator: validateConfirmPass, trigger: "blur" }],
       },
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
+  },
+  methods: {
+    checkPassword(pass) {
+      const re = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+      return re.test(pass);
+    },
+    resetPassword() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            email: this.currentUser.email,
+            password: this.ruleForm.password,
+            password2: this.ruleForm.confirmPassword,
+          };
+          this.$store
+            .dispatch("auth/resetPassword", data)
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: "Password Changed",
+                type: "success",
+              });
+              this.$router.replace("/login");
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
+        }
+      });
+    },
   },
 };
 </script>

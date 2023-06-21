@@ -29,4 +29,11 @@ export default {
     );
     console.log(response);
   },
+  async checkOTP(context, payload) {
+    const response = await axios.post("api/v1/accounts/otp-check", payload);
+    context.commit("RESET_PASSWORD", response.data.item);
+  },
+  async resetPassword(_, payload) {
+    await axios.post("api/v1/accounts/reset-password", payload);
+  },
 };

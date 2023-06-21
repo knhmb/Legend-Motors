@@ -9,4 +9,7 @@ export default {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   },
+  RESET_PASSWORD(state, payload) {
+    state.currentUser = payload;
+  },
 };

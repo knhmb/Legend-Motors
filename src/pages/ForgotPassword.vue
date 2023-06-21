@@ -37,11 +37,11 @@
             show-password
             type="password"
             placeholder="OTP"
-            v-model="ruleForm.otp"
+            v-model.number="ruleForm.otp"
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button>Continue</base-button>
+          <base-button @click="checkOTP">Continue</base-button>
         </el-form-item>
       </el-form>
     </base-container>
@@ -49,7 +49,7 @@
 </template>
     
 <script>
-// import { ElNotification } from "element-plus";
+import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
@@ -96,24 +96,45 @@ export default {
       this.$refs.ruleFormRef.validateField("email", (valid) => {
         if (valid) {
           this.otpTimer();
-          console.log("yes");
+          this.$store
+            .dispatch("auth/getOTP", { email: this.ruleForm.email })
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: "OTP sent to your email",
+                type: "success",
+              });
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
+        }
+      });
+    },
+    checkOTP() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            email: this.ruleForm.email,
+            otp: this.ruleForm.otp.toString(),
+          };
 
-          // this.$store
-          //   .dispatch("auth/getOTP", { email: this.ruleForm.email })
-          //   .then(() => {
-          //     ElNotification({
-          //       title: "Success",
-          //       message: "OTP sent to your email",
-          //       type: "success",
-          //     });
-          //   })
-          //   .catch((err) => {
-          //     ElNotification({
-          //       title: "Error",
-          //       message: err.response.data.message,
-          //       type: "error",
-          //     });
-          //   });
+          this.$store
+            .dispatch("auth/checkOTP", data)
+            .then(() => {
+              this.$router.push("/reset-password");
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
         }
       });
     },
