@@ -1,0 +1,32 @@
+{
+  "menu": {
+    "home": "Home",
+    "about-us": "About Us",
+    "product": "Product",
+    "test-drive-request": "Test Drive Request",
+    "sign-up": "Sign up",
+    "login": "Login",
+    "search:placeholder": "Search",
+    "contact-us": "Contact Us",
+    "terms-conditions": "Terms & Conditions",
+    "shopping-cart": "Shopping Cart"
+  },
+  "btn": {
+    "booking-now": "Booking now",
+    "explore": "Explore"
+  },
+  "product": "Product",
+  "tabs": {},
+  "footer": {
+    "company": "Company",
+    "service": "Service",
+    "office": "Office"
+  },
+  "auth": {
+    "login-text": "Log in to your account",
+    "email": "Email",
+    "passsword": "Password",
+    "forgot-password": "Forgot Password",
+    "dont-have-account": "Don't have an account?"
+  }
+}

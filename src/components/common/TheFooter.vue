@@ -6,34 +6,36 @@
           <img class="logo" src="../../assets/logo.png" alt="" />
         </el-col>
         <el-col :span="6">
-          <p>Company</p>
+          <p>{{ $t("footer.company") }}</p>
           <div class="list">
-            <p @click="$router.push('/home')">Home</p>
+            <p @click="$router.push('/home')">{{ $t("menu.home") }}</p>
           </div>
           <div class="list">
-            <p @click="$router.push('/about-us')">About Us</p>
+            <p @click="$router.push('/about-us')">{{ $t("menu.about-us") }}</p>
           </div>
           <div class="list">
-            <p @click="$router.push('/contact-us')">Contact Us</p>
+            <p @click="$router.push('/contact-us')">
+              {{ $t("menu.contact-us") }}
+            </p>
           </div>
           <div class="list">
             <p @click="$router.push('/terms-and-conditions')">
-              Terms & Conditions
+              {{ $t("menu.terms-conditions") }}
             </p>
           </div>
         </el-col>
         <el-col :span="5">
-          <p>Service</p>
+          <p>{{ $t("footer.service") }}</p>
           <div class="list">
-            <p>Product</p>
+            <p>{{ $t("menu.product") }}</p>
           </div>
           <div class="list">
             <p @click="$router.push('/test-drive-request')">
-              Test Drive Request
+              {{ $t("menu.test-drive-request") }}
             </p>
           </div>
           <div class="list">
-            <p @click="$router.push('/cart')">Shopping Cart</p>
+            <p @click="$router.push('/cart')">{{ $t("menu.shopping-cart") }}</p>
           </div>
         </el-col>
         <el-col :span="7">

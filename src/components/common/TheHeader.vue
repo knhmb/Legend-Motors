@@ -12,18 +12,18 @@
           <span
             @click="$router.push('/home')"
             :class="{ 'is-selected': $route.path === '/home' }"
-            >Home</span
+            >{{ $t("menu.home") }}</span
           >
           <span
             @click="$router.push('/about-us')"
             :class="{ 'is-selected': $route.path === '/about-us' }"
-            >About Us</span
+            >{{ $t("menu.about-us") }}</span
           >
-          <span>Product</span>
+          <span>{{ $t("menu.product") }}</span>
           <span
             @click="$router.push('/test-drive-request')"
             :class="{ 'is-selected': $route.path.includes('/test-drive') }"
-            >Test Drive Request</span
+            >{{ $t("menu.test-drive-request") }}</span
           >
           <div class="img-content" @click="$router.push('/cart')">
             <img
@@ -42,12 +42,12 @@
             <span
               @click="$router.push('/register')"
               :class="{ 'is-selected': $route.path === '/register' }"
-              >Sign Up</span
+              >{{ $t("menu.sign-up") }}</span
             >
             <span
               @click="$router.push('/login')"
               :class="{ 'is-selected': $route.path === '/login' }"
-              >Login</span
+              >{{ $t("menu.login") }}</span
             >
           </temlate>
           <template v-else>
@@ -69,12 +69,19 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>English</el-dropdown-item>
-                <el-dropdown-item>Chinese</el-dropdown-item>
+                <el-dropdown-item @click="setLang('en-US')"
+                  >English</el-dropdown-item
+                >
+                <el-dropdown-item @click="setLang('zh')"
+                  >Chinese</el-dropdown-item
+                >
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <el-input v-model="search" placeholder="Search">
+          <el-input
+            v-model="search"
+            :placeholder="$t('menu.search:placeholder')"
+          >
             <template #prefix>
               <el-icon class="el-input__icon"><search /></el-icon>
             </template>
@@ -104,6 +111,11 @@ export default {
     },
     currentUser() {
       return this.$store.getters["auth/currentUser"];
+    },
+  },
+  methods: {
+    setLang(lang) {
+      this.$i18n.locale = lang;
     },
   },
 };

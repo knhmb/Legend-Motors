@@ -15,6 +15,9 @@ export default {
   components: {
     Main,
   },
+  created() {
+    this.$store.dispatch('product/testDriveRequest')
+  }
 };
 </script>
 

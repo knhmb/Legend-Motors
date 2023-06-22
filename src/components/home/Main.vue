@@ -23,7 +23,7 @@
                 <li>Roomy 4-Seater</li>
               </ul>
               <base-button>Booking now</base-button>
-              <base-button :login="true">Explore</base-button>
+              <base-button :login="true">{{ $t("btn.explore") }}</base-button>
             </el-col>
           </el-row>
         </el-tab-pane>

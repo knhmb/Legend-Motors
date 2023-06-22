@@ -10,34 +10,37 @@
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item label="Email" prop="email">
-          <base-input placeholder="Email" v-model="ruleForm.email"></base-input>
+        <el-form-item :label="$t('menu.login')" prop="email">
+          <base-input
+            :placeholder="$t('menu.login')"
+            v-model="ruleForm.email"
+          ></base-input>
         </el-form-item>
-        <el-form-item label="Password" prop="password">
+        <el-form-item :label="$t('auth.password')" prop="password">
           <base-input
             show-password
             type="password"
-            placeholder="Password"
+            :placeholder="$t('auth.password')"
             v-model="ruleForm.password"
           ></base-input>
         </el-form-item>
         <el-form-item>
           <p class="forgot-password" @click="$router.push('forgot-password')">
-            Forgot Password?
+            {{ $t("auth.forgot-password") }}
           </p>
         </el-form-item>
         <el-form-item>
-          <base-button @click="login">Login</base-button>
+          <base-button @click="login">{{ $t("menu.login") }}</base-button>
         </el-form-item>
 
         <el-form-item>
           <el-divider />
         </el-form-item>
         <el-form-item>
-          <p>Don't have an account?</p>
+          <p>{{ $t("auth.dont-have-account") }}</p>
         </el-form-item>
         <el-form-item>
-          <base-button :login="true">Sign Up</base-button>
+          <base-button :login="true">{{ $t("menu.sign-up") }}</base-button>
         </el-form-item>
       </el-form>
     </base-container>
