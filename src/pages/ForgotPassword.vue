@@ -2,7 +2,7 @@
 <template>
   <section class="forgot-password">
     <base-container>
-      <h3>Forgot Password</h3>
+      <h3>{{ $t("auth.forgot-password") }}</h3>
       <el-form
         hide-required-asterisk
         label-position="top"
@@ -10,16 +10,16 @@
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item label="Email" class="email-otp" prop="email">
+        <el-form-item :label="$t('auth.email')" class="email-otp" prop="email">
           <div class="otp">
             <base-input
               :disabled="displayOtpMessage"
-              placeholder="Email"
+              :placeholder="$t('auth.email')"
               v-model="ruleForm.email"
             >
             </base-input>
             <span @click="sendOtp" :class="{ 'is-active': displayOtpMessage }"
-              >Send OTP
+              >{{ $t("auth.send-otp") }}
               <small
                 v-if="displayOtpMessage"
                 :class="{ 'is-active': displayOtpMessage }"
@@ -29,19 +29,19 @@
           </div>
 
           <p v-if="displayOtpMessage" class="info">
-            You can resend the verification code after {{ seconds }} seconds
+            {{ $t("auth.resend-otp", { seconds }) }}
           </p>
         </el-form-item>
-        <el-form-item label="OTP" prop="otp">
+        <el-form-item :label="$t('auth.otp')" prop="otp">
           <base-input
             show-password
             type="password"
-            placeholder="OTP"
+            :placeholder="$t('auth.otp')"
             v-model.number="ruleForm.otp"
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button @click="checkOTP">Continue</base-button>
+          <base-button @click="checkOTP">{{ $t("btn.continue") }}</base-button>
         </el-form-item>
       </el-form>
     </base-container>
@@ -59,12 +59,28 @@ export default {
       },
       rules: {
         email: [
-          { required: true, message: "Email is required", trigger: "blur" },
-          { type: "email", message: "Email is invalid", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.email-required"),
+            trigger: "blur",
+          },
+          {
+            type: "email",
+            message: this.$t("auth.email-format"),
+            trigger: "blur",
+          },
         ],
         otp: [
-          { required: true, message: "OTP is required", trigger: "blur" },
-          { type: "number", message: "OTP is invalid", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.otp-required"),
+            trigger: "blur",
+          },
+          {
+            type: "number",
+            message: this.$t("auth.otp-format"),
+            trigger: "blur",
+          },
         ],
       },
       displayOtpMessage: false,
@@ -250,5 +266,15 @@ p.info {
   line-height: 20px;
   color: #86909c;
   margin-top: 0.5rem;
+}
+
+:deep(.el-form-item__error) {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 850;
+  font-size: 13px;
+  line-height: 20px;
+  color: #ea0029;
+  vertical-align: middle;
 }
 </style>

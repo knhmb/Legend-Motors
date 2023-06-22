@@ -1,7 +1,7 @@
 <template>
   <section class="sign-up">
     <base-container>
-      <h3>Sign up</h3>
+      <h3>{{ $t("menu.sign-up") }}</h3>
       <el-form
         hide-required-asterisk
         label-position="top"
@@ -9,45 +9,60 @@
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item label="Name" prop="name">
-          <base-input placeholder="Name" v-model="ruleForm.name"></base-input>
+        <el-form-item :label="$t('auth.name')" prop="name">
+          <base-input
+            :placeholder="$t('auth.name')"
+            v-model="ruleForm.name"
+          ></base-input>
         </el-form-item>
-        <el-form-item label="Email" prop="email">
-          <base-input placeholder="Email" v-model="ruleForm.email"></base-input>
+        <el-form-item :label="$t('auth.email')" prop="email">
+          <base-input
+            :placeholder="$t('auth.email')"
+            v-model="ruleForm.email"
+          ></base-input>
         </el-form-item>
-        <el-form-item label="Password" prop="password">
+        <el-form-item :label="$t('auth.password')" prop="password">
           <base-input
             show-password
             type="password"
-            placeholder="Password"
+            :placeholder="$t('auth.password')"
             v-model="ruleForm.password"
           ></base-input>
         </el-form-item>
-        <el-form-item label="Confirm Password" prop="confirmPassword">
+        <el-form-item
+          :label="$t('auth.confirm-password')"
+          prop="confirmPassword"
+        >
           <base-input
             show-password
-            placeholder="Confirm Password"
+            :placeholder="$t('auth.confirm-password')"
             v-model="ruleForm.confirmPassword"
           ></base-input>
         </el-form-item>
-        <el-form-item>
-          <el-checkbox
+        <el-form-item prop="checked">
+          <el-checkbox>{{
+            $t("auth.accept-conditions", {
+              msg: $t("menu.terms-conditions"),
+              msg2: $t("menu.privacy-policy"),
+            })
+          }}</el-checkbox>
+          <!-- <el-checkbox
             >I am 18 years of age or older and agree to the
-            <span>Terms and Conditions</span><br />
-            and the <span>Privacy Policy</span>.</el-checkbox
-          >
+            <span>{{ $t('menu.terms-conditions') }}</span><br />
+            and the <span>{{ $t('menu.privacy-policy') }}</span>.</el-checkbox
+          > -->
         </el-form-item>
         <el-form-item>
-          <base-button @click="signup">Register</base-button>
+          <base-button @click="signup">{{ $t("btn.register") }}</base-button>
         </el-form-item>
         <el-form-item>
           <el-divider />
         </el-form-item>
         <el-form-item>
-          <p>Already have an account?</p>
+          <p>{{ $t("auth.have-an-account") }}</p>
         </el-form-item>
         <el-form-item>
-          <base-button :login="true">Log In</base-button>
+          <base-button :login="true">{{ $t("menu.login") }}</base-button>
         </el-form-item>
       </el-form>
     </base-container>
@@ -60,7 +75,7 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Password is required"));
+        callback(new Error(this.$t("auth.password-required")));
       } else {
         if (this.ruleForm.confirmPassword !== "") {
           if (!this.$refs.ruleFormRef) return;
@@ -71,9 +86,9 @@ export default {
     };
     const validateConfirmPass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Confirm password is required"));
+        callback(new Error(this.$t("auth.confirm-password-required")));
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("Password's do not match"));
+        callback(new Error(this.$t("auth.password-dont-match")));
       } else {
         callback();
       }
@@ -85,16 +100,32 @@ export default {
         email: "",
         password: "",
         confirmPassword: "",
+        checked: "",
       },
       rules: {
         name: [
-          { required: true, message: "Username is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.username-required"),
+            trigger: "blur",
+          },
+        ],
+        checked: [
+          {
+            required: true,
+            message: this.$t("auth.terms-required"),
+            trigger: "change",
+          },
         ],
         email: [
-          { required: true, message: "Email is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.email-required"),
+            trigger: "blur",
+          },
           {
             type: "email",
-            message: "Email format is invalid",
+            message: this.$t("auth.email-format"),
             trigger: "blur",
           },
         ],
@@ -202,6 +233,8 @@ h3 {
 
 .el-checkbox {
   margin-top: 1rem;
+  width: 24rem;
+  white-space: break-spaces;
 }
 
 :deep(.el-checkbox__label span) {

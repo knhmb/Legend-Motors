@@ -58,13 +58,21 @@ export default {
       },
       rules: {
         password: [
-          { required: true, message: "Password is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.password-required"),
+            trigger: "blur",
+          },
         ],
         email: [
-          { required: true, message: "Email is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.email-required"),
+            trigger: "blur",
+          },
           {
             type: "email",
-            message: "Email format is invalid",
+            message: this.$t("auth.email-format"),
             trigger: "blur",
           },
         ],

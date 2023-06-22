@@ -154,4 +154,14 @@ h3 {
   margin: 0 auto;
   margin-top: 1rem;
 }
+
+:deep(.el-form-item__error) {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 850;
+  font-size: 13px;
+  line-height: 20px;
+  color: #ea0029;
+  vertical-align: middle;
+}
 </style>

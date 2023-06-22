@@ -9,11 +9,14 @@
     "search:placeholder": "Search",
     "contact-us": "Contact Us",
     "terms-conditions": "Terms & Conditions",
-    "shopping-cart": "Shopping Cart"
+    "shopping-cart": "Shopping Cart",
+    "privacy-policy": "Privacy Policy"
   },
   "btn": {
     "booking-now": "Booking now",
-    "explore": "Explore"
+    "explore": "Explore",
+    "register": "Register",
+    "continue": "Continue"
   },
   "product": "Product",
   "tabs": {},
@@ -25,8 +28,24 @@
   "auth": {
     "login-text": "Log in to your account",
     "email": "Email",
-    "passsword": "Password",
+    "password": "Password",
     "forgot-password": "Forgot Password",
-    "dont-have-account": "Don't have an account?"
+    "dont-have-account": "Don't have an account?",
+    "password-required": "Password is required",
+    "email-required": "Email is required",
+    "otp-required": "OTP is required",
+    "username-required": "Username is required",
+    "email-format": "Email format is invalid",
+    "otp-format": "OTP format is invalid",
+    "confirm-password-required": "Confirm password is required",
+    "terms-required": "Accept the terms of agreement is required",
+    "name": "Name",
+    "confirm-password": "Confirm Password",
+    "accept-conditions": "I am 18 years of age or older and agree to the {msg} and the {msg2}.",
+    "have-an-account": "Already have account?",
+    "password-dont-match": "Password's do not match",
+    "send-otp": "Send OTP",
+    "resend-otp": "You can resend the verification code after { seconds } seconds",
+    "otp": "OTP"
   }
 }
