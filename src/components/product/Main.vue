@@ -4,36 +4,6 @@
     <base-container>
       <h3>Products</h3>
       <el-tabs v-model="activeName" class="demo-tabs">
-        <el-tab-pane
-          :label="product.slug"
-          :name="product.name"
-          v-for="product in products"
-          :key="product"
-        >
-          <el-row>
-            <el-col :span="12">
-              <img src="../../assets/EV-car.png" alt="" />
-            </el-col>
-            <el-col :span="12">
-              <h4>Air EV</h4>
-              <small>Highlighted Specifications</small>
-              <ul>
-                <li>
-                  10.25" Integrated Floating Widescreen And Smart Start System
-                </li>
-                <li>Futuristic Center Console</li>
-                <li>IP67 Waterproof Battery</li>
-                <li>Easy Home Charging System</li>
-                <li>2 Airbags</li>
-                <li>Roomy 4-Seater</li>
-              </ul>
-              <base-button>Booking now</base-button>
-              <base-button :login="true">{{ $t("btn.explore") }}</base-button>
-            </el-col>
-          </el-row>
-        </el-tab-pane>
-      </el-tabs>
-      <!-- <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="EV" name="ev">
           <el-row>
             <el-col :span="12">
@@ -66,30 +36,22 @@
         <el-tab-pane label="Third product" name="third"
           >Third product</el-tab-pane
         >
-      </el-tabs> -->
+      </el-tabs>
     </base-container>
   </div>
 </template>
-
-<script>
+  
+  <script>
 export default {
   data() {
     return {
-      activeName: "",
+      activeName: "ev",
     };
-  },
-  computed: {
-    products() {
-      return this.$store.getters["product/products"];
-    },
-  },
-  mounted() {
-    if (this.products.length > 0) this.activeName = this.products[0].name;
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .main {
   background: #ffffff;
 }

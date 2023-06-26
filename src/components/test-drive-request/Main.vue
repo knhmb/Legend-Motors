@@ -17,36 +17,54 @@
         </el-col>
         <el-col :span="12">
           <h5>Fill in the details</h5>
-          <el-form label-position="top">
-            <el-form-item label="Name">
-              <base-input placeholder="Name"></base-input>
+          <el-form
+            label-position="top"
+            :model="ruleForm"
+            :rules="rules"
+            ref="ruleFormRef"
+            hide-required-asterisk
+          >
+            <el-form-item label="Name" prop="name">
+              <base-input
+                placeholder="Name"
+                v-model="ruleForm.name"
+              ></base-input>
             </el-form-item>
-            <el-form-item label="Email">
-              <base-input placeholder="Email"></base-input>
+            <el-form-item label="Email" prop="email">
+              <base-input
+                placeholder="Email"
+                v-model="ruleForm.email"
+              ></base-input>
             </el-form-item>
-            <el-form-item label="Phone Number">
-              <base-input placeholder="Phone Number"></base-input>
+            <el-form-item label="Phone Number" prop="phone">
+              <base-input
+                placeholder="Phone Number"
+                v-model="ruleForm.phone"
+              ></base-input>
             </el-form-item>
-            <el-form-item label="Schedule Date">
+            <el-form-item label="Schedule Date" prop="date">
               <el-date-picker
                 class="date-input"
                 type="date"
                 placeholder="Please select the date"
+                v-model="ruleForm.date"
               />
             </el-form-item>
-            <el-form-item label="Schedule Time">
+            <el-form-item label="Schedule Time" prop="time">
               <el-time-picker
                 class="date-input"
                 placeholder="Please select the time"
+                v-model="ruleForm.time"
               />
             </el-form-item>
-            <el-form-item>
+            <el-form-item prop="checked">
               <el-checkbox
                 label="I agree to the terms of data collection and storage."
+                v-model="ruleForm.checked"
               ></el-checkbox>
             </el-form-item>
             <el-form-item>
-              <base-button>Submit</base-button>
+              <base-button @click="requestDrive">Submit</base-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -59,6 +77,88 @@
     </base-container>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      ruleForm: {
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        time: "",
+        checked: "",
+      },
+      rules: {
+        name: [
+          {
+            required: true,
+            message: this.$t("auth.username-required"),
+            trigger: "blur",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: this.$t("auth.email-required"),
+            trigger: "blur",
+          },
+          {
+            type: "email",
+            message: this.$t("auth.email-format"),
+            trigger: "blur",
+          },
+        ],
+        phone: [
+          {
+            required: true,
+            message: this.$t("auth.phone-required"),
+            trigger: "blur",
+          },
+        ],
+        date: [
+          {
+            required: true,
+            message: this.$t("auth.date-required"),
+            trigger: "blur",
+          },
+        ],
+        time: [
+          {
+            required: true,
+            message: this.$t("auth.time-required"),
+            trigger: "blur",
+          },
+        ],
+        checked: [
+          {
+            required: true,
+            message: this.$t("auth.terms-required"),
+            trigger: "change",
+          },
+        ],
+      },
+    };
+  },
+  methods: {
+    requestDrive() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            member: this.ruleForm.name,
+            email: this.ruleForm.email,
+            scheduleDate: this.ruleForm.date,
+            scheduleTime: this.ruleForm.time,
+            phone: this.ruleForm.phone,
+          };
+          console.log(data);
+        }
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
 .form-content .container {

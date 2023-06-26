@@ -27,7 +27,7 @@
         <el-col :span="5">
           <p>{{ $t("footer.service") }}</p>
           <div class="list">
-            <p>{{ $t("menu.product") }}</p>
+            <p @click="$router.push('/product')">{{ $t("menu.product") }}</p>
           </div>
           <div class="list">
             <p @click="$router.push('/test-drive-request')">

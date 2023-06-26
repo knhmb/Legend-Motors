@@ -19,7 +19,11 @@
             :class="{ 'is-selected': $route.path === '/about-us' }"
             >{{ $t("menu.about-us") }}</span
           >
-          <span>{{ $t("menu.product") }}</span>
+          <span
+            @click="$router.push('/product')"
+            :class="{ 'is-selected': $route.path === '/product' }"
+            >{{ $t("menu.product") }}</span
+          >
           <span
             @click="$router.push('/test-drive-request')"
             :class="{ 'is-selected': $route.path.includes('/test-drive') }"

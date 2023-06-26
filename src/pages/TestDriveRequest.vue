@@ -10,14 +10,24 @@
 
 <script>
 import Main from "@/components/test-drive-request/Main.vue";
+// import { ElNotification } from "element-plus";
 
 export default {
   components: {
     Main,
   },
-  created() {
-    this.$store.dispatch('product/testDriveRequest')
-  }
+  // created() {
+  //   this.$store
+  //     .dispatch("product/testDriveRequest")
+  //     .then(() => {})
+  //     .catch((err) => {
+  //       ElNotification({
+  //         title: "Error",
+  //         message: err.response.data.message,
+  //         type: "error",
+  //       });
+  //     });
+  // },
 };
 </script>
 

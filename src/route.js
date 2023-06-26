@@ -22,6 +22,7 @@ import AboutUs from "@/pages/AboutUs.vue";
 import TermsConditions from "@/pages/TermsConditions.vue";
 import BookingTermsConditions from "@/pages/BookingTermsConditions.vue";
 import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
+import Product from "@/pages/Product.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,6 +38,7 @@ const router = createRouter({
     { path: "/forgot-password", component: ForgotPassword },
     { path: "/reset-password", component: ResetPassword },
     { path: "/reset-password-successful", component: ResetSuccessful },
+    { path: "/product", component: Product },
     { path: "/product-detail", component: ProductDetail },
     { path: "/test-drive-request", component: TestDriveRequest },
     { path: "/test-drive-recieved", component: TestDriveRecieved },
