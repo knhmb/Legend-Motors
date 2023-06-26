@@ -11,7 +11,9 @@
               Get an Environmentally Friendly Driving Experience with Wuling Air
               ev - Drive For A Green Life!
             </p>
-            <base-button>{{ $t("btn.booking-now") }}</base-button>
+            <base-button @click="$router.push('/product-detail')">{{
+              $t("btn.booking-now")
+            }}</base-button>
           </div>
         </div>
       </el-carousel-item>

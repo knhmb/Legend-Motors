@@ -152,7 +152,7 @@ export default {
             scheduleTime: this.ruleForm.time,
             phone: this.ruleForm.phone,
           };
-          console.log(data);
+          this.$store.dispatch("product/testDriveRequest", data);
         }
       });
     },

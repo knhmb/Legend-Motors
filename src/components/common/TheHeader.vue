@@ -21,7 +21,10 @@
           >
           <span
             @click="$router.push('/product')"
-            :class="{ 'is-selected': $route.path === '/product' }"
+            :class="{
+              'is-selected':
+                $route.path === '/product' || $route.path === '/product-detail',
+            }"
             >{{ $t("menu.product") }}</span
           >
           <span

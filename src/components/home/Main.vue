@@ -27,8 +27,14 @@
                 <li>2 Airbags</li>
                 <li>Roomy 4-Seater</li>
               </ul>
-              <base-button>Booking now</base-button>
-              <base-button :login="true">{{ $t("btn.explore") }}</base-button>
+              <base-button @click="$router.push('/cart')"
+                >Booking now</base-button
+              >
+              <base-button
+                :login="true"
+                @click="$router.push('/product-detail')"
+                >{{ $t("btn.explore") }}</base-button
+              >
             </el-col>
           </el-row>
         </el-tab-pane>
