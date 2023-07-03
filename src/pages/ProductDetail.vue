@@ -17,5 +17,8 @@ export default {
     Feature,
     Specification,
   },
+  // created() {
+  //   this.$store.dispatch("product/getProductDetail", this.$route.params.slug);
+  // },
 };
 </script>

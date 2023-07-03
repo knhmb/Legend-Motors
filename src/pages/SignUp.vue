@@ -40,7 +40,7 @@
           ></base-input>
         </el-form-item>
         <el-form-item prop="checked">
-          <el-checkbox>{{
+          <el-checkbox v-model="ruleForm.checked">{{
             $t("auth.accept-conditions", {
               msg: $t("menu.terms-conditions"),
               msg2: $t("menu.privacy-policy"),

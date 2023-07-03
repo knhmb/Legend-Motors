@@ -5,4 +5,7 @@ export default {
   testDriveRequest(state) {
     return state.testDriveRequest;
   },
+  productDetail(state) {
+    return state.productDetail;
+  },
 };

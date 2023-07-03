@@ -1,27 +1,34 @@
 <template>
   <div class="product-info">
     <base-container>
+      {{ singleProduct }}
       <el-row>
         <el-col :span="14">
           <img src="../../assets/car-1.png" alt="" />
         </el-col>
         <el-col :span="10">
-          <h3>Air EV</h3>
+          <h3>{{ singleProduct.name }}</h3>
           <div class="price">
             <div>
               <small>Start From</small>
-              <p>$1,000,000</p>
+              <p>${{ retailPrice }}</p>
             </div>
             <div>
               <small>Reservation Fee</small>
-              <p>$1,000</p>
+              <p>${{ reservationFee }}</p>
             </div>
           </div>
           <div class="size">
             <p>Choose the size</p>
             <el-radio-group v-model="radio">
-              <el-radio label="long-range">Standard Range</el-radio>
-              <el-radio label="standard-range">Long Range</el-radio>
+              <el-radio
+                @change="setSize(size)"
+                v-for="size in singleProduct.carSize"
+                :key="size"
+                :label="size.name"
+              ></el-radio>
+              <!-- <el-radio label="long-range">Standard Range</el-radio>
+              <el-radio label="standard-range">Long Range</el-radio> -->
             </el-radio-group>
           </div>
           <div class="color">
@@ -67,12 +74,37 @@ export default {
     return {
       radio: "standard-range",
       selectedColor: 1,
+      retailPrice: "",
+      reservationFee: "",
     };
+  },
+  computed: {
+    productDetail() {
+      return this.$store.getters["product/productDetail"];
+    },
+    products() {
+      return this.$store.getters["product/products"];
+    },
+    singleProduct() {
+      return this.products.find(
+        (item) => item.slug === this.$route.params.slug
+      );
+    },
   },
   methods: {
     selectColor(option) {
       this.selectedColor = option;
     },
+    setSize(item) {
+      this.retailPrice = item.retailPrice;
+      this.reservationFee = item.reservationFee;
+    },
+  },
+  mounted() {
+    console.log(this.singleProduct.carSize);
+    this.radio = this.singleProduct.carSize[0].name;
+    this.retailPrice = this.singleProduct.carSize[0].retailPrice;
+    this.reservationFee = this.singleProduct.carSize[0].reservationFee;
   },
 };
 </script>

@@ -10,4 +10,8 @@ export default {
     console.log(response);
     // context.commit("SET_TEST_DRIVE_REQUEST", response.data.items);
   },
+  async getProductDetail(context, payload) {
+    const response = await axios.get(`api/v1/car/brand/${payload}`);
+    context.commit("SET_PPRODUCT_DETAIL", response.data.item);
+  },
 };

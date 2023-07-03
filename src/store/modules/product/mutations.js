@@ -5,4 +5,7 @@ export default {
   SET_TEST_DRIVE_REQUEST(state, payload) {
     state.testDriveRequest = payload;
   },
+  SET_PPRODUCT_DETAIL(state, payload) {
+    state.productDetail = payload;
+  },
 };

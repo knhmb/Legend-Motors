@@ -39,7 +39,7 @@ const router = createRouter({
     { path: "/reset-password", component: ResetPassword },
     { path: "/reset-password-successful", component: ResetSuccessful },
     { path: "/product", component: Product },
-    { path: "/product-detail", component: ProductDetail },
+    { path: "/product/:slug", component: ProductDetail },
     { path: "/test-drive-request", component: TestDriveRequest },
     { path: "/test-drive-recieved", component: TestDriveRecieved },
     { path: "/cart", component: Cart },

@@ -12,29 +12,30 @@
         >
           <el-row>
             <el-col :span="12">
-              <img src="../../assets/EV-car.png" alt="" />
+              <img :src="product.thumbnail" alt="" />
             </el-col>
             <el-col :span="12">
-              <h4>Air EV</h4>
+              <h4>{{ product.name }}</h4>
               <small>Highlighted Specifications</small>
               <ul>
-                <li>
+                <li v-for="feature in product.feature" :key="feature">
+                  {{ feature.name }}
+                </li>
+                <!-- <li>
                   10.25" Integrated Floating Widescreen And Smart Start System
                 </li>
                 <li>Futuristic Center Console</li>
                 <li>IP67 Waterproof Battery</li>
                 <li>Easy Home Charging System</li>
                 <li>2 Airbags</li>
-                <li>Roomy 4-Seater</li>
+                <li>Roomy 4-Seater</li> -->
               </ul>
               <base-button @click="$router.push('/cart')"
                 >Booking now</base-button
               >
-              <base-button
-                :login="true"
-                @click="$router.push('/product-detail')"
-                >{{ $t("btn.explore") }}</base-button
-              >
+              <base-button :login="true" @click="selectProduct(product.slug)">{{
+                $t("btn.explore")
+              }}</base-button>
             </el-col>
           </el-row>
         </el-tab-pane>
@@ -87,6 +88,11 @@ export default {
   computed: {
     products() {
       return this.$store.getters["product/products"];
+    },
+  },
+  methods: {
+    selectProduct(slug) {
+      this.$router.push(`/product/${slug}`);
     },
   },
   mounted() {
