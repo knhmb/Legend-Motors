@@ -8,4 +8,7 @@ export default {
   blobImage(state) {
     return state.blobImage;
   },
+  productBlobImage(state) {
+    return state.productBlobImage;
+  },
 };

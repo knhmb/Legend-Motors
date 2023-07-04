@@ -23,11 +23,23 @@
       <div class="total-price-info">
         <div class="sub-total">
           <p>Subtotal</p>
-          <p>${{ selectedProductDetails.price }}</p>
+          <p>
+            ${{
+              selectedProductDetails.price
+                ? selectedProductDetails.price
+                : productDetail.carSize[0].reservationFee
+            }}
+          </p>
         </div>
         <div class="total">
           <p>Total</p>
-          <p>${{ selectedProductDetails.price }}</p>
+          <p>
+            ${{
+              selectedProductDetails.price
+                ? selectedProductDetails.price
+                : productDetail.carSize[0].reservationFee
+            }}
+          </p>
         </div>
       </div>
       <cart-form></cart-form>
@@ -60,12 +72,30 @@ export default {
     selectedProductDetails() {
       return this.$store.getters["product/selectedProductDetails"];
     },
+    productBlobImage() {
+      return this.$store.getters["dashboard/productBlobImage"];
+    },
   },
   created() {
     console.log(this.selectedProductDetails);
+    if (Object.keys(this.selectedProductDetails).length <= 0) {
+      this.$store
+        .dispatch("product/getProductDetail", this.$route.params.slug)
+        .then(() => {
+          this.tableData = [
+            {
+              product: this.productBlobImage,
+              price: `$${this.productDetail.carSize[0].reservationFee}`,
+              total: `$${this.productDetail.carSize[0].reservationFee}`,
+            },
+          ];
+          console.log(this.tableData);
+        });
+      return;
+    }
     this.tableData = [
       {
-        product: this.selectedProductDetails.img,
+        product: this.productBlobImage,
         price: `$${this.selectedProductDetails.price}`,
         total: `$${this.selectedProductDetails.price}`,
       },

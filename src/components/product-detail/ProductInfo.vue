@@ -3,7 +3,7 @@
     <base-container>
       <el-row>
         <el-col :span="14">
-          <img :src="carImg" alt="" />
+          <img :src="productBlobImage" alt="" />
         </el-col>
         <el-col :span="10">
           <h3>{{ productDetail.name }}</h3>
@@ -67,7 +67,9 @@
               car</small
             >
           </div>
-          <base-button @click="addToCart">Add to Cart</base-button>
+          <base-button @click="addToCart(productDetail.slug)"
+            >Add to Cart</base-button
+          >
         </el-col>
       </el-row>
     </base-container>
@@ -93,6 +95,9 @@ export default {
     products() {
       return this.$store.getters["product/products"];
     },
+    productBlobImage() {
+      return this.$store.getters["dashboard/productBlobImage"];
+    },
     // singleProduct() {
     //   return this.productDetail.find(
     //     (item) => item.slug === this.$route.params.slug
@@ -100,7 +105,7 @@ export default {
     // },
   },
   methods: {
-    addToCart() {
+    addToCart(slug) {
       if (!this.selectedColor) {
         ElNotification({
           title: "Error",
@@ -109,11 +114,13 @@ export default {
         });
         return;
       }
-      this.$router.push("/cart");
+      this.$router.push(`/cart/${slug}`);
     },
     selectColor(option) {
       this.selectedColor = option.color;
       this.carImg = option.thumbnail;
+      this.$store.dispatch("dashboard/fetchProductBlobImage", option.thumbnail);
+
       this.$store.commit("product/SET_SELECTED_PRODUCT_DETAILS", {
         size: this.radio,
         color: this.selectedColor,
@@ -136,6 +143,10 @@ export default {
     // this.$store
     //   .dispatch("product/getProductDetail", this.$route.params.slug)
     //   .then(() => {
+    this.$store.dispatch(
+      "dashboard/fetchProductBlobImage",
+      this.productDetail.thumbnail
+    );
     this.carImg = this.productDetail.thumbnail;
     this.radio = this.productDetail.carSize[0].name;
     this.retailPrice = this.productDetail.carSize[0].retailPrice;

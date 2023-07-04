@@ -3,25 +3,17 @@
   <div class="main">
     <base-container>
       <h3>Products</h3>
-      <el-tabs v-model="activeName" class="demo-tabs">
+
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setProduct">
         <el-tab-pane
-          :label="product.slug"
-          :name="product.name"
+          :label="product.name"
+          :name="product.slug"
           v-for="product in products"
           :key="product"
         >
           <el-row>
             <el-col :span="12">
-              <img :src="img" alt="" />
-              <!-- <img
-                :src="`blob:http://localhost:7700/${product.thumbnail}`"
-                alt=""
-              /> -->
-              <!-- <el-image
-                style="width: 100px; height: 100px"
-                :src="img"
-                v-if="isDataLoaded"
-              /> -->
+              <img :src="productBlobImage" alt="" />
             </el-col>
             <el-col :span="12">
               <h4>{{ product.name }}</h4>
@@ -30,14 +22,6 @@
                 <li v-for="feature in product.feature" :key="feature">
                   {{ feature.name }}
                 </li>
-                <!-- <li>
-                  10.25" Integrated Floating Widescreen And Smart Start System
-                </li>
-                <li>Futuristic Center Console</li>
-                <li>IP67 Waterproof Battery</li>
-                <li>Easy Home Charging System</li>
-                <li>2 Airbags</li>
-                <li>Roomy 4-Seater</li> -->
               </ul>
               <base-button @click="goToCart(product.slug)"
                 >Booking now</base-button
@@ -88,19 +72,23 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
       activeName: "",
       img: null,
-      isDataLoaded: false,
+      isImageLoaded: false,
     };
   },
   computed: {
     products() {
       return this.$store.getters["product/products"];
+    },
+    blobImage() {
+      return this.$store.getters["product/blobImage"];
+    },
+    productBlobImage() {
+      return this.$store.getters["dashboard/productBlobImage"];
     },
   },
   methods: {
@@ -110,20 +98,32 @@ export default {
     goToCart(slug) {
       this.$router.push(`/cart/${slug}`);
     },
+    setProduct(pane) {
+      const prod = this.products.find((item) => item.slug === pane.paneName);
+      this.$store
+        .dispatch("dashboard/fetchProductBlobImage", prod.thumbnail)
+        .then(() => {
+          console.log(this.productBlobImage);
+        });
+    },
   },
   mounted() {
-    if (this.products.length > 0) this.activeName = this.products[0].name;
+    if (this.products.length > 0) this.activeName = this.products[0].slug;
   },
-  async created() {
-    const response = await axios.get(
-      `/api/v1/system/uploads/${this.products[0].thumbnail}`,
-      { responseType: "blob" }
+  created() {
+    this.$store.dispatch(
+      "dashboard/fetchProductBlobImage",
+      this.products[0].thumbnail
     );
-    const url = URL.createObjectURL(response.data);
-    console.log(response.data);
-    this.img = url;
-    console.log(this.img);
-    this.isDataLoaded = true;
+    // const response = await axios.get(
+    //   `/api/v1/system/uploads/${this.products[0].thumbnail}`,
+    //   { responseType: "blob" }
+    // );
+    // const url = URL.createObjectURL(response.data);
+    // console.log(response.data);
+    // this.img = url;
+    // console.log(this.img);
+    // this.isDataLoaded = true;
     // console.log(this.img);
   },
 };

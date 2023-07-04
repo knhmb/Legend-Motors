@@ -9,6 +9,7 @@ export default {
       cms: [],
       banners: [],
       blobImage: "",
+      productBlobImage: "",
     };
   },
   getters,

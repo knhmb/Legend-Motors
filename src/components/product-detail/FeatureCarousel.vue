@@ -7,8 +7,8 @@
       indicator-position="none"
       :autoplay="false"
     >
-      <el-carousel-item v-for="item in 3" :key="item">
-        <img :src="feature.images" alt="" />
+      <el-carousel-item v-for="item in feature.images" :key="item">
+        <img :src="`http://localhost:3001/${item}`" alt="" />
         <!-- <img src="../../assets/image-20.png" alt="" /> -->
       </el-carousel-item>
     </el-carousel>

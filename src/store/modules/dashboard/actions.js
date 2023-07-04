@@ -18,4 +18,13 @@ export default {
     });
     context.commit("SET_BLOB_IMAGE", URL.createObjectURL(response.data));
   },
+  async fetchProductBlobImage(context, payload) {
+    const response = await axios.get(`/api/v1/system/uploads/${payload}`, {
+      responseType: "blob",
+    });
+    context.commit(
+      "SET_PRODUCT_BLOB_IMAGE",
+      URL.createObjectURL(response.data)
+    );
+  },
 };
