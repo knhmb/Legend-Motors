@@ -8,4 +8,7 @@ export default {
   productDetail(state) {
     return state.productDetail;
   },
+  selectedProductDetails(state) {
+    return state.selectedProductDetails;
+  },
 };

@@ -4,13 +4,21 @@
     <base-container>
       <h3>Feature</h3>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Main Battery & Powertrain" name="first">
+        <el-tab-pane
+          v-for="feature in productDetail.feature"
+          :key="feature"
+          :label="feature.name"
+          :name="feature.name"
+        >
+          <feature-carousel :feature="feature"></feature-carousel>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="Main Battery & Powertrain" name="first">
           <feature-carousel></feature-carousel>
         </el-tab-pane>
         <el-tab-pane label="Exterior" name="second">Config</el-tab-pane>
         <el-tab-pane label="Interior" name="third">Role</el-tab-pane>
         <el-tab-pane label="Safety Protection" name="fourth">Task</el-tab-pane>
-        <el-tab-pane label="New Age Enjoyment" name="fifth">Task</el-tab-pane>
+        <el-tab-pane label="New Age Enjoyment" name="fifth">Task</el-tab-pane> -->
       </el-tabs>
     </base-container>
   </div>
@@ -27,6 +35,11 @@ export default {
     return {
       activeName: "first",
     };
+  },
+  computed: {
+    productDetail() {
+      return this.$store.getters["product/productDetail"];
+    },
   },
 };
 </script>
@@ -78,6 +91,7 @@ h3 {
 
 :deep(.el-tabs__nav.is-top) {
   width: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
 }
 </style>

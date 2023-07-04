@@ -9,9 +9,9 @@
             <div class="product-content">
               <img :src="scope.row.product" alt="" />
               <div class="product-info">
-                <p class="name">Air EV</p>
-                <small>Long Range</small>
-                <small>Pristine White</small>
+                <p class="name">{{ productDetail.name }}</p>
+                <small>{{ selectedProductDetails.size }}</small>
+                <small>{{ selectedProductDetails.color }}</small>
                 <p class="remove">Remove</p>
               </div>
             </div>
@@ -23,11 +23,11 @@
       <div class="total-price-info">
         <div class="sub-total">
           <p>Subtotal</p>
-          <p>$1,000</p>
+          <p>${{ selectedProductDetails.price }}</p>
         </div>
         <div class="total">
           <p>Total</p>
-          <p>$1,000</p>
+          <p>${{ selectedProductDetails.price }}</p>
         </div>
       </div>
       <cart-form></cart-form>
@@ -52,6 +52,24 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    productDetail() {
+      return this.$store.getters["product/productDetail"];
+    },
+    selectedProductDetails() {
+      return this.$store.getters["product/selectedProductDetails"];
+    },
+  },
+  created() {
+    console.log(this.selectedProductDetails);
+    this.tableData = [
+      {
+        product: this.selectedProductDetails.img,
+        price: `$${this.selectedProductDetails.price}`,
+        total: `$${this.selectedProductDetails.price}`,
+      },
+    ];
   },
 };
 </script>

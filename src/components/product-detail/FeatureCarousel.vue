@@ -8,12 +8,23 @@
       :autoplay="false"
     >
       <el-carousel-item v-for="item in 3" :key="item">
-        <img src="../../assets/image-20.png" alt="" />
+        <img :src="feature.images" alt="" />
+        <!-- <img src="../../assets/image-20.png" alt="" /> -->
       </el-carousel-item>
     </el-carousel>
-    <p>SAFETY-APPROVED IP67 BATTERY</p>
+    <p>{{ feature.description ? feature.description : "" }}</p>
+    <!-- <p>SAFETY-APPROVED IP67 BATTERY</p> -->
   </div>
 </template>
+
+<script>
+export default {
+  props: ["feature"],
+  created() {
+    console.log(this.feature);
+  },
+};
+</script>
 
 <style scoped>
 img {

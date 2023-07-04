@@ -8,4 +8,7 @@ export default {
   SET_PPRODUCT_DETAIL(state, payload) {
     state.productDetail = payload;
   },
+  SET_SELECTED_PRODUCT_DETAILS(state, payload) {
+    state.selectedProductDetails = payload;
+  },
 };

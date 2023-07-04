@@ -3,8 +3,31 @@
   <div class="specification">
     <base-container>
       <h3>Specification</h3>
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Dimension And Chassis" name="first">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setTab">
+        <el-tab-pane
+          :label="spec.name"
+          :name="spec.name"
+          v-for="spec in filterCarSize.specification"
+          :key="spec"
+        >
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%"
+            v-if="tableData.length > 0"
+          >
+            <!-- <el-table-column
+              v-for="table in spec.table"
+              :key="table"
+              :prop="table.label"
+              :label="table.label"
+              width="250"
+            /> -->
+            <el-table-column prop="label" label="Label" width="250" />
+            <el-table-column prop="content" label="Content" width="250" />
+          </el-table>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="Dimension And Chassis" name="first">
           <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="air" label="Air ev Type" width="250" />
             <el-table-column
@@ -25,7 +48,7 @@
             />
             <el-table-column prop="long-range" label="Long Range" width="250" />
           </el-table>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </base-container>
   </div>
@@ -36,44 +59,51 @@ export default {
   data() {
     return {
       activeName: "first",
-      tableData: [
-        {
-          air: "Length x Width x Height (mm)",
-          "standard-range": "2,974 x 1,505 x 1,631",
-          "long-range": "2,974 x 1,505 x 1,631",
-        },
-        {
-          air: "Wheelbase (mm)",
-          "standard-range": "2,010",
-          "long-range": "2,010",
-        },
-        {
-          air: "Seat capacity",
-          "standard-range": "4",
-          "long-range": "4",
-        },
-        {
-          air: "Suspension",
-          "standard-range": "McPherson (Front) + 3-link coil spring (Rear)",
-          "long-range": "McPherson (Front) + 3-link coil spring (Rear)",
-        },
-        {
-          air: "Wheel and tire",
-          "standard-range": "12” steel wheel with full cap; 145/70R12",
-          "long-range": "12” steel wheel with full cap; 145/70R12",
-        },
-        {
-          air: "Brakes",
-          "standard-range": "Disc (Front) + Drum (Rear)",
-          "long-range": "Disc (Front) + Drum (Rear)",
-        },
-        {
-          air: "Steering",
-          "standard-range": "Electric Power Steering",
-          "long-range": "Electric Power Steering",
-        },
-      ],
+      selectedTab: "",
+      tableData: [],
     };
+  },
+  computed: {
+    carSize() {
+      return this.$store.getters["product/carSize"];
+    },
+    productDetail() {
+      return this.$store.getters["product/productDetail"];
+    },
+    selectedProductDetails() {
+      return this.$store.getters["product/selectedProductDetails"];
+    },
+    filterCarSize() {
+      return this.productDetail.carSize.find(
+        (item) => item.name === this.selectedProductDetails.size
+      );
+    },
+  },
+  methods: {
+    setTab(pane) {
+      console.log(pane.paneName);
+      this.selectedTab = pane.paneName;
+      const filterTable = this.filterCarSize.specification.find(
+        (item) => item.name === pane.paneName
+      );
+      console.log(filterTable);
+
+      if (!filterTable) {
+        this.tableData = [
+          {
+            label: "No data",
+            content: "No data",
+          },
+        ];
+        return;
+      }
+      this.tableData = filterTable.table;
+    },
+  },
+  mounted() {
+    console.log(this.productDetail);
+    console.log(this.selectedProductDetails);
+    console.log(this.filterCarSize);
   },
 };
 </script>

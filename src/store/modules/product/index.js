@@ -9,6 +9,7 @@ export default {
       products: [],
       testDriveRequest: [],
       productDetail: {},
+      selectedProductDetails: {},
     };
   },
   getters,

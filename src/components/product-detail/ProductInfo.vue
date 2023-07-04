@@ -1,13 +1,12 @@
 <template>
   <div class="product-info">
     <base-container>
-      {{ singleProduct }}
       <el-row>
         <el-col :span="14">
-          <img src="../../assets/car-1.png" alt="" />
+          <img :src="carImg" alt="" />
         </el-col>
         <el-col :span="10">
-          <h3>{{ singleProduct.name }}</h3>
+          <h3>{{ productDetail.name }}</h3>
           <div class="price">
             <div>
               <small>Start From</small>
@@ -23,7 +22,7 @@
             <el-radio-group v-model="radio">
               <el-radio
                 @change="setSize(size)"
-                v-for="size in singleProduct.carSize"
+                v-for="size in productDetail.carSize"
                 :key="size"
                 :label="size.name"
               ></el-radio>
@@ -35,6 +34,13 @@
             <p>Choose the color</p>
             <div class="color-options">
               <div
+                :style="{ background: color.color }"
+                v-for="color in productDetail.colorVariant"
+                :key="color"
+                @click="selectColor(color)"
+                :class="{ 'is-selected': selectedColor === color.color }"
+              ></div>
+              <!-- <div
                 @click="selectColor(1)"
                 :class="{ 'is-selected': selectedColor === 1 }"
               ></div>
@@ -53,7 +59,7 @@
               <div
                 @click="selectColor(5)"
                 :class="{ 'is-selected': selectedColor === 5 }"
-              ></div>
+              ></div> -->
             </div>
             <p class="color-text">Pristine White</p>
             <small
@@ -61,7 +67,7 @@
               car</small
             >
           </div>
-          <base-button>Add to Cart</base-button>
+          <base-button @click="addToCart">Add to Cart</base-button>
         </el-col>
       </el-row>
     </base-container>
@@ -69,13 +75,15 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
       radio: "standard-range",
-      selectedColor: 1,
+      selectedColor: "",
       retailPrice: "",
       reservationFee: "",
+      carImg: "",
     };
   },
   computed: {
@@ -85,26 +93,60 @@ export default {
     products() {
       return this.$store.getters["product/products"];
     },
-    singleProduct() {
-      return this.products.find(
-        (item) => item.slug === this.$route.params.slug
-      );
-    },
+    // singleProduct() {
+    //   return this.productDetail.find(
+    //     (item) => item.slug === this.$route.params.slug
+    //   );
+    // },
   },
   methods: {
+    addToCart() {
+      if (!this.selectedColor) {
+        ElNotification({
+          title: "Error",
+          message: "Please select a color",
+          type: "error",
+        });
+        return;
+      }
+      this.$router.push("/cart");
+    },
     selectColor(option) {
-      this.selectedColor = option;
+      this.selectedColor = option.color;
+      this.carImg = option.thumbnail;
+      this.$store.commit("product/SET_SELECTED_PRODUCT_DETAILS", {
+        size: this.radio,
+        color: this.selectedColor,
+        price: this.reservationFee,
+        img: this.carImg,
+      });
     },
     setSize(item) {
       this.retailPrice = item.retailPrice;
       this.reservationFee = item.reservationFee;
+      this.$store.commit("product/SET_SELECTED_PRODUCT_DETAILS", {
+        size: this.radio,
+        color: this.selectedColor,
+        price: this.reservationFee,
+        img: this.carImg,
+      });
     },
   },
-  mounted() {
-    console.log(this.singleProduct.carSize);
-    this.radio = this.singleProduct.carSize[0].name;
-    this.retailPrice = this.singleProduct.carSize[0].retailPrice;
-    this.reservationFee = this.singleProduct.carSize[0].reservationFee;
+  created() {
+    // this.$store
+    //   .dispatch("product/getProductDetail", this.$route.params.slug)
+    //   .then(() => {
+    this.carImg = this.productDetail.thumbnail;
+    this.radio = this.productDetail.carSize[0].name;
+    this.retailPrice = this.productDetail.carSize[0].retailPrice;
+    this.reservationFee = this.productDetail.carSize[0].reservationFee;
+    this.$store.commit("product/SET_SELECTED_PRODUCT_DETAILS", {
+      size: this.radio,
+      color: this.selectedColor,
+      price: this.reservationFee,
+      img: this.carImg,
+    });
+    // });
   },
 };
 </script>
@@ -208,10 +250,11 @@ h3 {
   border-radius: 25px;
   position: relative;
   cursor: pointer;
-  background: #fff;
+  /* background: #fff; */
+  /* background: red; */
 }
 
-.color .color-options div:nth-of-type(2) {
+/* .color .color-options div:nth-of-type(2) {
   background: #acc4b5;
 }
 
@@ -225,7 +268,7 @@ h3 {
 
 .color .color-options div:nth-of-type(5) {
   background: #cfd9e9;
-}
+} */
 
 .color .color-options div.is-selected {
   border: 3px solid #384967;

@@ -1,5 +1,5 @@
 <template>
-  <section class="product-detail">
+  <section class="product-detail" v-if="loadData">
     <product-info></product-info>
     <Feature />
     <Specification />
@@ -17,8 +17,17 @@ export default {
     Feature,
     Specification,
   },
-  // created() {
-  //   this.$store.dispatch("product/getProductDetail", this.$route.params.slug);
-  // },
+  data() {
+    return {
+      loadData: false,
+    };
+  },
+  created() {
+    this.$store
+      .dispatch("product/getProductDetail", this.$route.params.slug)
+      .then(() => {
+        this.loadData = true;
+      });
+  },
 };
 </script>

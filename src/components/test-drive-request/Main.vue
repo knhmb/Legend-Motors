@@ -11,8 +11,28 @@
             arrange a test drive schedule for your dream Wuling car.
           </p>
           <el-form-item label="Select Wuling Car">
-            <el-select placeholder="Interested Product"></el-select>
-            <el-select placeholder="Interested Type"></el-select>
+            <el-select
+              placeholder="Interested Product"
+              v-model="ruleForm.productName"
+            >
+              <el-option
+                v-for="product in products"
+                :key="product.id"
+                :label="product.name"
+                :value="product.slug"
+                @click="setSelectedProduct(product.slug)"
+              ></el-option>
+            </el-select>
+            <el-select placeholder="Interested Type" v-model="ruleForm.type">
+              <template v-if="selectedProduct">
+                <el-option
+                  v-for="size in selectedProductSizes.carSize"
+                  :key="size"
+                  :label="size.name"
+                  :value="size.name"
+                ></el-option>
+              </template>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -79,9 +99,12 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
+      selectedProduct: "",
+      selectedProductSizes: null,
       ruleForm: {
         name: "",
         email: "",
@@ -89,6 +112,8 @@ export default {
         date: "",
         time: "",
         checked: "",
+        productName: "",
+        type: "",
       },
       rules: {
         name: [
@@ -141,8 +166,42 @@ export default {
       },
     };
   },
+  watch: {
+    selectedProduct() {
+      console.log(this.selectedProduct);
+      if (this.selectedProduct) {
+        this.selectedProductSizes = this.products.find(
+          (item) => item.slug === this.selectedProduct
+        );
+      }
+    },
+  },
+  computed: {
+    products() {
+      return this.$store.getters["product/products"];
+    },
+    selectedProductCarSizes() {
+      let data;
+      if (this.selectedProduct) {
+        data = this.products.find((item) => item.slug === this.selectedProduct);
+      }
+      return data;
+    },
+  },
   methods: {
+    setSelectedProduct(slug) {
+      this.selectedProduct = slug;
+    },
     requestDrive() {
+      if (!this.ruleForm.productName || !this.ruleForm.type) {
+        ElNotification({
+          title: "Error",
+          message: "Please select a product and a product type",
+          type: "error",
+        });
+        return;
+      }
+
       this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
           const data = {
@@ -151,8 +210,20 @@ export default {
             scheduleDate: this.ruleForm.date,
             scheduleTime: this.ruleForm.time,
             phone: this.ruleForm.phone,
+            name: this.ruleForm.productName,
+            type: this.ruleForm.type,
+            status: "In-Progress",
           };
-          this.$store.dispatch("product/testDriveRequest", data);
+          this.$store.dispatch("product/testDriveRequest", data).then(() => {
+            ElNotification({
+              title: "Success",
+              message: "Data has been sent",
+              type: "success",
+            });
+            this.$refs.ruleFormRef.resetField();
+            this.ruleForm.productName = "";
+            this.ruleForm.type = "";
+          });
         }
       });
     },
