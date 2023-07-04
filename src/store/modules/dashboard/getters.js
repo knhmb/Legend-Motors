@@ -5,4 +5,7 @@ export default {
   banners(state) {
     return state.banners;
   },
+  blobImage(state) {
+    return state.blobImage;
+  },
 };

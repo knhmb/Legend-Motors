@@ -4,6 +4,35 @@
     <base-container>
       <h3>Products</h3>
       <el-tabs v-model="activeName" class="demo-tabs">
+        <el-tab-pane
+          :label="product.slug"
+          :name="product.name"
+          v-for="product in products"
+          :key="product"
+        >
+          <el-row>
+            <el-col :span="12">
+              <img :src="img" alt="" />
+            </el-col>
+            <el-col :span="12">
+              <h4>{{ product.name }}</h4>
+              <small>Highlighted Specifications</small>
+              <ul>
+                <li v-for="feature in product.feature" :key="feature">
+                  {{ feature.name }}
+                </li>
+              </ul>
+              <base-button @click="$router.push('/cart')"
+                >Booking now</base-button
+              >
+              <base-button :login="true" @click="selectProduct(product.slug)">{{
+                $t("btn.explore")
+              }}</base-button>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+      </el-tabs>
+      <!-- <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="EV" name="ev">
           <el-row>
             <el-col :span="12">
@@ -36,7 +65,7 @@
         <el-tab-pane label="Third product" name="third"
           >Third product</el-tab-pane
         >
-      </el-tabs>
+      </el-tabs> -->
     </base-container>
   </div>
 </template>
@@ -47,6 +76,19 @@ export default {
     return {
       activeName: "ev",
     };
+  },
+  computed: {
+    products() {
+      return this.$store.getters["product/products"];
+    },
+  },
+  methods: {
+    selectProduct(slug) {
+      this.$router.push(`/product/${slug}`);
+    },
+  },
+  mounted() {
+    if (this.products.length > 0) this.activeName = this.products[0].name;
   },
 };
 </script>

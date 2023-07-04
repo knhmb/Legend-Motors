@@ -13,7 +13,15 @@ export default {
     const response = await axios.get("api/v1/authenticate");
     context.commit("LOGIN", response.data);
   },
-  async Logout(context) {
+  // async checkUser(context, payload) {
+  //   const response = await axios.get("/api/v1/authenticate", {
+  //     headers: {
+  //       Authorization: `Bearer ${payload}`,
+  //     },
+  //   });
+  //   context.commit("LOGIN", response.data);
+  // },
+  async logout(context) {
     await axios.delete("/api/v1/authenticate");
     context.commit("LOGOUT");
   },

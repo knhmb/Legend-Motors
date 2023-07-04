@@ -2,7 +2,7 @@
 <template>
   <section class="profile">
     <div class="banner">
-      <img src="../assets/Profile-banner.png" alt="" />
+      <img :src="getBanner.thumbnail" alt="" />
       <p>{{ pageTitle }}</p>
     </div>
     <base-container>
@@ -51,10 +51,16 @@ export default {
         ? "Order History"
         : "Profile";
     },
+    banners() {
+      return this.$store.getters["dashboard/banners"];
+    },
+    getBanner() {
+      return this.banners.find((item) => item.slug === "profile");
+    },
   },
   methods: {
     logout() {
-      this.$store.dispatch("auth/Logout").then(() => {
+      this.$store.dispatch("auth/logout").then(() => {
         this.$router.replace("/");
       });
     },
@@ -84,6 +90,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  min-height: 300px;
 }
 
 .profile-menu {

@@ -1,7 +1,7 @@
 <template>
   <section class="about-us">
     <div class="banner">
-      <img src="../assets/About-Us-banner.png" alt="" />
+      <img :src="blobImage" alt="" />
       <h3>{{ cmsContent.title }}</h3>
     </div>
     <base-container>
@@ -41,9 +41,18 @@ export default {
     cmsContent() {
       return this.cms.find((item) => item.slug === "cms-about-us");
     },
+    banners() {
+      return this.$store.getters["dashboard/banners"];
+    },
+    getBanner() {
+      return this.banners.find((item) => item.slug === "about-us");
+    },
+    blobImage() {
+      return this.$store.getters["dashboard/blobImage"];
+    },
   },
   created() {
-    console.log(this.cms);
+    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
   },
 };
 </script>
@@ -52,13 +61,10 @@ export default {
 .banner {
   position: relative;
 }
-
-img {
-  width: 100%;
-}
-
 .banner img {
   height: 100%;
+  width: 100%;
+  min-height: 300px;
   object-fit: cover;
 }
 

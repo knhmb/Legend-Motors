@@ -8,6 +8,7 @@ export default {
     return {
       cms: [],
       banners: [],
+      blobImage: "",
     };
   },
   getters,

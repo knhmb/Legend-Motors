@@ -1,7 +1,7 @@
 <template>
   <section class="test-drive-request">
     <div class="banner">
-      <img src="../assets/Test-Drive-Request-banner.png" alt="" />
+      <img :src="blobImage" alt="" />
       <h3>Test Drive Request</h3>
     </div>
     <Main />
@@ -10,24 +10,25 @@
 
 <script>
 import Main from "@/components/test-drive-request/Main.vue";
-// import { ElNotification } from "element-plus";
 
 export default {
   components: {
     Main,
   },
-  // created() {
-  //   this.$store
-  //     .dispatch("product/testDriveRequest")
-  //     .then(() => {})
-  //     .catch((err) => {
-  //       ElNotification({
-  //         title: "Error",
-  //         message: err.response.data.message,
-  //         type: "error",
-  //       });
-  //     });
-  // },
+  computed: {
+    banners() {
+      return this.$store.getters["dashboard/banners"];
+    },
+    getBanner() {
+      return this.banners.find((item) => item.slug === "test-drive-request");
+    },
+    blobImage() {
+      return this.$store.getters["dashboard/blobImage"];
+    },
+  },
+  created() {
+    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  },
 };
 </script>
 

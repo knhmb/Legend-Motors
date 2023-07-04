@@ -2,14 +2,29 @@
 <template>
   <section class="product-banner">
     <div class="banner">
-      <img src="../../assets/Product-banner.png" alt="" />
+      <img :src="blobImage" alt="" />
       <h3>Product</h3>
     </div>
   </section>
 </template>
   
   <script>
-export default {};
+export default {
+  computed: {
+    banners() {
+      return this.$store.getters["dashboard/banners"];
+    },
+    getBanner() {
+      return this.banners.find((item) => item.slug === "product");
+    },
+    blobImage() {
+      return this.$store.getters["dashboard/blobImage"];
+    },
+  },
+  created() {
+    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  },
+};
 </script>
   
 <style scoped>
@@ -24,6 +39,7 @@ img {
 .banner img {
   height: 100%;
   object-fit: cover;
+  min-height: 300px;
 }
 
 h3 {

@@ -12,7 +12,16 @@
         >
           <el-row>
             <el-col :span="12">
-              <img :src="product.thumbnail" alt="" />
+              <img :src="img" alt="" />
+              <!-- <img
+                :src="`blob:http://localhost:7700/${product.thumbnail}`"
+                alt=""
+              /> -->
+              <!-- <el-image
+                style="width: 100px; height: 100px"
+                :src="img"
+                v-if="isDataLoaded"
+              /> -->
             </el-col>
             <el-col :span="12">
               <h4>{{ product.name }}</h4>
@@ -30,7 +39,7 @@
                 <li>2 Airbags</li>
                 <li>Roomy 4-Seater</li> -->
               </ul>
-              <base-button @click="$router.push('/cart')"
+              <base-button @click="goToCart(product.slug)"
                 >Booking now</base-button
               >
               <base-button :login="true" @click="selectProduct(product.slug)">{{
@@ -79,10 +88,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       activeName: "",
+      img: null,
+      isDataLoaded: false,
     };
   },
   computed: {
@@ -94,9 +107,24 @@ export default {
     selectProduct(slug) {
       this.$router.push(`/product/${slug}`);
     },
+    goToCart(slug) {
+      this.$router.push(`/cart/${slug}`);
+    },
   },
   mounted() {
     if (this.products.length > 0) this.activeName = this.products[0].name;
+  },
+  async created() {
+    const response = await axios.get(
+      `/api/v1/system/uploads/${this.products[0].thumbnail}`,
+      { responseType: "blob" }
+    );
+    const url = URL.createObjectURL(response.data);
+    console.log(response.data);
+    this.img = url;
+    console.log(this.img);
+    this.isDataLoaded = true;
+    // console.log(this.img);
   },
 };
 </script>

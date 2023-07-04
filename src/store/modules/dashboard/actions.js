@@ -12,4 +12,10 @@ export default {
   async inquire(_, payload) {
     await axios.post("api/v1/inquiry", payload);
   },
+  async fetchBlobImage(context, payload) {
+    const response = await axios.get(`/api/v1/system/uploads/${payload}`, {
+      responseType: "blob",
+    });
+    context.commit("SET_BLOB_IMAGE", URL.createObjectURL(response.data));
+  },
 };
