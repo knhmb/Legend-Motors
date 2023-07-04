@@ -67,7 +67,7 @@
               car</small
             >
           </div>
-          <base-button @click="addToCart(productDetail.slug)"
+          <base-button @click="addToCart(productDetail)"
             >Add to Cart</base-button
           >
         </el-col>
@@ -105,7 +105,7 @@ export default {
     // },
   },
   methods: {
-    addToCart(slug) {
+    addToCart() {
       if (!this.selectedColor) {
         ElNotification({
           title: "Error",
@@ -114,7 +114,12 @@ export default {
         });
         return;
       }
-      this.$router.push(`/cart/${slug}`);
+      this.$router.push(`/cart`);
+      this.$store.commit("product/STORE_CART_ITEMS", {
+        product: this.productBlobImage,
+        price: this.reservationFee,
+        total: this.reservationFee,
+      });
     },
     selectColor(option) {
       this.selectedColor = option.color;
@@ -169,6 +174,8 @@ export default {
 
 img {
   width: 100%;
+  height: 350px;
+  object-fit: contain;
 }
 
 h3 {

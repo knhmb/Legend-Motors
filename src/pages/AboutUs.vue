@@ -100,4 +100,10 @@ p {
   color: #262f36;
   margin-bottom: 1rem;
 }
+
+img {
+  width: 100%;
+  height: 24rem;
+  object-fit: contain;
+}
 </style>

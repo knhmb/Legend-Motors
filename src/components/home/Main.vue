@@ -11,7 +11,7 @@
           v-for="product in products"
           :key="product"
         >
-          <el-row>
+          <el-row :gutter="40">
             <el-col :span="12">
               <img :src="productBlobImage" alt="" />
             </el-col>
@@ -23,9 +23,7 @@
                   {{ feature.name }}
                 </li>
               </ul>
-              <base-button @click="goToCart(product.slug)"
-                >Booking now</base-button
-              >
+              <base-button @click="goToCart(product)">Booking now</base-button>
               <base-button :login="true" @click="selectProduct(product.slug)">{{
                 $t("btn.explore")
               }}</base-button>
@@ -95,8 +93,13 @@ export default {
     selectProduct(slug) {
       this.$router.push(`/product/${slug}`);
     },
-    goToCart(slug) {
-      this.$router.push(`/cart/${slug}`);
+    goToCart(product) {
+      this.$store.commit("product/STORE_CART_ITEMS", {
+        product: this.productBlobImage,
+        price: product.carSize[0].reservationFee,
+        total: product.carSize[0].reservationFee,
+      });
+      this.$router.push(`/cart`);
     },
     setProduct(pane) {
       const prod = this.products.find((item) => item.slug === pane.paneName);
@@ -111,10 +114,13 @@ export default {
     if (this.products.length > 0) this.activeName = this.products[0].slug;
   },
   created() {
-    this.$store.dispatch(
-      "dashboard/fetchProductBlobImage",
-      this.products[0].thumbnail
-    );
+    if (this.products.length > 0) {
+      this.$store.dispatch(
+        "dashboard/fetchProductBlobImage",
+        this.products[0].thumbnail
+      );
+    }
+
     // const response = await axios.get(
     //   `/api/v1/system/uploads/${this.products[0].thumbnail}`,
     //   { responseType: "blob" }
@@ -146,6 +152,8 @@ h3 {
 
 img {
   width: 100%;
+  height: 350px;
+  object-fit: cover;
 }
 
 :deep(.el-tabs__nav-wrap::after) {

@@ -11,4 +11,10 @@ export default {
   selectedProductDetails(state) {
     return state.selectedProductDetails;
   },
+  cart(state) {
+    return state.cart;
+  },
+  cartItems(state) {
+    return state.cartItems;
+  },
 };

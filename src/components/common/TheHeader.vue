@@ -41,7 +41,9 @@
               alt=""
             />
             <img v-else src="../../assets/shopping-cart.png" alt="" />
-            <div class="pill">99+</div>
+            <div class="pill" v-if="cartItems.length > 0">
+              {{ cartItems.length }}+
+            </div>
           </div>
         </div>
         <div class="authentication">
@@ -118,6 +120,9 @@ export default {
     },
     currentUser() {
       return this.$store.getters["auth/currentUser"];
+    },
+    cartItems() {
+      return this.$store.getters["product/cartItems"];
     },
   },
   methods: {

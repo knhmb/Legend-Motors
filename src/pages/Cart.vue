@@ -23,27 +23,16 @@
       <div class="total-price-info">
         <div class="sub-total">
           <p>Subtotal</p>
-          <p>
-            ${{
-              selectedProductDetails.price
-                ? selectedProductDetails.price
-                : productDetail.carSize[0].reservationFee
-            }}
-          </p>
+          <p>${{ totalPrice }}</p>
         </div>
         <div class="total">
           <p>Total</p>
-          <p>
-            ${{
-              selectedProductDetails.price
-                ? selectedProductDetails.price
-                : productDetail.carSize[0].reservationFee
-            }}
-          </p>
+          <p>${{ totalPrice }}</p>
         </div>
       </div>
       <cart-form></cart-form>
     </base-container>
+    {{ totalPrice }}
   </section>
 </template>
 
@@ -75,31 +64,56 @@ export default {
     productBlobImage() {
       return this.$store.getters["dashboard/productBlobImage"];
     },
+    cart() {
+      return this.$store.getters["product/cart"];
+    },
+    cartItems() {
+      return this.$store.getters["product/cartItems"];
+    },
+    isDataAvailable() {
+      return Object.keys(this.productDetail).length > 0;
+    },
+    totalPrice() {
+      if (this.cartItems.length > 0) {
+        const sum = this.cartItems.reduce((accumulator, object) => {
+          return +accumulator + +object.total;
+        }, 0);
+        return sum;
+      }
+      return "N/A";
+    },
   },
   created() {
-    console.log(this.selectedProductDetails);
-    if (Object.keys(this.selectedProductDetails).length <= 0) {
-      this.$store
-        .dispatch("product/getProductDetail", this.$route.params.slug)
-        .then(() => {
-          this.tableData = [
-            {
-              product: this.productBlobImage,
-              price: `$${this.productDetail.carSize[0].reservationFee}`,
-              total: `$${this.productDetail.carSize[0].reservationFee}`,
-            },
-          ];
-          console.log(this.tableData);
-        });
-      return;
-    }
-    this.tableData = [
-      {
-        product: this.productBlobImage,
-        price: `$${this.selectedProductDetails.price}`,
-        total: `$${this.selectedProductDetails.price}`,
-      },
-    ];
+    console.log(this.cartItems);
+    this.tableData = this.cartItems;
+    console.log(this.totalPrice);
+    // if (Object.keys(this.selectedProductDetails).length <= 0) {
+    //   this.$store
+    //     .dispatch("product/getProductDetail", this.$route.params.slug)
+    //     .then(() => {
+    //       this.tableData = [
+    //         {
+    //           product: this.productBlobImage,
+    //           price: `$${this.productDetail.carSize[0].reservationFee}`,
+    //           total: `$${this.productDetail.carSize[0].reservationFee}`,
+    //         },
+    //       ];
+    //       this.$store.commit("product/ADD_TO_CART", this.tableData.length);
+    //       console.log(this.cart);
+
+    //       console.log(this.tableData);
+    //     });
+    //   return;
+    // }
+    // this.tableData = [
+    //   {
+    //     product: this.productBlobImage,
+    //     price: `$${this.selectedProductDetails.price}`,
+    //     total: `$${this.selectedProductDetails.price}`,
+    //   },
+    // ];
+    // this.$store.commit("product/ADD_TO_CART", this.tableData.length);
+    // console.log(this.cart);
   },
 };
 </script>
@@ -139,6 +153,8 @@ p {
 
 img {
   width: 10rem;
+  height: 6rem;
+  object-fit: contain;
 }
 
 .product-content {

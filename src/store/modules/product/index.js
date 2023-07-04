@@ -10,6 +10,8 @@ export default {
       testDriveRequest: [],
       productDetail: {},
       selectedProductDetails: {},
+      cart: "",
+      cartItems: [],
     };
   },
   getters,

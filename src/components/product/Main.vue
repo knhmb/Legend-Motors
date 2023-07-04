@@ -3,16 +3,16 @@
   <div class="main">
     <base-container>
       <h3>Products</h3>
-      <el-tabs v-model="activeName" class="demo-tabs">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setProduct">
         <el-tab-pane
-          :label="product.slug"
-          :name="product.name"
+          :label="product.name"
+          :name="product.slug"
           v-for="product in products"
           :key="product"
         >
-          <el-row>
+          <el-row :gutter="40">
             <el-col :span="12">
-              <img :src="img" alt="" />
+              <img :src="productBlobImage" alt="" />
             </el-col>
             <el-col :span="12">
               <h4>{{ product.name }}</h4>
@@ -22,9 +22,7 @@
                   {{ feature.name }}
                 </li>
               </ul>
-              <base-button @click="$router.push('/cart')"
-                >Booking now</base-button
-              >
+              <base-button @click="goToCart(product)">Booking now</base-button>
               <base-button :login="true" @click="selectProduct(product.slug)">{{
                 $t("btn.explore")
               }}</base-button>
@@ -81,14 +79,42 @@ export default {
     products() {
       return this.$store.getters["product/products"];
     },
+
+    productBlobImage() {
+      return this.$store.getters["dashboard/productBlobImage"];
+    },
   },
   methods: {
     selectProduct(slug) {
       this.$router.push(`/product/${slug}`);
     },
+    goToCart(product) {
+      this.$store.commit("product/STORE_CART_ITEMS", {
+        product: this.productBlobImage,
+        price: product.carSize[0].reservationFee,
+        total: product.carSize[0].reservationFee,
+      });
+      this.$router.push(`/cart`);
+    },
+    setProduct(pane) {
+      const prod = this.products.find((item) => item.slug === pane.paneName);
+      this.$store
+        .dispatch("dashboard/fetchProductBlobImage", prod.thumbnail)
+        .then(() => {
+          console.log(this.productBlobImage);
+        });
+    },
   },
   mounted() {
-    if (this.products.length > 0) this.activeName = this.products[0].name;
+    if (this.products.length > 0) this.activeName = this.products[0].slug;
+  },
+  created() {
+    if (this.products.length > 0) {
+      this.$store.dispatch(
+        "dashboard/fetchProductBlobImage",
+        this.products[0].thumbnail
+      );
+    }
   },
 };
 </script>
@@ -110,6 +136,8 @@ h3 {
 
 img {
   width: 100%;
+  height: 350px;
+  object-fit: cover;
 }
 
 :deep(.el-tabs__nav-wrap::after) {
