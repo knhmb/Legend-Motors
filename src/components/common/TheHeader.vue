@@ -95,7 +95,11 @@
               <el-icon class="el-input__icon"><search /></el-icon>
             </template>
           </el-input>
-          <div class="burger-button" @click="toggleBurgerIcon()">
+          <div
+            v-if="isBurgerIconVisible"
+            class="burger-button"
+            @click="toggleBurgerIcon()"
+          >
             <div class="burger-icon bar1"></div>
             <div class="burger-icon bar2"></div>
             <div class="burger-icon bar3"></div>
@@ -122,6 +126,7 @@ export default {
   data() {
     return {
       search: "",
+      isBurgerIconVisible: false,
     };
   },
   computed: {
