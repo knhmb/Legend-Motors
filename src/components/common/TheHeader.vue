@@ -95,6 +95,16 @@
               <el-icon class="el-input__icon"><search /></el-icon>
             </template>
           </el-input>
+          <div class="burger-button" @click="toggleBurgerIcon()">
+            <div class="burger-icon bar1"></div>
+            <div class="burger-icon bar2"></div>
+            <div class="burger-icon bar3"></div>
+          </div>
+          <!-- <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div> -->
         </div>
       </div>
     </base-container>
@@ -128,6 +138,11 @@ export default {
   methods: {
     setLang(lang) {
       this.$i18n.locale = lang;
+    },
+    toggleBurgerIcon() {
+      const button = document.querySelector(".burger-button");
+      console.log(button);
+      button.classList.toggle("change");
     },
   },
 };
@@ -254,13 +269,6 @@ span,
   bottom: -0.7rem;
   transition: 0.3s all;
 }
-/* .authentication span.is-selected,
-.menu-list span.is-selected {
-  color: #384967;
-  border-bottom: 4px solid #384967;
-  padding-bottom: 0.5rem;
-  transition: 300ms all;
-} */
 
 .authentication span,
 .menu-list span {
@@ -278,6 +286,35 @@ span,
 }
 
 .search .el-input {
+  margin-left: 1rem;
+}
+
+.burger-icon {
+  display: block;
+  width: 30px;
+  height: 4px;
+  background-color: #fff;
+  margin: 6px auto;
+  transition: 0.4s;
+  border-radius: 8px;
+}
+
+.burger-button.change .burger-icon.bar1 {
+  transform: rotate(-45deg) translate(-8px, 4px);
+}
+
+.burger-button.change .burger-icon.bar2 {
+  opacity: 0;
+}
+
+.burger-button.change .burger-icon.bar3 {
+  transform: rotate(45deg) translate(-10px, -6px);
+}
+
+/* Styles for the button container */
+.burger-button {
+  display: block;
+  cursor: pointer;
   margin-left: 1rem;
 }
 
