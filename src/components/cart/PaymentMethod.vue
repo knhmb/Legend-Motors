@@ -68,6 +68,12 @@ export default {
   border: none;
 }
 
+:deep(.el-radio.is-checked .el-radio__inner),
+:deep(.el-checkbox.is-checked .el-checkbox__inner) {
+  background-color: #384967;
+  border-color: #384967;
+}
+
 .image-border {
   background-color: #fff;
   border: 1px solid #d9d9d9;
