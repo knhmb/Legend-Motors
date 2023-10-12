@@ -1,6 +1,12 @@
 <template>
   <theHeader />
-  <router-view v-if="loadData"></router-view>
+  <main>
+    <div class="whats-app-content">
+      <img src="./assets/whatsapp.png" alt="" />
+    </div>
+    <router-view></router-view>
+  </main>
+  <!-- <router-view v-if="loadData"></router-view> -->
   <TheFooter />
 </template>
 
@@ -15,30 +21,23 @@ export default {
       loadData: false,
     };
   },
-  created() {
-    this.$store.dispatch("product/getProducts");
-    this.$store.dispatch("dashboard/getCMS");
-    this.$store.dispatch("dashboard/getBanners").then(() => {
-      this.loadData = true;
-    });
+  //   created() {
+  //     this.$store.dispatch("product/getProducts");
+  //     this.$store.dispatch("dashboard/getCMS");
+  //     this.$store.dispatch("dashboard/getBanners").then(() => {
+  //       this.loadData = true;
+  //     });
 
-    // const token = localStorage.getItem("accessToken");
-    // this.$store
-    //   .dispatch("auth/checkUser", token)
-    //   .then(() => {})
-    //   .catch(() => {
-    //     this.$store.dispatch("auth/logout");
-    //   });
-    this.$store
-      .dispatch("auth/validateUser")
-      .then(() => {
-        // this.$store.commit("auth/LOGIN");
-      })
-      .catch(() => {
-        this.$store.commit("auth/LOGOUT");
-        // this.$router.replace("/");
-      });
-  },
+  //     this.$store
+  //       .dispatch("auth/validateUser")
+  //       .then(() => {
+  //         // this.$store.commit("auth/LOGIN");
+  //       })
+  //       .catch(() => {
+  //         this.$store.commit("auth/LOGOUT");
+  //         // this.$router.replace("/");
+  //       });
+  //   },
 };
 </script>
 
@@ -52,5 +51,27 @@ export default {
 }
 body {
   background: #f2f3f5;
+}
+
+main {
+  position: relative;
+}
+
+main .whats-app-content {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  position: absolute;
+  right: 1rem;
+  bottom: 2rem;
+  border: 4px solid #384967;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main .whats-app-content img {
+  width: 70%;
+  height: 70%;
 }
 </style>

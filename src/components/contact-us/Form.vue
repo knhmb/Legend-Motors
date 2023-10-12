@@ -1,16 +1,32 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="conatct-us-form">
+  <div class="contact-us-form">
     <h4>Contact Us</h4>
     <el-form
       label-position="top"
-      hide-required-asterisk
       :model="ruleForm"
       :rules="rules"
       ref="ruleFormRef"
     >
-      <el-form-item label="Name" prop="name">
-        <base-input placeholder="Name" v-model="ruleForm.name"></base-input>
+      <el-form-item :label="$t('auth.title')" prop="title">
+        <el-select :placeholder="$t('auth.title')" v-model="ruleForm.title">
+          <el-option label="Mr"></el-option>
+          <el-option label="Ms"></el-option>
+          <el-option label="Miss"></el-option>
+          <el-option label="Mrs"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="$t('auth.first-name')" prop="firstName">
+        <base-input
+          :placeholder="$t('auth.first-name')"
+          v-model="ruleForm.firstName"
+        ></base-input>
+      </el-form-item>
+      <el-form-item :label="$t('auth.last-name')" prop="lastName">
+        <base-input
+          :placeholder="$t('auth.last-name')"
+          v-model="ruleForm.lastName"
+        ></base-input>
       </el-form-item>
       <el-form-item label="Company Name (if applicable)" prop="company">
         <base-input
@@ -55,7 +71,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        name: "",
+        firstName: "",
+        lastName: "",
         company: "",
         email: "",
         phoneNumber: "",
@@ -63,28 +80,58 @@ export default {
         checked: "",
       },
       rules: {
-        name: [
-          { required: true, message: "Name is required", trigger: "blur" },
+        title: [
+          {
+            required: true,
+            message: this.$t("auth.title-required"),
+            trigger: "blur",
+          },
+        ],
+        firstName: [
+          {
+            required: true,
+            message: this.$t("auth.first-name-required"),
+            trigger: "blur",
+          },
+        ],
+        lastName: [
+          {
+            required: true,
+            message: this.$t("auth.last-name-required"),
+            trigger: "blur",
+          },
         ],
         company: [{ required: false, trigger: "blur" }],
         email: [
-          { required: true, message: "Email is required", trigger: "blur" },
-          { type: "email", message: "Email invalid format", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.email-required"),
+            trigger: "blur",
+          },
+          {
+            type: "email",
+            message: this.$t("auth.email-format"),
+            trigger: "blur",
+          },
         ],
         phoneNumber: [
           {
             required: true,
-            message: "Phone number is required",
+            message: this.$t("auth.phone-required"),
             trigger: "blur",
           },
         ],
         message: [
-          { required: true, message: "Message is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.message-required"),
+            trigger: "blur",
+          },
         ],
         checked: [
           {
             required: true,
-            message: "Please check the box",
+            message: this.$t("auth.terms-required"),
             trigger: "change",
           },
         ],
@@ -151,5 +198,16 @@ h4 {
   font-size: 13px;
   line-height: 20px;
   color: #262f36;
+}
+
+.contact-us-form .el-select {
+  width: 100%;
+}
+
+.contact-us-form :deep(.el-select .el-input__wrapper) {
+  background: #ffffff;
+  box-shadow: inset 0px 0px 0px 1px #878787;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
 }
 </style>

@@ -4,7 +4,8 @@
     <el-carousel indicator-position="inside" arrow="never">
       <el-carousel-item v-for="item in 4" :key="item">
         <div class="img-content">
-          <img :src="blobImage" />
+          <!-- <img :src="blobImage" /> -->
+          <img src="../../assets/About-Us-banner.png" />
           <div>
             <h3>Air EV</h3>
             <p>
@@ -28,23 +29,23 @@ export default {
       img: null,
     };
   },
-  computed: {
-    banners() {
-      return this.$store.getters["dashboard/banners"];
-    },
-    getBanner() {
-      return this.banners.find((item) => item.slug === "home");
-    },
-    fetchedBanner() {
-      return `http://localhost:3001/api/v1/system/uploads/${this.getBanner.thumbnail}`;
-    },
-    blobImage() {
-      return this.$store.getters["dashboard/blobImage"];
-    },
-  },
-  created() {
-    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
-  },
+  // computed: {
+  //   banners() {
+  //     return this.$store.getters["dashboard/banners"];
+  //   },
+  //   getBanner() {
+  //     return this.banners.find((item) => item.slug === "home");
+  //   },
+  //   fetchedBanner() {
+  //     return `http://localhost:3001/api/v1/system/uploads/${this.getBanner.thumbnail}`;
+  //   },
+  //   blobImage() {
+  //     return this.$store.getters["dashboard/blobImage"];
+  //   },
+  // },
+  // created() {
+  //   this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  // },
 };
 </script>
 

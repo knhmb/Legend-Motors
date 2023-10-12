@@ -26,7 +26,7 @@
         </el-form-item>
         <el-form-item>
           <p class="forgot-password" @click="$router.push('forgot-password')">
-            {{ $t("auth.forgot-password") }}
+            {{ $t("auth.forgot-password") }}?
           </p>
         </el-form-item>
         <el-form-item>

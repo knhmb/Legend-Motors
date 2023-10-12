@@ -3,12 +3,19 @@
     <base-container>
       <h3>{{ $t("menu.sign-up") }}</h3>
       <el-form
-        hide-required-asterisk
         label-position="top"
         :model="ruleForm"
         :rules="rules"
         ref="ruleFormRef"
       >
+        <el-form-item :label="$t('auth.title')" prop="name">
+          <el-select :placeholder="$t('auth.title')" v-model="ruleForm.title">
+            <el-option label="Mr"></el-option>
+            <el-option label="Ms"></el-option>
+            <el-option label="Miss"></el-option>
+            <el-option label="Mrs"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item :label="$t('auth.name')" prop="name">
           <base-input
             :placeholder="$t('auth.name')"
@@ -96,6 +103,7 @@ export default {
 
     return {
       ruleForm: {
+        title: "",
         name: "",
         email: "",
         password: "",
@@ -103,6 +111,13 @@ export default {
         checked: "",
       },
       rules: {
+        title: [
+          {
+            required: true,
+            message: this.$t("auth.title-required"),
+            trigger: "blur",
+          },
+        ],
         name: [
           {
             required: true,
@@ -129,8 +144,12 @@ export default {
             trigger: "blur",
           },
         ],
-        password: [{ validator: validatePass, trigger: "blur" }],
-        confirmPassword: [{ validator: validateConfirmPass, trigger: "blur" }],
+        password: [
+          { required: true, validator: validatePass, trigger: "blur" },
+        ],
+        confirmPassword: [
+          { required: true, validator: validateConfirmPass, trigger: "blur" },
+        ],
       },
     };
   },
@@ -270,17 +289,14 @@ p {
   vertical-align: middle;
 }
 
-/* :deep(.el-form-item__error::before) {
-  content: "x";
-  color: #fff;
-  background: #ea0029;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  margin-right: 0.3rem;
-} */
+.sign-up .el-select {
+  width: 100%;
+}
+
+.sign-up :deep(.el-select .el-input__wrapper) {
+  background: #ffffff;
+  box-shadow: inset 0px 0px 0px 1px #878787;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
 </style>

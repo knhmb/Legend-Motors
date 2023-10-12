@@ -64,8 +64,12 @@ export default {
         confirmPassword: "",
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        confirmPassword: [{ validator: validateConfirmPass, trigger: "blur" }],
+        password: [
+          { required: true, validator: validatePass, trigger: "blur" },
+        ],
+        confirmPassword: [
+          { required: true, validator: validateConfirmPass, trigger: "blur" },
+        ],
       },
     };
   },
@@ -114,6 +118,7 @@ export default {
       <style scoped>
 .reset-password {
   margin-top: 2rem;
+  height: 60vh;
 }
 
 .reset-password .container {

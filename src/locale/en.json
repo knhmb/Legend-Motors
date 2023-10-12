@@ -49,6 +49,13 @@
     "password-dont-match": "Password's do not match",
     "send-otp": "Send OTP",
     "resend-otp": "You can resend the verification code after { seconds } seconds",
-    "otp": "OTP"
+    "otp": "OTP",
+    "title": "Title",
+    "title-required": "Title is required",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "first-name-required": "First name is required",
+    "last-name-required": "Last name is required",
+    "message-required": "Message is required"
   }
 }

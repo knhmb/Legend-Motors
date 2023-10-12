@@ -4,7 +4,6 @@
     <base-container>
       <h3>{{ $t("auth.forgot-password") }}</h3>
       <el-form
-        hide-required-asterisk
         label-position="top"
         :model="ruleForm"
         :rules="rules"
@@ -161,6 +160,7 @@ export default {
     <style scoped>
 .forgot-password {
   margin-top: 2rem;
+  height: 60vh;
 }
 
 .forgot-password .container {
