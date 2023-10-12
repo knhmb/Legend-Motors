@@ -42,12 +42,28 @@
             :model="ruleForm"
             :rules="rules"
             ref="ruleFormRef"
-            hide-required-asterisk
           >
-            <el-form-item label="Name" prop="name">
+            <el-form-item :label="$t('auth.title')" prop="title">
+              <el-select
+                :placeholder="$t('auth.title')"
+                v-model="ruleForm.title"
+              >
+                <el-option label="Mr"></el-option>
+                <el-option label="Ms"></el-option>
+                <el-option label="Miss"></el-option>
+                <el-option label="Mrs"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('auth.first-name')" prop="firstName">
               <base-input
-                placeholder="Name"
-                v-model="ruleForm.name"
+                :placeholder="$t('auth.first-name')"
+                v-model="ruleForm.firstName"
+              ></base-input>
+            </el-form-item>
+            <el-form-item :label="$t('auth.last-name')" prop="lastName">
+              <base-input
+                :placeholder="$t('auth.last-name')"
+                v-model="ruleForm.lastName"
               ></base-input>
             </el-form-item>
             <el-form-item label="Email" prop="email">
@@ -106,7 +122,9 @@ export default {
       selectedProduct: "",
       selectedProductSizes: null,
       ruleForm: {
-        name: "",
+        title: "",
+        firstName: "",
+        lastName: "",
         email: "",
         phone: "",
         date: "",
@@ -116,10 +134,24 @@ export default {
         type: "",
       },
       rules: {
-        name: [
+        title: [
           {
             required: true,
-            message: this.$t("auth.username-required"),
+            message: this.$t("auth.title-required"),
+            trigger: "blur",
+          },
+        ],
+        firstName: [
+          {
+            required: true,
+            message: this.$t("auth.first-name-required"),
+            trigger: "blur",
+          },
+        ],
+        lastName: [
+          {
+            required: true,
+            message: this.$t("auth.last-name-required"),
             trigger: "blur",
           },
         ],
@@ -290,7 +322,7 @@ p {
 }
 
 :deep(.date-input .el-input__wrapper) {
-  padding: 1.1rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 :deep(.el-input__prefix) {
@@ -325,5 +357,27 @@ p.have-an-account {
 .el-button.is-login {
   margin: 0 auto;
   display: flex;
+}
+
+.form-content .el-select {
+  width: 100%;
+}
+
+.form-content :deep(.el-select .el-input__wrapper) {
+  background: #ffffff;
+  box-shadow: inset 0px 0px 0px 1px #878787;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.form-content
+  :deep(
+    .el-input.el-input--prefix.el-input--suffix.el-date-editor.el-date-editor--date.date-input.el-tooltip__trigger.el-tooltip__trigger
+  ),
+.form-content
+  :deep(
+    .el-input.el-input--prefix.el-input--suffix.el-date-editor.el-date-editor--time.date-input.el-tooltip__trigger.el-tooltip__trigger
+  ) {
+  height: inherit;
 }
 </style>

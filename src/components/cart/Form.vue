@@ -34,15 +34,9 @@
 </template>
 
 <style scoped>
-.cart-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+/* .cart-form {
   margin-top: 3rem;
-  width: fit-content;
-}
+} */
 
 h3 {
   font-family: "Avenir";
@@ -56,7 +50,7 @@ h3 {
 }
 
 .el-input {
-  width: 25rem;
+  width: 100%;
 }
 
 :deep(.el-form-item__label) {

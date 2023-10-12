@@ -1,7 +1,8 @@
 <template>
   <section class="test-drive-request">
     <div class="banner">
-      <img :src="blobImage" alt="" />
+      <img src="../assets/Background-image.png" alt="" />
+      <!-- <img :src="blobImage" alt="" /> -->
       <h3>Test Drive Request</h3>
     </div>
     <Main />
@@ -26,9 +27,9 @@ export default {
       return this.$store.getters["dashboard/blobImage"];
     },
   },
-  created() {
-    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
-  },
+  // created() {
+  //   this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  // },
 };
 </script>
 

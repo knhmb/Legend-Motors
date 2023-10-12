@@ -9,9 +9,12 @@
             <div class="product-content">
               <img :src="scope.row.product" alt="" />
               <div class="product-info">
-                <p class="name">{{ productDetail.name }}</p>
+                <p class="name">Product name</p>
+                <small>Large</small>
+                <small>Red</small>
+                <!-- <p class="name">{{ productDetail.name }}</p>
                 <small>{{ selectedProductDetails.size }}</small>
-                <small>{{ selectedProductDetails.color }}</small>
+                <small>{{ selectedProductDetails.color }}</small> -->
                 <p class="remove">Remove</p>
               </div>
             </div>
@@ -23,25 +26,36 @@
       <div class="total-price-info">
         <div class="sub-total">
           <p>Subtotal</p>
-          <p>${{ totalPrice }}</p>
+          <p>$100</p>
+          <!-- <p>${{ totalPrice }}</p> -->
         </div>
         <div class="total">
           <p>Total</p>
-          <p>${{ totalPrice }}</p>
+          <p>$100</p>
+          <!-- <p>${{ totalPrice }}</p> -->
         </div>
       </div>
-      <cart-form></cart-form>
+      <el-row :gutter="50">
+        <el-col :span="12">
+          <PaymentMethod />
+        </el-col>
+        <el-col :span="12">
+          <CartForm />
+        </el-col>
+      </el-row>
     </base-container>
-    {{ totalPrice }}
+    <!-- {{ totalPrice }} -->
   </section>
 </template>
 
 <script>
 import CartForm from "@/components/cart/Form.vue";
+import PaymentMethod from "@/components/cart/PaymentMethod.vue";
 
 export default {
   components: {
     CartForm,
+    PaymentMethod,
   },
   data() {
     return {
@@ -126,6 +140,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center; */
+}
+
+.el-row {
+  margin-top: 3rem;
 }
 
 .el-row .el-col {
