@@ -10,9 +10,9 @@
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item :label="$t('menu.login')" prop="email">
+        <el-form-item :label="$t('auth.email')" prop="email">
           <base-input
-            :placeholder="$t('menu.login')"
+            :placeholder="$t('auth.email')"
             v-model="ruleForm.email"
           ></base-input>
         </el-form-item>
@@ -51,7 +51,10 @@
   
   <script>
 import { ElNotification } from "element-plus";
+import loader from "../utils/loading";
+
 export default {
+  mixins: [loader],
   data() {
     return {
       ruleForm: {
@@ -89,12 +92,17 @@ export default {
             username: this.ruleForm.email,
             password: this.ruleForm.password,
           };
+
+          this.openLoading();
+
           this.$store
             .dispatch("auth/login", data)
             .then(() => {
+              this.closeLoading();
               this.$router.replace("/home");
             })
             .catch((err) => {
+              this.closeLoading();
               ElNotification({
                 title: "Error",
                 message: err.response.data.message,

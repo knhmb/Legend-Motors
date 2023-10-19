@@ -10,10 +10,10 @@
       >
         <el-form-item :label="$t('auth.title')" prop="title">
           <el-select :placeholder="$t('auth.title')" v-model="ruleForm.title">
-            <el-option label="Mr"></el-option>
-            <el-option label="Ms"></el-option>
-            <el-option label="Miss"></el-option>
-            <el-option label="Mrs"></el-option>
+            <el-option label="Mr" value="Mr"></el-option>
+            <el-option label="Ms" value="Ms"></el-option>
+            <el-option label="Miss" value="Miss"></el-option>
+            <el-option label="Mrs" value="Mrs"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('auth.first-name')" prop="firstName">
@@ -86,7 +86,10 @@
 
 <script>
 import { ElNotification } from "element-plus";
+import loader from "../utils/loading";
+
 export default {
+  mixins: [loader],
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -181,14 +184,20 @@ export default {
           const isPassValid = this.checkPassword(this.ruleForm.password);
           if (isPassValid) {
             const data = {
-              username: this.ruleForm.name,
+              firstName: this.ruleForm.firstName,
+              lastName: this.ruleForm.lastName,
               email: this.ruleForm.email,
               password: this.ruleForm.password,
               password2: this.ruleForm.confirmPassword,
+              username: this.ruleForm.firstName + this.ruleForm.lastName,
             };
+            this.openLoading();
+
             this.$store
               .dispatch("auth/register", data)
               .then(() => {
+                this.closeLoading();
+
                 ElNotification({
                   title: "Success",
                   message: "Account Created!",
@@ -197,6 +206,8 @@ export default {
                 this.$router.replace("/login");
               })
               .catch((err) => {
+                this.closeLoading();
+
                 ElNotification({
                   title: "Error",
                   message: err.response.data.message,

@@ -75,6 +75,7 @@
 
 <script>
 import LoginRequiredDialog from "../LoginRequiredDialog.vue";
+import * as tokenData from "@/utils/checkToken";
 
 export default {
   components: {
@@ -103,15 +104,32 @@ export default {
     selectProduct(slug) {
       this.$router.push(`/product/${slug}`);
     },
-    goToCart(product) {
+    async goToCart(product) {
       console.log(product);
-      this.dialogVisible = true;
-      // this.$store.commit("product/STORE_CART_ITEMS", {
-      //   product: this.productBlobImage,
-      //   price: product.carSize[0].reservationFee,
-      //   total: product.carSize[0].reservationFee,
-      // });
-      // this.$router.push(`/cart`);
+      await tokenData.checkAccessToken();
+      if (tokenData.valid) {
+        this.$store.commit("product/STORE_CART_ITEMS", {
+          product: this.productBlobImage,
+          price: product.carSize[0].reservationFee,
+          total: product.carSize[0].reservationFee,
+        });
+        this.$router.push(`/cart`);
+      } else {
+        this.dialogVisible = true;
+      }
+      // await checkAccessToken()
+      //   .then(() => {
+      //     console.log("correct");
+      //     this.$store.commit("product/STORE_CART_ITEMS", {
+      //       product: this.productBlobImage,
+      //       price: product.carSize[0].reservationFee,
+      //       total: product.carSize[0].reservationFee,
+      //     });
+      //     this.$router.push(`/cart`);
+      //   })
+      //   .catch(() => {
+      //     this.dialogVisible = true;
+      //   });
     },
     setProduct(pane) {
       const prod = this.products.find((item) => item.slug === pane.paneName);

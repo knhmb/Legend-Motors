@@ -28,15 +28,26 @@ export default {
       this.loadData = true;
     });
 
+    const token = localStorage.getItem("accessToken");
+
     this.$store
-      .dispatch("auth/validateUser")
+      .dispatch("auth/validateUser", token)
       .then(() => {
-        // this.$store.commit("auth/LOGIN");
+        // this.$router.replace('/projects')
       })
       .catch(() => {
-        this.$store.commit("auth/LOGOUT");
-        // this.$router.replace("/");
+        this.$router.replace("/");
       });
+
+    // this.$store
+    //   .dispatch("auth/validateUser")
+    //   .then(() => {
+    //     // this.$store.commit("auth/LOGIN");
+    //   })
+    //   .catch(() => {
+    //     this.$store.commit("auth/LOGOUT");
+    //     // this.$router.replace("/");
+    //   });
   },
 };
 </script>

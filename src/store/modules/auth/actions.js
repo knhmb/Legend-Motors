@@ -9,8 +9,28 @@ export default {
     const response = await axios.post("api/v1/authenticate", payload);
     context.commit("LOGIN", response.data);
   },
-  async validateUser(context) {
-    const response = await axios.get("api/v1/authenticate");
+  // async validateUser(context) {
+  //   const response = await axios.get("api/v1/authenticate");
+  //   context.commit("LOGIN", response.data);
+  // },
+  async validateUser(context, payload) {
+    const response = await axios.get("/api/v1/authenticate", {
+      headers: {
+        Authorization: `Bearer ${payload}`,
+      },
+    });
+    context.commit("LOGIN", response.data);
+  },
+  async checkRefreshToken(context, payload) {
+    const response = await axios.put(
+      "/api/v1/authenticate",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${payload}`,
+        },
+      }
+    );
     context.commit("LOGIN", response.data);
   },
   // async checkUser(context, payload) {
