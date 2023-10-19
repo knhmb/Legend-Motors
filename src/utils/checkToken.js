@@ -3,7 +3,7 @@ import { ElNotification } from "element-plus";
 
 export let valid = null;
 
-const checkRefreshToken = async () => {
+const checkRefreshToken = async (isShowMessage) => {
   const refreshToken = localStorage.getItem("refreshToken");
 
   await store
@@ -13,17 +13,20 @@ const checkRefreshToken = async () => {
     })
     .catch(() => {
       valid = false;
-      ElNotification({
-        title: "Error",
-        message: "Session Expired. Please Login Again!",
-        type: "error",
-      });
+      if (isShowMessage) {
+        ElNotification({
+          title: "Error",
+          message: "Session Expired. Please Login Again!",
+          type: "error",
+        });
+      }
+
       store.commit("auth/LOGOUT");
     });
   console.log("executed");
 };
 
-export const checkAccessToken = async () => {
+export const checkAccessToken = async (isShowMessage) => {
   const accessToken = localStorage.getItem("accessToken");
 
   await store
@@ -32,7 +35,7 @@ export const checkAccessToken = async () => {
       valid = true;
     })
     .catch(() => {
-      checkRefreshToken();
+      checkRefreshToken(isShowMessage);
     });
 };
 

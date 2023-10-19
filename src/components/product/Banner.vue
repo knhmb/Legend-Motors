@@ -2,14 +2,25 @@
 <template>
   <section class="product-banner">
     <div class="banner">
-      <img :src="blobImage" alt="" />
+      <img
+        crossorigin="anonymous"
+        :src="`${url}api/v1/system/uploads/${getBanner}`"
+        alt=""
+      />
       <h3>Product</h3>
     </div>
   </section>
 </template>
   
-  <script>
+<script>
+import { url } from "@/url";
+
 export default {
+  data() {
+    return {
+      url,
+    };
+  },
   computed: {
     banners() {
       return this.$store.getters["dashboard/banners"];
@@ -21,9 +32,9 @@ export default {
       return this.$store.getters["dashboard/blobImage"];
     },
   },
-  created() {
-    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
-  },
+  // created() {
+  //   this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  // },
 };
 </script>
   

@@ -8,7 +8,7 @@
   
   <script>
 import Banner from "@/components/product/Banner.vue";
-import Main from "@/components/product/Main.vue";
+import Main from "@/components/home/Main.vue";
 
 export default {
   components: {

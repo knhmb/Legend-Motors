@@ -116,6 +116,8 @@
 
 <script>
 import { ElNotification } from "element-plus";
+import * as tokenData from "@/utils/checkToken";
+
 export default {
   data() {
     return {
@@ -219,6 +221,9 @@ export default {
       }
       return data;
     },
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
   },
   methods: {
     setSelectedProduct(slug) {
@@ -259,6 +264,17 @@ export default {
         }
       });
     },
+  },
+  async created() {
+    await tokenData.checkAccessToken(false);
+    console.log(this.currentUser);
+    if (tokenData.valid) {
+      this.ruleForm.title = this.currentUser.title;
+      this.ruleForm.firstName = this.currentUser.firstName;
+      this.ruleForm.lastName = this.currentUser.lastName;
+      this.ruleForm.email = this.currentUser.email;
+      this.ruleForm.phone = this.currentUser.phone;
+    }
   },
 };
 </script>

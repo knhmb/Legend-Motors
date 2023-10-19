@@ -106,7 +106,7 @@ export default {
     },
     async goToCart(product) {
       console.log(product);
-      await tokenData.checkAccessToken();
+      await tokenData.checkAccessToken(false);
       if (tokenData.valid) {
         this.$store.commit("product/STORE_CART_ITEMS", {
           product: this.productBlobImage,
@@ -117,19 +117,6 @@ export default {
       } else {
         this.dialogVisible = true;
       }
-      // await checkAccessToken()
-      //   .then(() => {
-      //     console.log("correct");
-      //     this.$store.commit("product/STORE_CART_ITEMS", {
-      //       product: this.productBlobImage,
-      //       price: product.carSize[0].reservationFee,
-      //       total: product.carSize[0].reservationFee,
-      //     });
-      //     this.$router.push(`/cart`);
-      //   })
-      //   .catch(() => {
-      //     this.dialogVisible = true;
-      //   });
     },
     setProduct(pane) {
       const prod = this.products.find((item) => item.slug === pane.paneName);

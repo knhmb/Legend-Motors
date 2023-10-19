@@ -72,13 +72,23 @@
           >
         </el-col>
       </el-row>
+      <LoginRequiredDialog
+        @closeDialog="dialogVisible = false"
+        :dialogVisible="dialogVisible"
+      />
     </base-container>
   </div>
 </template>
 
 <script>
 import { ElNotification } from "element-plus";
+import * as tokenData from "@/utils/checkToken";
+import LoginRequiredDialog from "../LoginRequiredDialog.vue";
+
 export default {
+  components: {
+    LoginRequiredDialog,
+  },
   data() {
     return {
       radio: "standard-range",
@@ -86,6 +96,7 @@ export default {
       retailPrice: "",
       reservationFee: "",
       carImg: "",
+      dialogVisible: false,
     };
   },
   computed: {
@@ -105,7 +116,7 @@ export default {
     // },
   },
   methods: {
-    addToCart() {
+    async addToCart() {
       if (!this.selectedColor) {
         ElNotification({
           title: "Error",
@@ -114,12 +125,17 @@ export default {
         });
         return;
       }
-      this.$router.push(`/cart`);
-      this.$store.commit("product/STORE_CART_ITEMS", {
-        product: this.productBlobImage,
-        price: this.reservationFee,
-        total: this.reservationFee,
-      });
+      await tokenData.checkAccessToken(false);
+      if (tokenData.valid) {
+        this.$router.push(`/cart`);
+        this.$store.commit("product/STORE_CART_ITEMS", {
+          product: this.productBlobImage,
+          price: this.reservationFee,
+          total: this.reservationFee,
+        });
+      } else {
+        this.dialogVisible = true;
+      }
     },
     selectColor(option) {
       this.selectedColor = option.color;

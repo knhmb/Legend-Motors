@@ -10,8 +10,10 @@
 import ProductInfo from "@/components/product-detail/ProductInfo.vue";
 import Feature from "@/components/product-detail/Feature.vue";
 import Specification from "@/components/product-detail/Specification.vue";
+import loading from "@/utils/loading";
 
 export default {
+  mixins: [loading],
   components: {
     ProductInfo,
     Feature,
@@ -23,9 +25,11 @@ export default {
     };
   },
   created() {
+    this.openLoading();
     this.$store
       .dispatch("product/getProductDetail", this.$route.params.slug)
       .then(() => {
+        this.closeLoading();
         this.loadData = true;
       });
   },

@@ -6,22 +6,55 @@
       arrow="never"
       indicator-position="none"
       :autoplay="false"
+      @change="currentImage"
     >
-      <el-carousel-item v-for="item in feature.images" :key="item">
-        <img :src="`http://localhost:3001/${item}`" alt="" />
+      <el-carousel-item
+        ref="myImage"
+        :name="item.thumbnail"
+        v-for="item in feature.images"
+        :key="item"
+      >
+        <!-- {{ item }} -->
+        <img
+          crossorigin="anonymous"
+          :src="`${url}api/v1/system/uploads/${item.thumbnail}`"
+          alt=""
+        />
         <!-- <img src="../../assets/image-20.png" alt="" /> -->
       </el-carousel-item>
     </el-carousel>
-    <p>{{ feature.description ? feature.description : "" }}</p>
+    <p>{{ activeImg ? activeImg.description : "" }}</p>
+    <!-- <p>{{ item.description ? item.description : "" }}</p> -->
+
+    <!-- <p>{{ feature.description ? feature.description : "" }}</p> -->
     <!-- <p>SAFETY-APPROVED IP67 BATTERY</p> -->
   </div>
 </template>
 
 <script>
+import { url } from "@/url";
+
 export default {
   props: ["feature"],
-  created() {
+  data() {
+    return {
+      url,
+      activeImg: null,
+    };
+  },
+  methods: {
+    currentImage(e) {
+      console.log(e);
+      // console.log(this.$refs.myImage[e].name);
+      this.activeImg = this.feature.images.find(
+        (item) => item.thumbnail === this.$refs.myImage[e].name
+      );
+      console.log(this.activeImg);
+    },
+  },
+  mounted() {
     console.log(this.feature);
+    this.currentImage(0);
   },
 };
 </script>
