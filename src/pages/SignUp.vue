@@ -8,7 +8,7 @@
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item :label="$t('auth.title')" prop="name">
+        <el-form-item :label="$t('auth.title')" prop="title">
           <el-select :placeholder="$t('auth.title')" v-model="ruleForm.title">
             <el-option label="Mr"></el-option>
             <el-option label="Ms"></el-option>
@@ -16,10 +16,16 @@
             <el-option label="Mrs"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('auth.name')" prop="name">
+        <el-form-item :label="$t('auth.first-name')" prop="firstName">
           <base-input
-            :placeholder="$t('auth.name')"
-            v-model="ruleForm.name"
+            :placeholder="$t('auth.first-name')"
+            v-model="ruleForm.firstName"
+          ></base-input>
+        </el-form-item>
+        <el-form-item :label="$t('auth.last-name')" prop="lastName">
+          <base-input
+            :placeholder="$t('auth.last-name')"
+            v-model="ruleForm.lastName"
           ></base-input>
         </el-form-item>
         <el-form-item :label="$t('auth.email')" prop="email">
@@ -69,7 +75,9 @@
           <p>{{ $t("auth.have-an-account") }}</p>
         </el-form-item>
         <el-form-item>
-          <base-button :login="true">{{ $t("menu.login") }}</base-button>
+          <base-button :login="true" @click="$router.push('/login')">{{
+            $t("menu.login")
+          }}</base-button>
         </el-form-item>
       </el-form>
     </base-container>
@@ -104,7 +112,8 @@ export default {
     return {
       ruleForm: {
         title: "",
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -118,10 +127,17 @@ export default {
             trigger: "blur",
           },
         ],
-        name: [
+        firstName: [
           {
             required: true,
-            message: this.$t("auth.username-required"),
+            message: this.$t("auth.first-name-required"),
+            trigger: "blur",
+          },
+        ],
+        lastName: [
+          {
+            required: true,
+            message: this.$t("auth.last-name-required"),
             trigger: "blur",
           },
         ],

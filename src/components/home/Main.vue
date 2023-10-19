@@ -4,7 +4,7 @@
     <base-container>
       <h3>Products</h3>
 
-      <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setProduct">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setProduct">
         <el-tab-pane
           :label="product.name"
           :name="product.slug"
@@ -30,8 +30,12 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-      </el-tabs> -->
-      <el-tabs v-model="activeName" class="demo-tabs">
+      </el-tabs>
+      <LoginRequiredDialog
+        @closeDialog="dialogVisible = false"
+        :dialog-visible="dialogVisible"
+      />
+      <!-- <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="EV" name="ev">
           <el-row>
             <el-col :span="12">
@@ -64,18 +68,24 @@
         <el-tab-pane label="Third product" name="third"
           >Third product</el-tab-pane
         >
-      </el-tabs>
+      </el-tabs> -->
     </base-container>
   </div>
 </template>
 
 <script>
+import LoginRequiredDialog from "../LoginRequiredDialog.vue";
+
 export default {
+  components: {
+    LoginRequiredDialog,
+  },
   data() {
     return {
       activeName: "",
       img: null,
       isImageLoaded: false,
+      dialogVisible: false,
     };
   },
   computed: {
@@ -94,12 +104,14 @@ export default {
       this.$router.push(`/product/${slug}`);
     },
     goToCart(product) {
-      this.$store.commit("product/STORE_CART_ITEMS", {
-        product: this.productBlobImage,
-        price: product.carSize[0].reservationFee,
-        total: product.carSize[0].reservationFee,
-      });
-      this.$router.push(`/cart`);
+      console.log(product);
+      this.dialogVisible = true;
+      // this.$store.commit("product/STORE_CART_ITEMS", {
+      //   product: this.productBlobImage,
+      //   price: product.carSize[0].reservationFee,
+      //   total: product.carSize[0].reservationFee,
+      // });
+      // this.$router.push(`/cart`);
     },
     setProduct(pane) {
       const prod = this.products.find((item) => item.slug === pane.paneName);

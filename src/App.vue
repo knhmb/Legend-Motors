@@ -21,23 +21,23 @@ export default {
       loadData: false,
     };
   },
-  //   created() {
-  //     this.$store.dispatch("product/getProducts");
-  //     this.$store.dispatch("dashboard/getCMS");
-  //     this.$store.dispatch("dashboard/getBanners").then(() => {
-  //       this.loadData = true;
-  //     });
+  created() {
+    this.$store.dispatch("product/getProducts");
+    this.$store.dispatch("dashboard/getCMS");
+    this.$store.dispatch("dashboard/getBanners").then(() => {
+      this.loadData = true;
+    });
 
-  //     this.$store
-  //       .dispatch("auth/validateUser")
-  //       .then(() => {
-  //         // this.$store.commit("auth/LOGIN");
-  //       })
-  //       .catch(() => {
-  //         this.$store.commit("auth/LOGOUT");
-  //         // this.$router.replace("/");
-  //       });
-  //   },
+    this.$store
+      .dispatch("auth/validateUser")
+      .then(() => {
+        // this.$store.commit("auth/LOGIN");
+      })
+      .catch(() => {
+        this.$store.commit("auth/LOGOUT");
+        // this.$router.replace("/");
+      });
+  },
 };
 </script>
 

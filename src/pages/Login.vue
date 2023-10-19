@@ -40,7 +40,9 @@
           <p>{{ $t("auth.dont-have-account") }}</p>
         </el-form-item>
         <el-form-item>
-          <base-button :login="true">{{ $t("menu.sign-up") }}</base-button>
+          <base-button :login="true" @click="$router.push('/register')">{{
+            $t("menu.sign-up")
+          }}</base-button>
         </el-form-item>
       </el-form>
     </base-container>
