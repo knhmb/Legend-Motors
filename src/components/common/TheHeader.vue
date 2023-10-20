@@ -42,7 +42,7 @@
             />
             <img v-else src="../../assets/shopping-cart.png" alt="" />
             <div class="pill" v-if="cartItems.length > 0">
-              {{ cartItems.length }}{{ cartItems.length > 2 ? "+" : "" }}
+              {{ cartItems.length }}{{ cartItems.length > 99 ? "+" : "" }}
             </div>
           </div>
         </div>

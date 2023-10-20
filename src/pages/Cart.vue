@@ -9,14 +9,19 @@
             <div class="product-content">
               <img :src="scope.row.product" alt="" />
               <div class="product-info">
-                <p class="name">Product name</p>
-                <small>Large</small>
-                <small>Red</small>
                 <p class="name">{{ productDetail.name }}</p>
                 <small>{{ selectedProductDetails.size }}</small>
                 <small>{{ selectedProductDetails.color }}</small>
-                <p class="remove">Remove</p>
+                <p class="remove" @click="removeItem(productDetail.id)">
+                  Remove
+                </p>
               </div>
+              <!-- <div class="product-info">
+                <p class="name">{{ productDetail.name }}</p>
+                <small>{{ selectedProductDetails.size }}</small>
+                <small>{{ selectedProductDetails.color }}</small>
+                <p class="remove" @click="removeItem">Remove</p>
+              </div> -->
             </div>
           </template>
         </el-table-column>
@@ -97,10 +102,18 @@ export default {
       return "N/A";
     },
   },
+  methods: {
+    removeItem(id) {
+      console.log(id);
+      this.$store.commit("product/UPDATE_CART", id);
+      this.tableData = this.cartItems;
+    },
+  },
   created() {
     console.log(this.cartItems);
+    console.log(this.productDetail);
     this.tableData = this.cartItems;
-    console.log(this.totalPrice);
+    // console.log(this.totalPrice);
     // if (Object.keys(this.selectedProductDetails).length <= 0) {
     //   this.$store
     //     .dispatch("product/getProductDetail", this.$route.params.slug)

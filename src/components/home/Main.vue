@@ -104,20 +104,12 @@ export default {
     selectProduct(slug) {
       this.$router.push(`/product/${slug}`);
     },
-    generateUniqueID() {
-      const timestamp = new Date().getTime();
-      const randomString =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-      const uniqueID = timestamp + "_" + randomString;
-      return uniqueID;
-    },
     async goToCart(product) {
       console.log(product);
       await tokenData.checkAccessToken(false);
       if (tokenData.valid) {
         this.$store.commit("product/STORE_CART_ITEMS", {
-          id: this.generateUniqueID(),
+          id: product.id,
           product: this.productBlobImage,
           price: product.carSize[0].reservationFee,
           total: product.carSize[0].reservationFee,

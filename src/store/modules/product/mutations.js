@@ -17,6 +17,9 @@ export default {
   STORE_CART_ITEMS(state, payload) {
     state.cartItems.push(payload);
   },
+  UPDATE_CART(state, payload) {
+    state.cartItems = state.cartItems.filter((item) => item.id !== payload);
+  },
   RESET_CART_ITEMS(state) {
     state.cartItems = [];
   },
