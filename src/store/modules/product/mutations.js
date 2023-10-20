@@ -17,4 +17,7 @@ export default {
   STORE_CART_ITEMS(state, payload) {
     state.cartItems.push(payload);
   },
+  RESET_CART_ITEMS(state) {
+    state.cartItems = [];
+  },
 };

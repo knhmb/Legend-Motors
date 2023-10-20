@@ -42,7 +42,7 @@
             />
             <img v-else src="../../assets/shopping-cart.png" alt="" />
             <div class="pill" v-if="cartItems.length > 0">
-              {{ cartItems.length }}+
+              {{ cartItems.length }}{{ cartItems.length > 2 ? "+" : "" }}
             </div>
           </div>
         </div>
@@ -206,7 +206,10 @@ header .container {
   color: #fff;
   position: absolute;
   top: -0.7rem;
-  right: -1.4rem;
+  right: -1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
 }
 
 span,

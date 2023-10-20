@@ -12,9 +12,9 @@
                 <p class="name">Product name</p>
                 <small>Large</small>
                 <small>Red</small>
-                <!-- <p class="name">{{ productDetail.name }}</p>
+                <p class="name">{{ productDetail.name }}</p>
                 <small>{{ selectedProductDetails.size }}</small>
-                <small>{{ selectedProductDetails.color }}</small> -->
+                <small>{{ selectedProductDetails.color }}</small>
                 <p class="remove">Remove</p>
               </div>
             </div>
@@ -26,13 +26,13 @@
       <div class="total-price-info">
         <div class="sub-total">
           <p>Subtotal</p>
-          <p>$100</p>
-          <!-- <p>${{ totalPrice }}</p> -->
+          <!-- <p>$100</p> -->
+          <p>${{ totalPrice }}</p>
         </div>
         <div class="total">
           <p>Total</p>
-          <p>$100</p>
-          <!-- <p>${{ totalPrice }}</p> -->
+          <!-- <p>$100</p> -->
+          <p>${{ totalPrice }}</p>
         </div>
       </div>
       <el-row :gutter="50">

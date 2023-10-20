@@ -13,6 +13,7 @@
 <script>
 import TheHeader from "@/components/common/TheHeader";
 import TheFooter from "@/components/common/TheFooter";
+import * as tokenData from "@/utils/checkToken";
 
 export default {
   components: { TheHeader, TheFooter },
@@ -28,16 +29,18 @@ export default {
       this.loadData = true;
     });
 
-    const token = localStorage.getItem("accessToken");
+    // const token = localStorage.getItem("accessToken");
 
-    this.$store
-      .dispatch("auth/validateUser", token)
-      .then(() => {
-        // this.$router.replace('/projects')
-      })
-      .catch(() => {
-        this.$router.replace("/");
-      });
+    tokenData.checkAccessToken(false);
+
+    // this.$store
+    //   .dispatch("auth/validateUser", token)
+    //   .then(() => {
+    //     // this.$router.replace('/projects')
+    //   })
+    //   .catch(() => {
+    //     // this.$router.replace("/");
+    //   });
 
     // this.$store
     //   .dispatch("auth/validateUser")

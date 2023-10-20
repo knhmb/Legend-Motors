@@ -22,6 +22,7 @@ const checkRefreshToken = async (isShowMessage) => {
       }
 
       store.commit("auth/LOGOUT");
+      clearCart();
     });
   console.log("executed");
 };
@@ -37,6 +38,10 @@ export const checkAccessToken = async (isShowMessage) => {
     .catch(() => {
       checkRefreshToken(isShowMessage);
     });
+};
+
+export const clearCart = () => {
+  store.commit("product/RESET_CART_ITEMS");
 };
 
 // export default checkAccessToken;

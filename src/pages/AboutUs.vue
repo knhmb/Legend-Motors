@@ -1,7 +1,12 @@
 <template>
   <section class="about-us">
     <div class="banner">
-      <img :src="blobImage" alt="" />
+      <img
+        crossorigin="anonymous"
+        :src="`${url}api/v1/system/uploads/${getBanner}`"
+        alt=""
+      />
+      <!-- <img :src="blobImage" alt="" /> -->
       <h3>{{ cmsContent.title }}</h3>
     </div>
     <base-container>
@@ -33,7 +38,14 @@
 </template>
 
 <script>
+import { url } from "@/url";
+
 export default {
+  data() {
+    return {
+      url,
+    };
+  },
   computed: {
     cms() {
       return this.$store.getters["dashboard/cms"];
@@ -51,9 +63,9 @@ export default {
       return this.$store.getters["dashboard/blobImage"];
     },
   },
-  created() {
-    this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
-  },
+  // created() {
+  //   this.$store.dispatch("dashboard/fetchBlobImage", this.getBanner.thumbnail);
+  // },
 };
 </script>
 

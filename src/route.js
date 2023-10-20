@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./store/store";
+import * as tokenData from "@/utils/checkToken";
 
 import SignUp from "@/pages/SignUp.vue";
 import Login from "@/pages/Login.vue";
@@ -43,8 +44,34 @@ const router = createRouter({
     { path: "/product/:slug", component: ProductDetail },
     { path: "/test-drive-request", component: TestDriveRequest },
     { path: "/test-drive-recieved", component: TestDriveRecieved },
-    { path: "/cart", component: Cart },
-    { path: "/order-confirmed", component: PaymentSuccessful },
+    {
+      path: "/cart",
+      component: Cart,
+      async beforeEnter(to, from, next) {
+        await tokenData.checkAccessToken();
+        if (tokenData.valid) {
+          next();
+        } else {
+          next("/login");
+        }
+        // if (store.getters["auth/isLoggedIn"]) {
+        //   next();
+        // } else {
+        //   next("/login");
+        // }
+      },
+    },
+    {
+      path: "/order-confirmed",
+      component: PaymentSuccessful,
+      beforeEnter(to, from, next) {
+        if (store.getters["auth/isLoggedIn"]) {
+          next();
+        } else {
+          next("/");
+        }
+      },
+    },
     { path: "/contact-us", component: ContactUs },
     { path: "/about-us", component: AboutUs },
     { path: "/terms-and-conditions", component: TermsConditions },

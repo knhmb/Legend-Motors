@@ -2,7 +2,12 @@
 <template>
   <section class="profile">
     <div class="banner">
-      <img :src="getBanner.thumbnail" alt="" />
+      <!-- <img crossorigin="anonymous" :src="getBanner.thumbnail" alt="" /> -->
+      <img
+        crossorigin="anonymous"
+        :src="`${url}api/v1/system/uploads/${getBanner}`"
+        alt=""
+      />
       <p>{{ pageTitle }}</p>
     </div>
     <base-container>
@@ -35,10 +40,13 @@
 </template>
 
 <script>
+import { url } from "@/url";
+
 export default {
   data() {
     return {
       activeName: "first",
+      url,
     };
   },
   computed: {
@@ -64,6 +72,9 @@ export default {
         this.$router.replace("/");
       });
     },
+  },
+  mounted() {
+    console.log(this.getBanner);
   },
 };
 </script>

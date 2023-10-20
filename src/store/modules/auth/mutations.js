@@ -1,4 +1,5 @@
 import setAuthHeader from "@/axios";
+import { clearCart } from "@/utils/checkToken";
 
 export default {
   LOGIN(state, payload) {
@@ -11,8 +12,10 @@ export default {
   LOGOUT(state) {
     state.isLoggedIn = false;
     state.currentUser = {};
+    clearCart();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    console.log("logout");
   },
   RESET_PASSWORD(state, payload) {
     state.currentUser = payload;
