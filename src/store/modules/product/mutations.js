@@ -16,6 +16,18 @@ export default {
   },
   STORE_CART_ITEMS(state, payload) {
     state.cartItems.push(payload);
+
+    const isFound = state.cartItems.some((product) => {
+      if (product.id === payload.id) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    if (!isFound) {
+      state.cartItems.push(payload);
+    }
   },
   UPDATE_CART(state, payload) {
     state.cartItems = state.cartItems.filter((item) => item.id !== payload);

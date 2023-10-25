@@ -5,7 +5,7 @@
       <!-- <img crossorigin="anonymous" :src="getBanner.thumbnail" alt="" /> -->
       <img
         crossorigin="anonymous"
-        :src="`${url}api/v1/system/uploads/${getBanner}`"
+        :src="`${url}api/v1/system/uploads/${currentUser.thumbnail}`"
         alt=""
       />
       <p>{{ pageTitle }}</p>
@@ -65,6 +65,9 @@ export default {
     getBanner() {
       return this.banners.find((item) => item.slug === "profile");
     },
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
   },
   methods: {
     logout() {
@@ -82,6 +85,7 @@ export default {
 <style scoped>
 .banner {
   position: relative;
+  height: 25rem;
 }
 
 p {
@@ -101,7 +105,6 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  min-height: 300px;
 }
 
 .profile-menu {

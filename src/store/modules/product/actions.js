@@ -6,9 +6,7 @@ export default {
     context.commit("SET_PRODUCTS", response.data.items);
   },
   async testDriveRequest(_, payload) {
-    const response = await axios.post("api/v1/histories/testdrive", payload);
-    console.log(response);
-    // context.commit("SET_TEST_DRIVE_REQUEST", response.data.items);
+    await axios.post("/api/v1/histories/testdrive", payload);
   },
   async getProductDetail(context, payload) {
     const response = await axios.get(`api/v1/car/brand/${payload}`);

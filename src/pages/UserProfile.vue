@@ -1,20 +1,39 @@
 <template>
   <div class="user-profile">
     <h3>Profile</h3>
-    <div class="icon-content">
+    <img
+      class="user-img"
+      crossorigin="anonymous"
+      v-if="currentUser.thumbnail"
+      :src="`${url}api/v1/system/uploads/${currentUser.thumbnail}`"
+      alt=""
+    />
+    <div v-else class="icon-content">
       <img src="../assets/user.png" alt="" />
     </div>
     <p class="username">{{ currentUser.username }}</p>
     <p>{{ currentUser.email }}</p>
     <p>{{ currentUser.phone }}</p>
-    <p class="address">
-      {{ currentUser.address }}
-    </p>
+    <div class="address-wrapper">
+      <template v-for="(property, index) in propertiesToCheck" :key="index">
+        <p class="address" v-if="currentUser.hasOwnProperty(property)">
+          <span>{{ currentUser[property] }}</span>
+        </p>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
+import { url } from "@/url";
+
 export default {
+  data() {
+    return {
+      url,
+      propertiesToCheck: ["flatFloorBlock", "building", "street", "region"],
+    };
+  },
   computed: {
     currentUser() {
       return this.$store.getters["auth/currentUser"];
@@ -31,6 +50,7 @@ export default {
   align-items: center;
   width: fit-content;
   margin: 0 auto;
+  max-width: 30rem;
 }
 
 h3 {
@@ -78,7 +98,29 @@ p.username {
 }
 
 p.address {
-  width: 23rem;
   text-align: center;
+}
+
+p.address span {
+  margin-right: 0.5rem;
+}
+
+p.address span::after {
+  content: ",";
+}
+
+p.address:last-of-type span::after {
+  content: "";
+}
+
+.address-wrapper {
+  display: flex;
+}
+
+img.user-img {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 4px;
 }
 </style>

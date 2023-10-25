@@ -6,18 +6,45 @@
       :model="ruleForm"
       :rules="rules"
       ref="ruleFormRef"
-      hide-required-asterisk
     >
       <el-form-item label="Upload Photo">
-        <div class="avatar">
+        <img
+          class="user-img"
+          crossorigin="anonymous"
+          v-if="thumbnail"
+          :src="`${url}api/v1/system/uploads/${thumbnail}`"
+          alt=""
+        />
+        <div v-else class="avatar">
           <img src="../assets/user.png" alt="" />
         </div>
-        <el-upload v-model:file-list="fileList" action="#">
-          <el-button type="primary">Click to upload</el-button>
+        <el-upload
+          :on-success="successHandler"
+          v-model:file-list="fileList"
+          :action="`${url}api/v1/system/uploads`"
+        >
+          <el-button type="primary">Choose file</el-button>
         </el-upload>
       </el-form-item>
-      <el-form-item label="Name" prop="name">
-        <base-input placeholder="Name" v-model="ruleForm.name"></base-input>
+      <el-form-item label="Title" prop="title">
+        <el-select placeholder="Name" v-model="ruleForm.title">
+          <el-option value="Mr" label="Mr"></el-option>
+          <el-option value="Ms" label="Ms"></el-option>
+          <el-option value="Miss" label="Miss"></el-option>
+          <el-option value="Mrs" label="Mrs"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="First Name" prop="firstName">
+        <base-input
+          placeholder="First Name"
+          v-model="ruleForm.firstName"
+        ></base-input>
+      </el-form-item>
+      <el-form-item label="Last Name" prop="lastName">
+        <base-input
+          placeholder="Last Name"
+          v-model="ruleForm.lastName"
+        ></base-input>
       </el-form-item>
       <el-form-item label="Phone Number" prop="phoneNumber">
         <base-input
@@ -26,24 +53,8 @@
           @keypress="isNumber($event)"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Region">
-        <el-radio-group v-model="ruleForm.region" prop="region">
-          <el-radio label="Hong Kong" />
-          <el-radio label="Kowloon" />
-          <el-radio label="New Territories" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="District" prop="district">
-        <el-select
-          placeholder="District"
-          v-model="ruleForm.district"
-        ></el-select>
-      </el-form-item>
-      <el-form-item label="Street" prop="street">
-        <base-input
-          placeholder="Address"
-          v-model="ruleForm.street"
-        ></base-input>
+      <el-form-item label="Flat / Floor / Block" prop="flat">
+        <base-input placeholder="Address" v-model="ruleForm.flat"></base-input>
       </el-form-item>
       <el-form-item label="Building" prop="building">
         <base-input
@@ -51,8 +62,24 @@
           v-model="ruleForm.building"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Flat / Floor / Block" prop="flat">
-        <base-input placeholder="Address" v-model="ruleForm.flat"></base-input>
+      <el-form-item label="Street" prop="street">
+        <base-input
+          placeholder="Address"
+          v-model="ruleForm.street"
+        ></base-input>
+      </el-form-item>
+      <el-form-item label="District" prop="district">
+        <el-select
+          placeholder="District"
+          v-model="ruleForm.district"
+        ></el-select>
+      </el-form-item>
+      <el-form-item label="Region">
+        <el-radio-group v-model="ruleForm.region" prop="region">
+          <el-radio label="Hong Kong" />
+          <el-radio label="Kowloon" />
+          <el-radio label="New Territories" />
+        </el-radio-group>
       </el-form-item>
       <el-form-item>
         <base-button @click="update">Save</base-button>
@@ -62,13 +89,20 @@
 </template>
 
 <script>
+import { ElNotification, ElMessage } from "element-plus";
+import { url } from "@/url";
+
 export default {
   data() {
     return {
+      url,
       fileList: [],
+      thumbnail: "",
       ruleForm: {
+        title: "",
         region: "",
-        name: "",
+        firstName: "",
+        lastName: "",
         district: "",
         phoneNumber: "",
         street: "",
@@ -76,9 +110,19 @@ export default {
         flat: "",
       },
       rules: {
+        title: [
+          { required: true, message: "Title is required", trigger: "blur" },
+        ],
         region: [{ required: false, trigger: "change" }],
-        name: [
-          { required: true, message: "Name is required", trigger: "blur" },
+        firstName: [
+          {
+            required: true,
+            message: "First name is required",
+            trigger: "blur",
+          },
+        ],
+        lastName: [
+          { required: true, message: "Last name is required", trigger: "blur" },
         ],
         phoneNumber: [
           { required: false, trigger: "blur" },
@@ -114,7 +158,15 @@ export default {
 
       if (!keysAllowed.includes(keyPressed)) {
         evt.preventDefault();
+        ElMessage({
+          message: "Please enter numbers only",
+          type: "error",
+        });
       }
+    },
+    successHandler(uploadFile) {
+      console.log(uploadFile);
+      this.thumbnail = uploadFile.item.name;
     },
     update() {
       this.$refs.ruleFormRef.validate((valid) => {
@@ -122,16 +174,35 @@ export default {
           const data = {
             region: this.ruleForm.region,
             building: this.ruleForm.building,
-            username: this.ruleForm.name,
+            // username: this.ruleForm.name,
             phone: this.ruleForm.phoneNumber.toString(),
             district: this.ruleForm.district,
             street: this.ruleForm.street,
-            flat: this.ruleForm.flat,
+            flatFloorBlock: this.ruleForm.flat,
+            title: this.ruleForm.title,
+            firstName: this.ruleForm.firstName,
+            lastName: this.ruleForm.lastName,
+            thumbnail: this.thumbnail,
           };
-          this.$store.dispatch("auth/updateUser", {
-            data,
-            id: this.currentUser.id,
-          });
+          this.$store
+            .dispatch("auth/updateUser", {
+              data,
+              id: this.currentUser.id,
+            })
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: "Information Updated",
+                type: "success",
+              });
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
         }
       });
     },
@@ -142,6 +213,18 @@ export default {
     //     }
     //   });
     // },
+  },
+  created() {
+    this.ruleForm.title = this.currentUser.title;
+    this.ruleForm.firstName = this.currentUser.firstName;
+    this.ruleForm.lastName = this.currentUser.lastName;
+    this.ruleForm.phoneNumber = +this.currentUser.phone;
+    this.ruleForm.flat = this.currentUser.flatFloorBlock;
+    this.ruleForm.building = this.currentUser.building;
+    this.ruleForm.street = this.currentUser.street;
+    this.ruleForm.district = this.currentUser.district;
+    this.ruleForm.region = this.currentUser.region;
+    this.thumbnail = this.currentUser.thumbnail;
   },
 };
 </script>
@@ -243,6 +326,14 @@ h3 {
   background: #ffffff;
   box-shadow: inset 0px 0px 0px 1px #878787;
   border-radius: 4px;
-  padding: 0.2rem 1rem;
+  padding: 0.5rem 1rem;
+}
+
+img.user-img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 0.7rem;
 }
 </style>

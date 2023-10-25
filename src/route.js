@@ -43,7 +43,7 @@ const router = createRouter({
     { path: "/product", component: Product },
     { path: "/product/:slug", component: ProductDetail },
     { path: "/test-drive-request", component: TestDriveRequest },
-    { path: "/test-drive-recieved", component: TestDriveRecieved },
+    { path: "/test-drive-received", component: TestDriveRecieved },
     {
       path: "/cart",
       component: Cart,

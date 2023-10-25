@@ -20,4 +20,7 @@ export default {
   RESET_PASSWORD(state, payload) {
     state.currentUser = payload;
   },
+  UPDATE_USER(state, payload) {
+    state.currentUser = payload
+  }
 };

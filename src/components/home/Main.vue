@@ -24,7 +24,7 @@
                 </li>
               </ul>
               <base-button @click="goToCart(product)">Booking now</base-button>
-              <base-button :login="true" @click="selectProduct(product.slug)">{{
+              <base-button :login="true" @click="selectProduct(product)">{{
                 $t("btn.explore")
               }}</base-button>
             </el-col>
@@ -101,8 +101,8 @@ export default {
     },
   },
   methods: {
-    selectProduct(slug) {
-      this.$router.push(`/product/${slug}`);
+    selectProduct(product) {
+      this.$router.push(`/product/${product.slug}`);
     },
     async goToCart(product) {
       console.log(product);

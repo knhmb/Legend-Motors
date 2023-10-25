@@ -129,6 +129,7 @@ export default {
       if (tokenData.valid) {
         this.$router.push(`/cart`);
         this.$store.commit("product/STORE_CART_ITEMS", {
+          id: this.productDetail.id,
           product: this.productBlobImage,
           price: this.reservationFee,
           total: this.reservationFee,

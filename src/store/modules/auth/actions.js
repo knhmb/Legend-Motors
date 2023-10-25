@@ -53,7 +53,7 @@ export default {
       `api/v1/accounts/${payload.id}`,
       payload.data
     );
-    console.log(response);
+    context.commit("UPDATE_USER", response.data.item);
   },
   async checkOTP(context, payload) {
     const response = await axios.post("api/v1/accounts/otp-check", payload);

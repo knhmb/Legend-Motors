@@ -48,10 +48,10 @@
                 :placeholder="$t('auth.title')"
                 v-model="ruleForm.title"
               >
-                <el-option label="Mr"></el-option>
-                <el-option label="Ms"></el-option>
-                <el-option label="Miss"></el-option>
-                <el-option label="Mrs"></el-option>
+                <el-option label="Mr" value="Mr"></el-option>
+                <el-option label="Ms" value="Ms"></el-option>
+                <el-option label="Miss" value="Miss"></el-option>
+                <el-option label="Mrs" value="Mrs"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item :label="$t('auth.first-name')" prop="firstName">
@@ -100,7 +100,7 @@
               ></el-checkbox>
             </el-form-item>
             <el-form-item>
-              <base-button @click="requestDrive">Submit</base-button>
+              <base-button @click="submit">Submit</base-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -117,8 +117,10 @@
 <script>
 import { ElNotification } from "element-plus";
 import * as tokenData from "@/utils/checkToken";
+import loading from "@/utils/loading";
 
 export default {
+  mixins: [loading],
   data() {
     return {
       selectedProduct: "",
@@ -229,7 +231,8 @@ export default {
     setSelectedProduct(slug) {
       this.selectedProduct = slug;
     },
-    requestDrive() {
+
+    checkFields() {
       if (!this.ruleForm.productName || !this.ruleForm.type) {
         ElNotification({
           title: "Error",
@@ -238,29 +241,50 @@ export default {
         });
         return;
       }
+    },
+    submit() {
+      this.checkFields();
 
       this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
+          const selectedDate = new Date(this.ruleForm.date)
+            .toISOString()
+            .slice(0, 10);
+          const d = new Date(this.ruleForm.time);
+          const selectedTime = d.toLocaleTimeString("en-US", { hour12: false });
+
           const data = {
-            member: this.ruleForm.name,
+            title: this.ruleForm.title,
             email: this.ruleForm.email,
-            scheduleDate: this.ruleForm.date,
-            scheduleTime: this.ruleForm.time,
+            scheduleDate: selectedDate,
+            scheduleTime: selectedTime,
             phone: this.ruleForm.phone,
-            name: this.ruleForm.productName,
-            type: this.ruleForm.type,
-            status: "In-Progress",
+            firstName: this.ruleForm.firstName,
+            lastName: this.ruleForm.lastName,
+            carCarsizeSlug: this.ruleForm.type,
+            carBrandSlug: this.ruleForm.productName,
+            status: "Received",
           };
-          this.$store.dispatch("product/testDriveRequest", data).then(() => {
-            ElNotification({
-              title: "Success",
-              message: "Data has been sent",
-              type: "success",
+
+          this.openLoading();
+
+          this.$store
+            .dispatch("product/testDriveRequest", data)
+            .then(() => {
+              this.closeLoading();
+              this.$router.replace("/test-drive-received");
+              this.$refs.ruleFormRef.resetField();
+              this.ruleForm.productName = "";
+              this.ruleForm.type = "";
+            })
+            .catch((err) => {
+              this.closeLoading();
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
             });
-            this.$refs.ruleFormRef.resetField();
-            this.ruleForm.productName = "";
-            this.ruleForm.type = "";
-          });
         }
       });
     },
