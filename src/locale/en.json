@@ -56,6 +56,7 @@
     "last-name": "Last Name",
     "first-name-required": "First name is required",
     "last-name-required": "Last name is required",
-    "message-required": "Message is required"
+    "message-required": "Message is required",
+    "error.account.token.invalid-length-current-pass": "Current password is incorrect"
   }
 }
