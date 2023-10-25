@@ -122,10 +122,11 @@ export default {
 <style scoped>
 .terms-and-conditions {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   width: fit-content;
   margin: 0 auto;
+  min-height: 100vh;
 }
 
 .terms-and-conditions .container {

@@ -49,7 +49,10 @@
     
 <script>
 import { ElNotification } from "element-plus";
+import loading from "@/utils/loading";
+
 export default {
+  mixins: [loading],
   data() {
     return {
       ruleForm: {
@@ -137,13 +140,15 @@ export default {
             email: this.ruleForm.email,
             otp: this.ruleForm.otp.toString(),
           };
-
+          this.openLoading();
           this.$store
             .dispatch("auth/checkOTP", data)
             .then(() => {
+              this.closeLoading();
               this.$router.push("/reset-password");
             })
             .catch((err) => {
+              this.closeLoading();
               ElNotification({
                 title: "Error",
                 message: err.response.data.message,

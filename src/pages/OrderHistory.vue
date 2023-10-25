@@ -1,44 +1,46 @@
 <template>
   <div class="order-history">
-    <h3>Order History</h3>
-    <el-collapse v-model="activeName" accordion>
-      <el-collapse-item
-        v-for="(order, index) in orders"
-        :key="order.id"
-        :title="`Order ${index + 1}`"
-        :name="order.id"
-      >
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">{{ formatDate(order.updatedAt) }}</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">
-            {{ order.productItems[0].productName }} -
-            {{ order.productItems[0].productSize }} ({{
-              order.productItems[0].productColor
-            }})
+    <template v-if="orders.length > 0">
+      <h3>Order History</h3>
+      <el-collapse v-model="activeName" accordion>
+        <el-collapse-item
+          v-for="(order, index) in orders"
+          :key="order.id"
+          :title="`Order ${index + 1}`"
+          :name="order.id"
+        >
+          <div class="item">
+            <div class="left">Order Date</div>
+            <div class="right">{{ formatDate(order.updatedAt) }}</div>
           </div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">{{ order.productItems.length }}</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">{{ order.status }}</div>
-        </div>
-      </el-collapse-item>
-      <!-- <el-collapse-item title="Order 5" name="1">
+          <div class="item">
+            <div class="left">Item Name</div>
+            <div class="right">
+              {{ order.productItems[0].productName }} -
+              {{ order.productItems[0].productSize }} ({{
+                order.productItems[0].productColor
+              }})
+            </div>
+          </div>
+          <div class="item">
+            <div class="left">Quantity</div>
+            <div class="right">{{ order.productItems.length }}</div>
+          </div>
+          <div class="item">
+            <div class="left">Retail Price</div>
+            <div class="right">1,000,000</div>
+          </div>
+          <div class="item">
+            <div class="left">Reservation Fee</div>
+            <div class="right">1,000</div>
+          </div>
+          <div class="item">
+            <div class="left">Status</div>
+            <div class="right process">{{ order.status }}</div>
+          </div>
+        </el-collapse-item>
+
+        <!-- <el-collapse-item title="Order 5" name="1">
         <div class="item">
           <div class="left">Order Date</div>
           <div class="right">2023-05-12</div>
@@ -168,7 +170,12 @@
           <div class="right process">Proccessing</div>
         </div>
       </el-collapse-item> -->
-    </el-collapse>
+      </el-collapse>
+    </template>
+    <template v-else>
+      <h3>Looks Like There Are No Order History. Try Ordering Now?</h3>
+      <base-button @click="$router.push('/product')">Order Now</base-button>
+    </template>
   </div>
 </template>
 

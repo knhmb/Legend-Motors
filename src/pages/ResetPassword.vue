@@ -35,7 +35,10 @@
       
   <script>
 import { ElNotification } from "element-plus";
+import loading from "@/utils/loading";
+
 export default {
+  mixins: [loading],
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -91,9 +94,13 @@ export default {
             password: this.ruleForm.password,
             password2: this.ruleForm.confirmPassword,
           };
+
+          this.openLoading();
+
           this.$store
             .dispatch("auth/resetPassword", data)
             .then(() => {
+              this.closeLoading();
               ElNotification({
                 title: "Success",
                 message: "Password Changed",
@@ -102,6 +109,7 @@ export default {
               this.$router.replace("/login");
             })
             .catch((err) => {
+              this.closeLoading();
               ElNotification({
                 title: "Error",
                 message: err.response.data.message,
