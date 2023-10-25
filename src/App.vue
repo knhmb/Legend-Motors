@@ -14,6 +14,8 @@
 import TheHeader from "@/components/common/TheHeader";
 import TheFooter from "@/components/common/TheFooter";
 import * as tokenData from "@/utils/checkToken";
+import { setLanguageHeader } from "./axios";
+import i18n from "./i18n";
 
 export default {
   components: { TheHeader, TheFooter },
@@ -23,6 +25,10 @@ export default {
     };
   },
   created() {
+    const { locale } = i18n.global;
+    setLanguageHeader(locale);
+    tokenData.checkAccessToken(false);
+
     this.$store.dispatch("product/getProducts");
     this.$store.dispatch("dashboard/getCMS");
     this.$store.dispatch("dashboard/getBanners").then(() => {
@@ -31,7 +37,7 @@ export default {
 
     // const token = localStorage.getItem("accessToken");
 
-    tokenData.checkAccessToken(false);
+    // setLanguageHeader();
 
     // this.$store
     //   .dispatch("auth/validateUser", token)

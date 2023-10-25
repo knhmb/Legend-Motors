@@ -8,21 +8,21 @@
       :model="ruleForm"
       label-position="top"
     >
-      <el-form-item label="Flat / Floor / Block" prop="flat">
-        <base-input placeholder="Address"></base-input>
+      <el-form-item :label="$t('form.label-flat-floor-block')" prop="flat">
+        <base-input :placeholder="$t('form.placeholder-address')"></base-input>
       </el-form-item>
-      <el-form-item label="Building" prop="building">
-        <base-input placeholder="Address"></base-input>
+      <el-form-item :label="$t('form.label-building')" prop="building">
+        <base-input :placeholder="$t('form.placeholder-address')"></base-input>
       </el-form-item>
-      <el-form-item label="Street" prop="street">
-        <base-input placeholder="Address"></base-input>
+      <el-form-item :label="$t('form.label-street')" prop="street">
+        <base-input :placeholder="$t('form.placeholder-address')"></base-input>
       </el-form-item>
-      <el-form-item label="District" prop="district">
-        <el-select placeholder="Please select">
+      <el-form-item :label="$t('form.label-district')" prop="district">
+        <el-select :placeholder="$t('form.placeholder-please-select')">
           <el-option></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Region" prop="region">
+      <el-form-item :label="$t('form.label-region')" prop="region">
         <el-radio-group v-model="ruleForm.region">
           <el-radio label="hongkong">Hong Kong</el-radio>
           <el-radio label="kowloon">Kowloon</el-radio>
@@ -31,14 +31,11 @@
       </el-form-item>
       <el-form-item prop="terms">
         <el-checkbox>
-          I understood and agreed to the
-          <span>Booking Terms and Conditions</span>, DH Legend Motors Company
-          Limited reserves the right to modify and update the terms and
-          conditions without prior notice.
+          {{ $t("form.terms", { msg }) }}
         </el-checkbox>
       </el-form-item>
       <el-form-item>
-        <base-button @click="submit">Continue</base-button>
+        <base-button @click="submit">{{ $t("btn.continue") }}</base-button>
       </el-form-item>
     </el-form>
   </div>

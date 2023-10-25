@@ -35,6 +35,7 @@ const checkRefreshToken = async (isShowMessage) => {
 
 export const checkAccessToken = async (isShowMessage) => {
   const accessToken = localStorage.getItem("accessToken");
+
   loading.methods.openLoading();
 
   await store

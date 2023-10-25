@@ -1,4 +1,4 @@
-import setAuthHeader from "@/axios";
+import { setAuthHeader } from "@/axios";
 import { clearCart } from "@/utils/checkToken";
 import { setIsLoggedIn } from "@/utils/checkToken";
 
