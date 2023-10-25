@@ -104,13 +104,13 @@ export default {
       const re = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
       return re.test(pass);
     },
-    async changePassword(passwordData) {
+    changePassword(passwordData) {
       this.openLoading();
-      await this.$store
+      this.$store
         .dispatch("auth/changePassword", passwordData)
         .then(() => {
           this.closeLoading();
-          this.$refs.ruleFormRef.resetField();
+          this.$refs.ruleFormRef.resetFields();
           ElNotification({
             title: "Success",
             message: "Password changed",
@@ -118,6 +118,7 @@ export default {
           });
         })
         .catch((err) => {
+          console.log(err);
           this.closeLoading();
           ElNotification({
             title: "Error",
@@ -146,7 +147,7 @@ export default {
       //   });
     },
     submit() {
-      this.$refs.ruleFormRef.validate(async (valid) => {
+      this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
           const isPasswordValid = this.checkPassword(this.ruleForm.newPassword);
           if (isPasswordValid) {
@@ -156,7 +157,7 @@ export default {
               password2: this.ruleForm.confirmNewPassword,
               email: this.currentUser.email,
             };
-            await this.changePassword(data);
+            this.changePassword(data);
           } else {
             ElNotification({
               title: "Error",

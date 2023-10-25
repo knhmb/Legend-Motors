@@ -5,4 +5,7 @@ export default {
   isLoggedIn(state) {
     return state.isLoggedIn;
   },
+  orders(state) {
+    return state.orders;
+  },
 };

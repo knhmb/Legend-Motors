@@ -8,6 +8,7 @@ export default {
     return {
       currentUser: {},
       isLoggedIn: false,
+      orders: [],
     };
   },
   getters,

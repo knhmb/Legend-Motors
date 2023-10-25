@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="form-content">
+  <div class="form-content" v-if="loadData">
     <base-container>
       <el-row :gutter="50">
         <el-col :span="12">
@@ -105,11 +105,13 @@
           </el-form>
         </el-col>
       </el-row>
-      <el-divider></el-divider>
-      <p class="have-an-account">Already have an account?</p>
-      <base-button :login="true" @click="$router.push('/login')"
-        >Log in</base-button
-      >
+      <template v-if="!isLoggedIn">
+        <el-divider></el-divider>
+        <p class="have-an-account">Already have an account?</p>
+        <base-button :login="true" @click="$router.push('/login')"
+          >Log in</base-button
+        >
+      </template>
     </base-container>
   </div>
 </template>
@@ -123,6 +125,8 @@ export default {
   mixins: [loading],
   data() {
     return {
+      isLoggedIn: tokenData.valid,
+      loadData: false,
       selectedProduct: "",
       selectedProductSizes: null,
       ruleForm: {
@@ -273,7 +277,7 @@ export default {
             .then(() => {
               this.closeLoading();
               this.$router.replace("/test-drive-received");
-              this.$refs.ruleFormRef.resetField();
+              this.$refs.ruleFormRef.resetFields();
               this.ruleForm.productName = "";
               this.ruleForm.type = "";
             })
@@ -290,7 +294,11 @@ export default {
     },
   },
   async created() {
+    this.openLoading();
     await tokenData.checkAccessToken(false);
+    this.loadData = true;
+    this.closeLoading();
+
     console.log(this.currentUser);
     if (tokenData.valid) {
       this.ruleForm.title = this.currentUser.title;

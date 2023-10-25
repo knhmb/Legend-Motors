@@ -65,4 +65,12 @@ export default {
   async changePassword(_, payload) {
     await axios.post("api/v1/accounts/change-password", payload);
   },
+  async getOrders(context, payload) {
+    const response = await axios.get("/api/v1/histories/order", {
+      params: {
+        filter: `userId:${payload}`,
+      },
+    });
+    context.commit("SET_ORDERS", response.data.items);
+  },
 };

@@ -10,10 +10,10 @@
     >
       <el-form-item :label="$t('auth.title')" prop="title">
         <el-select :placeholder="$t('auth.title')" v-model="ruleForm.title">
-          <el-option label="Mr"></el-option>
-          <el-option label="Ms"></el-option>
-          <el-option label="Miss"></el-option>
-          <el-option label="Mrs"></el-option>
+          <el-option label="Mr" value="Mr"></el-option>
+          <el-option label="Ms" value="Ms"></el-option>
+          <el-option label="Miss" value="Miss"></el-option>
+          <el-option label="Mrs" value="Mrs"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('auth.first-name')" prop="firstName">
@@ -40,7 +40,8 @@
       <el-form-item label="Phone Number" prop="phoneNumber">
         <base-input
           placeholder="Phone Number"
-          v-model="ruleForm.phoneNumber"
+          v-model.number="ruleForm.phoneNumber"
+          @keypress="isNumber($event)"
         ></base-input>
       </el-form-item>
       <el-form-item label="Messages" prop="message">
@@ -65,9 +66,11 @@
 </template>
 
 <script>
-import { ElNotification } from "element-plus";
+import { ElNotification, ElMessage } from "element-plus";
+import loading from "@/utils/loading";
 
 export default {
+  mixins: [loading],
   data() {
     return {
       ruleForm: {
@@ -139,19 +142,47 @@ export default {
     };
   },
   methods: {
+    isNumber(evt) {
+      const keysAllowed = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        ".",
+      ];
+      const keyPressed = evt.key;
+
+      if (!keysAllowed.includes(keyPressed)) {
+        evt.preventDefault();
+        ElMessage({
+          message: "Please enter numbers only",
+          type: "error",
+        });
+      }
+    },
     inquire() {
       this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
           const data = {
-            title: this.ruleForm.name,
+            title: this.ruleForm.title,
+            firstName: this.ruleForm.firstName,
+            lastName: this.ruleForm.lastName,
             content: this.ruleForm.message,
             email: this.ruleForm.email,
-            phone: this.ruleForm.phoneNumber,
+            phone: this.ruleForm.phoneNumber.toString(),
             companyName: this.ruleForm.company,
           };
+          this.openLoading();
           this.$store
             .dispatch("dashboard/inquire", data)
             .then(() => {
+              this.closeLoading();
               ElNotification({
                 title: "Success",
                 message: "Message has been sent",
@@ -160,6 +191,7 @@ export default {
               this.$refs.ruleFormRef.resetFields();
             })
             .catch((err) => {
+              this.closeLoading();
               ElNotification({
                 title: "Error",
                 message: err.response.data.message,

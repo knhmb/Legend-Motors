@@ -1,5 +1,6 @@
 import store from "@/store/store";
 import { ElNotification } from "element-plus";
+import loading from "./loading";
 
 export let valid = null;
 
@@ -9,9 +10,14 @@ const checkRefreshToken = async (isShowMessage) => {
   await store
     .dispatch("auth/checkRefreshToken", refreshToken)
     .then(() => {
+      loading.methods.closeLoading();
+
       valid = true;
+      return valid;
     })
     .catch(() => {
+      loading.methods.closeLoading();
+
       valid = false;
       if (isShowMessage) {
         ElNotification({
@@ -23,17 +29,20 @@ const checkRefreshToken = async (isShowMessage) => {
 
       store.commit("auth/LOGOUT");
       clearCart();
+      return valid;
     });
-  console.log("executed");
 };
 
 export const checkAccessToken = async (isShowMessage) => {
   const accessToken = localStorage.getItem("accessToken");
+  loading.methods.openLoading();
 
   await store
     .dispatch("auth/validateUser", accessToken)
     .then(() => {
+      loading.methods.closeLoading();
       valid = true;
+      return valid;
     })
     .catch(() => {
       checkRefreshToken(isShowMessage);
@@ -42,6 +51,10 @@ export const checkAccessToken = async (isShowMessage) => {
 
 export const clearCart = () => {
   store.commit("product/RESET_CART_ITEMS");
+};
+
+export const setIsLoggedIn = (data) => {
+  valid = data;
 };
 
 // export default checkAccessToken;

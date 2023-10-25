@@ -1,5 +1,6 @@
 import setAuthHeader from "@/axios";
 import { clearCart } from "@/utils/checkToken";
+import { setIsLoggedIn } from "@/utils/checkToken";
 
 export default {
   LOGIN(state, payload) {
@@ -7,6 +8,7 @@ export default {
     localStorage.setItem("refreshToken", payload.refreshToken);
     state.currentUser = payload.item;
     setAuthHeader(payload.accessToken);
+    setIsLoggedIn(true);
     state.isLoggedIn = true;
   },
   LOGOUT(state) {
@@ -15,12 +17,16 @@ export default {
     clearCart();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    setIsLoggedIn(false);
     console.log("logout");
   },
   RESET_PASSWORD(state, payload) {
     state.currentUser = payload;
   },
   UPDATE_USER(state, payload) {
-    state.currentUser = payload
-  }
+    state.currentUser = payload;
+  },
+  SET_ORDERS(state, payload) {
+    state.orders = payload;
+  },
 };

@@ -35,8 +35,30 @@ const router = createRouter({
   routes: [
     { path: "/", redirect: "/home" },
     { path: "/home", component: Home },
-    { path: "/register", component: SignUp },
-    { path: "/login", component: Login },
+    {
+      path: "/register",
+      component: SignUp,
+      async beforeEnter(to, from, next) {
+        await tokenData.checkAccessToken();
+        if (!tokenData.valid) {
+          next();
+        } else {
+          next("/");
+        }
+      },
+    },
+    {
+      path: "/login",
+      component: Login,
+      async beforeEnter(to, from, next) {
+        await tokenData.checkAccessToken();
+        if (!tokenData.valid) {
+          next();
+        } else {
+          next("/");
+        }
+      },
+    },
     { path: "/forgot-password", component: ForgotPassword },
     { path: "/reset-password", component: ResetPassword },
     { path: "/reset-password-successful", component: ResetSuccessful },
@@ -49,6 +71,7 @@ const router = createRouter({
       component: Cart,
       async beforeEnter(to, from, next) {
         await tokenData.checkAccessToken();
+
         if (tokenData.valid) {
           next();
         } else {
@@ -88,11 +111,12 @@ const router = createRouter({
       path: "/profile",
       component: Profile,
       name: "profile",
-      beforeEnter(to, from, next) {
-        if (store.getters["auth/isLoggedIn"]) {
+      async beforeEnter(to, from, next) {
+        await tokenData.checkAccessToken();
+        if (tokenData.valid) {
           next();
         } else {
-          next("/");
+          next("/login");
         }
       },
       children: [

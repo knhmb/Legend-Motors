@@ -106,7 +106,7 @@ export default {
     },
     async goToCart(product) {
       console.log(product);
-      await tokenData.checkAccessToken(false);
+      // await tokenData.checkAccessToken(false);
       if (tokenData.valid) {
         this.$store.commit("product/STORE_CART_ITEMS", {
           id: product.id,
