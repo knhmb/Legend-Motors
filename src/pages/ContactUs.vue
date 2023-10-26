@@ -9,45 +9,38 @@
               {{ cmsContent.content }}
             </p> -->
             <p class="card-title">
-              With our extensive experience in international and local sales and
-              trading of new and used cars, we aspire to Drive for a Better
-              Life.
+              {{ cmsContent.content }}
             </p>
             <div class="info">
               <div class="img-wrapper">
                 <img src="../assets/location.png" alt="" />
               </div>
               <p>
-                Rm. 61, 8/F, Sino Industrial Plaza, 9 Kai Cheung Rd., Kowloon
-                Bay, Kowloon
+                {{ cmsContent.address }}
               </p>
             </div>
             <div class="info">
               <div class="img-wrapper">
                 <img src="../assets/sms.png" alt="" />
               </div>
-              <p>info@wulingev.com.hk</p>
+              <p>{{ cmsContent.email }}</p>
             </div>
             <div class="info">
               <div class="img-wrapper">
                 <img src="../assets/call.png" alt="" />
               </div>
-              <p>+852 6089 9653</p>
+              <p>{{ cmsContent.phone }}</p>
             </div>
             <div class="info">
               <div class="img-wrapper">
                 <img src="../assets/icons/clock.png" alt="" />
               </div>
               <p>
-                Monday to Friday: 9 a.m. to 7 p.m. Saturday, Sunday and public
-                holidays: 9 am to 8 pm
+                {{ $t("dashboard.office-time") }}
               </p>
             </div>
           </div>
-          <div class="card">
-            <!-- <p>
-              {{ cmsContent.content }}
-            </p> -->
+          <!-- <div class="card">
             <p class="card-title">
               Second Place, second title, if we don’t create the second one in
               CMS, here will be hide.
@@ -78,14 +71,13 @@
                 <img src="../assets/icons/clock.png" alt="" />
               </div>
               <p>
-                Monday to Friday: 9 a.m. to 7 p.m. Saturday, Sunday and public
-                holidays: 9 am to 8 pm
+                {{ $t("dashboard.contact-us-time") }}
               </p>
             </div>
-          </div>
+          </div> -->
         </el-col>
         <el-col :span="12">
-          <Form />
+          <Form :title="cmsContent.title" />
         </el-col>
       </el-row>
     </base-container>

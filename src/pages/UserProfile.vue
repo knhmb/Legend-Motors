@@ -1,6 +1,6 @@
 <template>
   <div class="user-profile">
-    <h3>Profile</h3>
+    <h3>{{ $t("dashboard.profile") }}</h3>
     <img
       class="user-img"
       crossorigin="anonymous"

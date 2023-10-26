@@ -2,14 +2,11 @@
   <section class="tes-drive-successful">
     <div class="banner">
       <img src="../assets/Test-Drive-Request-banner.png" alt="" />
-      <h3>Test Drive Request</h3>
+      <h3>{{ $t("menu.test-drive-request") }}</h3>
     </div>
     <div class="content">
-      <h2>We have received your request</h2>
-      <p>
-        Thank you for your request. We will process your application as <br />
-        soon as possible.
-      </p>
+      <h2>{{ $t("dashboard.request-received") }}</h2>
+      <p v-html="$t('dashboard.request-processing-message')"></p>
     </div>
   </section>
 </template>

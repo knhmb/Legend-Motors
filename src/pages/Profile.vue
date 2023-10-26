@@ -15,24 +15,24 @@
         <span
           @click="$router.push('/profile/user-profile')"
           :class="{ 'is-selected': $route.path === '/profile/user-profile' }"
-          >Profile</span
+          >{{ $t("dashboard.profile") }}</span
         >
         <span
           @click="$router.push('/profile/edit-profile')"
           :class="{ 'is-selected': $route.path === '/profile/edit-profile' }"
-          >Edit Profile</span
+          >{{ $t("auth.edit-profile") }}</span
         >
         <span
           @click="$router.push('/profile/change-password')"
           :class="{ 'is-selected': $route.path === '/profile/change-password' }"
-          >Change Password</span
+          >{{ $t("form.change-password") }}</span
         >
         <span
           @click="$router.push('/profile/order-history')"
           :class="{ 'is-selected': $route.path === '/profile/order-history' }"
-          >Order History</span
+          >{{ $t("dashboard.order-history") }}</span
         >
-        <span @click="logout">Logout</span>
+        <span @click="logout">{{ $t("auth.logout") }}</span>
       </div>
       <router-view></router-view>
     </base-container>

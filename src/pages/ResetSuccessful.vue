@@ -2,14 +2,11 @@
 <template>
   <section class="reset-password-success">
     <base-container>
-      <h3>Password Reset Successful</h3>
-      <p>
-        Your password has been successfully reset. <br />
-        You can now log in to your account using your new password.
-      </p>
-      <base-button @click="$router.replace('/login')"
-        >Back to Log In</base-button
-      >
+      <h3>{{ $t("auth.password-reset-success") }}</h3>
+      <p v-html="$t('auth.password-reset-message')"></p>
+      <base-button @click="$router.replace('/login')">{{
+        $t("auth.back-to-login")
+      }}</base-button>
     </base-container>
   </section>
 </template>

@@ -2,7 +2,7 @@
 <template>
   <section class="cart">
     <base-container>
-      <h3>Your Cart</h3>
+      <h3>{{ $t("dashboard.your-cart") }}</h3>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="product" label="Product" width="400">
           <template #default="scope">
@@ -13,7 +13,7 @@
                 <small>{{ selectedProductDetails.size }}</small>
                 <small>{{ selectedProductDetails.color }}</small>
                 <p class="remove" @click="removeItem(productDetail.id)">
-                  Remove
+                  {{ $t("btn.remove") }}
                 </p>
               </div>
               <!-- <div class="product-info">
@@ -30,12 +30,12 @@
       </el-table>
       <div class="total-price-info">
         <div class="sub-total">
-          <p>Subtotal</p>
+          <p>{{ $t("dashboard.subtotal") }}</p>
           <!-- <p>$100</p> -->
           <p>${{ totalPrice }}</p>
         </div>
         <div class="total">
-          <p>Total</p>
+          <p>{{ $t("dashboard.total") }}</p>
           <!-- <p>$100</p> -->
           <p>${{ totalPrice }}</p>
         </div>

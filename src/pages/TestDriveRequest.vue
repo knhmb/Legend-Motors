@@ -3,7 +3,7 @@
     <div class="banner">
       <img src="../assets/Background-image.png" alt="" />
       <!-- <img :src="blobImage" alt="" /> -->
-      <h3>Test Drive Request</h3>
+      <h3>{{ $t("menu.test-drive-request") }}</h3>
     </div>
     <Main />
   </section>

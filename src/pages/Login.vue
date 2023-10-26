@@ -2,7 +2,7 @@
 <template>
   <section class="login">
     <base-container>
-      <h3>Log in to your account</h3>
+      <h3>{{ $t("auth.login-text") }}</h3>
       <el-form
         label-position="top"
         hide-required-asterisk

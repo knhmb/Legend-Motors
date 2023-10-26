@@ -1,13 +1,13 @@
 <template>
   <div class="edit-profile">
-    <h3>Edit Profile</h3>
+    <h3>{{ $t("auth.edit-profile") }}</h3>
     <el-form
       label-position="top"
       :model="ruleForm"
       :rules="rules"
       ref="ruleFormRef"
     >
-      <el-form-item label="Upload Photo">
+      <el-form-item :label="$t('form.label-upload-photo')">
         <img
           class="user-img"
           crossorigin="anonymous"
@@ -23,58 +23,61 @@
           v-model:file-list="fileList"
           :action="`${url}api/v1/system/uploads`"
         >
-          <el-button type="primary">Choose file</el-button>
+          <el-button type="primary">{{ $t("btn.choose-file") }}</el-button>
         </el-upload>
       </el-form-item>
-      <el-form-item label="Title" prop="title">
-        <el-select placeholder="Name" v-model="ruleForm.title">
+      <el-form-item :label="$t('auth.title')" prop="title">
+        <el-select :placeholder="$t('auth.name')" v-model="ruleForm.title">
           <el-option value="Mr" label="Mr"></el-option>
           <el-option value="Ms" label="Ms"></el-option>
           <el-option value="Miss" label="Miss"></el-option>
           <el-option value="Mrs" label="Mrs"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="First Name" prop="firstName">
+      <el-form-item :label="$t('auth.first-name')" prop="firstName">
         <base-input
-          placeholder="First Name"
+          :placeholder="$t('auth.first-name')"
           v-model="ruleForm.firstName"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Last Name" prop="lastName">
+      <el-form-item :label="$t('auth.last-name')" prop="lastName">
         <base-input
-          placeholder="Last Name"
+          :placeholder="$t('auth.last-name')"
           v-model="ruleForm.lastName"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Phone Number" prop="phoneNumber">
+      <el-form-item :label="$t('form.label-phone-number')" prop="phoneNumber">
         <base-input
-          placeholder="Phone Number"
+          :placeholder="$t('form.label-phone-number')"
           v-model.number="ruleForm.phoneNumber"
           @keypress="isNumber($event)"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Flat / Floor / Block" prop="flat">
-        <base-input placeholder="Address" v-model="ruleForm.flat"></base-input>
-      </el-form-item>
-      <el-form-item label="Building" prop="building">
+      <el-form-item :label="$t('form.label-flat-floor-block')" prop="flat">
         <base-input
-          placeholder="Address"
+          :placeholder="$t('form.placeholder-address')"
+          v-model="ruleForm.flat"
+        ></base-input>
+      </el-form-item>
+      <el-form-item :label="$t('form.label-building')" prop="building">
+        <base-input
+          :placeholder="$t('form.placeholder-address')"
           v-model="ruleForm.building"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Street" prop="street">
+      <el-form-item :label="$t('form.label-street')" prop="street">
         <base-input
-          placeholder="Address"
+          :placeholder="$t('form.placeholder-address')"
           v-model="ruleForm.street"
         ></base-input>
       </el-form-item>
-      <el-form-item label="District" prop="district">
+      <el-form-item :label="$t('form.label-district')" prop="district">
         <el-select
-          placeholder="District"
+          :placeholder="$t('form.label-district')"
           v-model="ruleForm.district"
         ></el-select>
       </el-form-item>
-      <el-form-item label="Region">
+      <el-form-item :label="$t('form.label-region')">
         <el-radio-group v-model="ruleForm.region" prop="region">
           <el-radio label="Hong Kong" />
           <el-radio label="Kowloon" />
@@ -82,7 +85,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <base-button @click="update">Save</base-button>
+        <base-button @click="update">{{ $t("btn.save") }}</base-button>
       </el-form-item>
     </el-form>
   </div>
@@ -111,22 +114,30 @@ export default {
       },
       rules: {
         title: [
-          { required: true, message: "Title is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.title-required"),
+            trigger: "blur",
+          },
         ],
         region: [{ required: false, trigger: "change" }],
         firstName: [
           {
             required: true,
-            message: "First name is required",
+            message: this.$t("auth.first-name-required"),
             trigger: "blur",
           },
         ],
         lastName: [
-          { required: true, message: "Last name is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("auth.last-name-required"),
+            trigger: "blur",
+          },
         ],
         phoneNumber: [
           { required: false, trigger: "blur" },
-          { type: "number", message: "Phone Number is invalid" },
+          { type: "number", message: this.$t("auth.phone-invalid") },
         ],
         district: [{ required: false, trigger: "blur" }],
         building: [{ required: false, trigger: "blur" }],
@@ -159,7 +170,7 @@ export default {
       if (!keysAllowed.includes(keyPressed)) {
         evt.preventDefault();
         ElMessage({
-          message: "Please enter numbers only",
+          message: this.$t("form.numbers-validation"),
           type: "error",
         });
       }
@@ -192,7 +203,7 @@ export default {
             .then(() => {
               ElNotification({
                 title: "Success",
-                message: "Information Updated",
+                message: this.$t("form.information-updated"),
                 type: "success",
               });
             })

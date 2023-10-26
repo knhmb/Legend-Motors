@@ -1,38 +1,44 @@
 <template>
   <div class="change-password">
-    <h3>Change Password</h3>
+    <h3>{{ $t("form.change-password") }}</h3>
     <el-form
       :model="ruleForm"
       ref="ruleFormRef"
       :rules="rules"
       label-position="top"
     >
-      <el-form-item label="Current Password" prop="currentPassword">
+      <el-form-item
+        :label="$t('form.label-current-password')"
+        prop="currentPassword"
+      >
         <base-input
           v-model="ruleForm.currentPassword"
           type="password"
           show-password
-          placeholder="Current Password"
+          :placeholder="$t('form.label-current-password')"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Password" prop="newPassword">
+      <el-form-item :label="$t('auth.password')" prop="newPassword">
         <base-input
           v-model="ruleForm.newPassword"
           type="password"
           show-password
-          placeholder="Password"
+          :placeholder="$t('auth.password')"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Confirm Password" prop="confirmNewPassword">
+      <el-form-item
+        :label="$t('auth.confirm-password')"
+        prop="confirmNewPassword"
+      >
         <base-input
           v-model="ruleForm.confirmNewPassword"
           type="password"
           show-password
-          placeholder="Confirm Password"
+          :placeholder="$t('auth.confirm-password')"
         ></base-input>
       </el-form-item>
       <el-form-item>
-        <base-button @click="submit">Save</base-button>
+        <base-button @click="submit">{{ $t("btn.save") }}</base-button>
       </el-form-item>
     </el-form>
   </div>
@@ -79,7 +85,7 @@ export default {
         currentPassword: [
           {
             required: true,
-            message: "Current password is requried",
+            message: this.$t("auth.current-password-required"),
             trigger: "blur",
           },
         ],
@@ -113,7 +119,7 @@ export default {
           this.$refs.ruleFormRef.resetFields();
           ElNotification({
             title: "Success",
-            message: "Password changed",
+            message: this.$t("form.password-changed"),
             type: "success",
           });
         })
@@ -161,8 +167,7 @@ export default {
           } else {
             ElNotification({
               title: "Error",
-              message:
-                "Password requires at least one upper-case alphabet, lower-case alphabet, numberic.",
+              message: this.$t("form.password-constraint"),
               type: "error",
             });
           }

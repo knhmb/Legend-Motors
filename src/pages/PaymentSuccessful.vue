@@ -1,11 +1,9 @@
 <template>
   <div class="payment-success">
     <base-container>
-      <h3>Order Confirmed</h3>
+      <h3>{{ $t("dashboard.order-confirmed") }}</h3>
       <p>
-        Thank you for your order. We have confirmed your order information and
-        will process it as soon as possible. If you have any questions, please
-        contact us.
+        {{ $t("dashboard.order-confirmed-message") }}
       </p>
     </base-container>
   </div>

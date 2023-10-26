@@ -200,7 +200,7 @@ export default {
 
                 ElNotification({
                   title: "Success",
-                  message: "Account Created!",
+                  message: this.$t("auth.account-created"),
                   type: "success",
                 });
                 this.$router.replace("/login");
@@ -217,8 +217,7 @@ export default {
           } else {
             ElNotification({
               title: "Error",
-              message:
-                "Password requires at least one upper-case alphabet, lower-case alphabet, numberic.",
+              message: this.$t("form.password-constraint"),
               type: "error",
             });
           }

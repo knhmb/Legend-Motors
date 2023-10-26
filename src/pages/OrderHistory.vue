@@ -1,7 +1,7 @@
 <template>
   <div class="order-history">
     <template v-if="orders.length > 0">
-      <h3>Order History</h3>
+      <h3>{{ $t("dashboard.order-history") }}</h3>
       <el-collapse v-model="activeName" accordion>
         <el-collapse-item
           v-for="(order, index) in orders"
@@ -10,11 +10,11 @@
           :name="order.id"
         >
           <div class="item">
-            <div class="left">Order Date</div>
+            <div class="left">{{ $t("dashboard.order-date") }}</div>
             <div class="right">{{ formatDate(order.updatedAt) }}</div>
           </div>
           <div class="item">
-            <div class="left">Item Name</div>
+            <div class="left">{{ $t("dashboard.item-name") }}</div>
             <div class="right">
               {{ order.productItems[0].productName }} -
               {{ order.productItems[0].productSize }} ({{
@@ -23,19 +23,19 @@
             </div>
           </div>
           <div class="item">
-            <div class="left">Quantity</div>
+            <div class="left">{{ $t("dashboard.quantity") }}</div>
             <div class="right">{{ order.productItems.length }}</div>
           </div>
           <div class="item">
-            <div class="left">Retail Price</div>
+            <div class="left">{{ $t("dashboard.retail-price") }}</div>
             <div class="right">1,000,000</div>
           </div>
           <div class="item">
-            <div class="left">Reservation Fee</div>
+            <div class="left">{{ $t("dashboard.reservation-fee") }}</div>
             <div class="right">1,000</div>
           </div>
           <div class="item">
-            <div class="left">Status</div>
+            <div class="left">{{ $t("dashboard.status") }}</div>
             <div class="right process">{{ order.status }}</div>
           </div>
         </el-collapse-item>
@@ -173,8 +173,10 @@
       </el-collapse>
     </template>
     <template v-else>
-      <h3>Looks Like There Are No Order History. Try Ordering Now?</h3>
-      <base-button @click="$router.push('/product')">Order Now</base-button>
+      <h3>{{ $t("dashboard.empty-orders") }}</h3>
+      <base-button @click="$router.push('/product')">{{
+        $t("btn.order-now")
+      }}</base-button>
     </template>
   </div>
 </template>

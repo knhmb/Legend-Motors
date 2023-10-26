@@ -119,7 +119,7 @@ export default {
             .then(() => {
               ElNotification({
                 title: "Success",
-                message: "OTP sent to your email",
+                message: this.$t("form.otp-sent"),
                 type: "success",
               });
             })

@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="contact-us-form">
-    <h4>{{ $t("menu.contact-us") }}</h4>
+    <h4>{{ title }}</h4>
     <el-form
       label-position="top"
       :model="ruleForm"
@@ -74,6 +74,7 @@ import loading from "@/utils/loading";
 
 export default {
   mixins: [loading],
+  props: ["title"],
   data() {
     return {
       ruleForm: {

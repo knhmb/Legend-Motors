@@ -4,7 +4,7 @@
       <el-row justify="center">
         <el-col>
           <div class="card" v-for="item in 3" :key="item">
-            <h2>Office Name</h2>
+            <h2>{{ $t("dashboard.office-name") }}</h2>
             <div class="info">
               <div class="img-wrapper">
                 <img src="../assets/location.png" alt="" />
@@ -18,10 +18,7 @@
               <div class="img-wrapper">
                 <img src="../assets/icons/clock.png" alt="" />
               </div>
-              <p>
-                Monday to Friday: 9 a.m. to 7 p.m. <br />
-                Saturday, Sunday and public holidays: 9 am to 8 pm
-              </p>
+              <p v-html="$t('dashboard.office-time')"></p>
             </div>
             <div class="info">
               <div class="img-wrapper">

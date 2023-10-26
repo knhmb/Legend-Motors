@@ -2,31 +2,36 @@
 <template>
   <section class="reset-password">
     <base-container>
-      <h3>Reset Password</h3>
+      <h3>{{ $t("auth.reset-password") }}</h3>
       <el-form
         label-position="top"
         :model="ruleForm"
         :rules="rules"
         ref="ruleFormRef"
       >
-        <el-form-item label="Password" prop="password">
+        <el-form-item :label="$t('auth.password')" prop="password">
           <base-input
             show-password
             type="password"
-            placeholder="Password"
+            :placeholder="$t('auth.password')"
             v-model="ruleForm.password"
           ></base-input>
         </el-form-item>
-        <el-form-item label="Confirm Password" prop="confirmPassword">
+        <el-form-item
+          :label="$t('auth.confirm-password')"
+          prop="confirmPassword"
+        >
           <base-input
             show-password
             type="password"
-            placeholder="Confirm Password"
+            :placeholder="$t('auth.confirm-password')"
             v-model="ruleForm.confirmPassword"
           ></base-input>
         </el-form-item>
         <el-form-item>
-          <base-button @click="resetPassword">Reset Password</base-button>
+          <base-button @click="resetPassword"
+            >{{ $t("auth.reset-password") }} }}</base-button
+          >
         </el-form-item>
       </el-form>
     </base-container>
@@ -53,9 +58,9 @@ export default {
     };
     const validateConfirmPass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Confirm password is required"));
+        callback(new Error(this.$t("auth.confirm-password-required")));
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("Password's do not match"));
+        callback(new Error(this.$t("auth.password-dont-match")));
       } else {
         callback();
       }
@@ -103,7 +108,7 @@ export default {
               this.closeLoading();
               ElNotification({
                 title: "Success",
-                message: "Password Changed",
+                message: this.$t("form.password-changed"),
                 type: "success",
               });
               this.$router.replace("/login");
