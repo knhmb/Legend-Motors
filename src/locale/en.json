@@ -10,13 +10,20 @@
     "contact-us": "Contact Us",
     "terms-conditions": "Terms & Conditions",
     "shopping-cart": "Shopping Cart",
-    "privacy-policy": "Privacy Policy"
+    "privacy-policy": "Privacy Policy",
+    "hi": "Hi"
   },
   "btn": {
     "booking-now": "Booking now",
     "explore": "Explore",
     "register": "Register",
-    "continue": "Continue"
+    "continue": "Continue",
+    "send": "Send",
+    "add-to-cart": "Add to Cart",
+    "submit": "Submit",
+    "login": "Log in",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "product": "Product",
   "tabs": {},
@@ -57,7 +64,9 @@
     "first-name-required": "First name is required",
     "last-name-required": "Last name is required",
     "message-required": "Message is required",
-    "error.account.token.invalid-length-current-pass": "Current password is incorrect"
+    "error.account.token.invalid-length-current-pass": "Current password is incorrect",
+    "login-required": "Login Required",
+    "login-required-description": "Please log in to continue the action. Kindly provide your login credentials to proceed."
   },
   "form": {
     "label-flat-floor-block": "Flat / Floor / Block",
@@ -65,9 +74,44 @@
     "label-street": "Street",
     "label-district": "District",
     "label-region": "Region",
+    "label-company-name": "Company Name (if applicable)",
+    "label-phone-number": "Phone Number",
+    "label-message": "Message",
+    "label-select-car": "Select Wuling Car",
+    "label-schedule-date": "Schedule Date",
+    "label-schedule-time": "Schedule Time",
+    "placeholder-select-date": "Please select the date",
+    "placeholder-select-time": "Please select the time",
+    "placeholder-interested-product": "Interested Product",
+    "placeholder-interested-type": "Interested Type",
     "placeholder-address": "Address",
+    "placeholder-please-select": "Please select",
     "booking-terms-conditions": "Booking Terms and Conditions",
     "terms": "I understood and agreed to the Booking Terms and Conditions, DH Legend Motors Company Limited reserves the right to modify and update the terms and conditions without prior notice.",
-    "placeholder-please-select": "Please select"
+    "fill-the-details": "Fill in the details",
+    "message-address-required": "Address is required",
+    "accept-data-collection": "I agree to the terms of data collection and storage.",
+    "numbers-validation": "Please enter numbers only",
+    "message-sent": "Message has been sent",
+    "color-required": "Please select a color",
+    "already-have-an-account": "Already have an account?",
+    "product-required": "Please select a product and a product type"
+  },
+  "dashboard": {
+    "payment-method": "Payment Method",
+    "other-options": "Other Options",
+    "product-name": "Air EV",
+    "product-description": "Get an Environmentally Friendly Driving Experience with Wuling Air ev - Drive For A Green Life!",
+    "products": "Products",
+    "highlighted-specifications": "Highlighted Specifications",
+    "feature": "Feature",
+    "start-from": "Start From",
+    "reservation-fee": "Reservation Fee",
+    "select-size": "Choose the size",
+    "select-color": "Choose the color",
+    "color-note": "*Colour may differ slightly from the actual color of the car",
+    "specification": "Specification",
+    "specification-empty": "No Specifications for this product",
+    "test-drive-request-description": "Interested in trying a Wuling car? fill in the form below, choose the car you want, select the nearest dealer from your location, and arrange a test drive schedule for your dream Wuling car."
   }
 }

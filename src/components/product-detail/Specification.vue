@@ -2,32 +2,33 @@
 <template>
   <div class="specification">
     <base-container>
-      <h3>Specification</h3>
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setTab">
-        <el-tab-pane
-          :label="spec.name"
-          :name="spec.name"
-          v-for="spec in filterCarSize.specification"
-          :key="spec"
-        >
-          <el-table
-            :data="tableData"
-            border
-            style="width: 100%"
-            v-if="tableData.length > 0"
+      <h3>{{ $t("dashboard.specification") }}</h3>
+      <template v-if="isPropertyValid">
+        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setTab">
+          <el-tab-pane
+            :label="spec.name"
+            :name="spec.name"
+            v-for="spec in filterCarSize.specification"
+            :key="spec"
           >
-            <!-- <el-table-column
+            <el-table
+              :data="tableData"
+              border
+              style="width: 100%"
+              v-if="tableData.length > 0"
+            >
+              <!-- <el-table-column
               v-for="table in spec.table"
               :key="table"
               :prop="table.label"
               :label="table.label"
               width="250"
             /> -->
-            <el-table-column prop="label" label="Label" width="250" />
-            <el-table-column prop="content" label="Content" width="250" />
-          </el-table>
-        </el-tab-pane>
-        <!-- <el-tab-pane label="Dimension And Chassis" name="first">
+              <el-table-column prop="label" label="Label" width="250" />
+              <el-table-column prop="content" label="Content" width="250" />
+            </el-table>
+          </el-tab-pane>
+          <!-- <el-tab-pane label="Dimension And Chassis" name="first">
           <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="air" label="Air ev Type" width="250" />
             <el-table-column
@@ -49,7 +50,11 @@
             <el-table-column prop="long-range" label="Long Range" width="250" />
           </el-table>
         </el-tab-pane> -->
-      </el-tabs>
+        </el-tabs>
+      </template>
+      <template v-else>
+        <h3>{{ $t("dashboard.specification-empty") }}</h3>
+      </template>
     </base-container>
   </div>
 </template>
@@ -78,6 +83,9 @@ export default {
         (item) => item.name === this.selectedProductDetails.size
       );
     },
+    isPropertyValid() {
+      return "specification" in this.filterCarSize;
+    },
   },
   methods: {
     setTab(pane) {
@@ -98,6 +106,7 @@ export default {
         return;
       }
       this.tableData = filterTable.table;
+      console.log(this.tableData);
     },
   },
   mounted() {

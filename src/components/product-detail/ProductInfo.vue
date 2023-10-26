@@ -9,16 +9,16 @@
           <h3>{{ productDetail.name }}</h3>
           <div class="price">
             <div>
-              <small>Start From</small>
+              <small>{{ $t("dashboard.start-from") }}</small>
               <p>${{ retailPrice }}</p>
             </div>
             <div>
-              <small>Reservation Fee</small>
+              <small>{{ $t("dashboard.reservation-fee") }}</small>
               <p>${{ reservationFee }}</p>
             </div>
           </div>
           <div class="size">
-            <p>Choose the size</p>
+            <p>{{ $t("dashboard.select-size") }}</p>
             <el-radio-group v-model="radio">
               <el-radio
                 @change="setSize(size)"
@@ -31,7 +31,7 @@
             </el-radio-group>
           </div>
           <div class="color">
-            <p>Choose the color</p>
+            <p>{{ $t("dashboard.select-color") }}</p>
             <div class="color-options">
               <div
                 :style="{ background: color.color }"
@@ -61,15 +61,12 @@
                 :class="{ 'is-selected': selectedColor === 5 }"
               ></div> -->
             </div>
-            <p class="color-text">Pristine White</p>
-            <small
-              >*Colour may differ slightly from the actual color of the
-              car</small
-            >
+            <p class="color-text">{{ selectedColor }}</p>
+            <small>{{ $t("dashboard.color-note") }}</small>
           </div>
-          <base-button @click="addToCart(productDetail)"
-            >Add to Cart</base-button
-          >
+          <base-button @click="addToCart(productDetail)">{{
+            $t("btn.add-to-cart")
+          }}</base-button>
         </el-col>
       </el-row>
       <LoginRequiredDialog
@@ -120,7 +117,7 @@ export default {
       if (!this.selectedColor) {
         ElNotification({
           title: "Error",
-          message: "Please select a color",
+          message: this.$t("form.color-required"),
           type: "error",
         });
         return;
@@ -276,7 +273,7 @@ h3 {
 
 .color .color-options {
   display: flex;
-  align-items: centers;
+  align-items: center;
 }
 
 .color .color-options div {

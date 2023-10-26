@@ -61,7 +61,7 @@
           </temlate>
           <template v-else>
             <p @click="$router.push('/profile')">
-              Hi, {{ currentUser.username }}
+              {{ $t("menu.hi") }}, {{ currentUser.username }}
             </p>
             <div class="icon-content">
               <img src="../../assets/user.png" alt="" />

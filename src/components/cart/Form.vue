@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="cart-form">
-    <h3>Fill in the details</h3>
+    <h3>$t('form.fill-the-details')</h3>
     <el-form
       ref="ruleFormRef"
       :rules="rules"
@@ -56,19 +56,39 @@ export default {
       },
       rules: {
         flat: [
-          { required: true, message: "Address is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("form.message-address-required"),
+            trigger: "blur",
+          },
         ],
         building: [
-          { required: true, message: "Address is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("form.message-address-required"),
+            trigger: "blur",
+          },
         ],
         street: [
-          { required: true, message: "Address is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("form.message-address-required"),
+            trigger: "blur",
+          },
         ],
         district: [
-          { required: true, message: "Address is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$t("form.message-address-required"),
+            trigger: "blur",
+          },
         ],
         region: [
-          { required: true, message: "Address is required", trigger: "change" },
+          {
+            required: true,
+            message: this.$t("form.message-address-required"),
+            trigger: "change",
+          },
         ],
         terms: [
           {

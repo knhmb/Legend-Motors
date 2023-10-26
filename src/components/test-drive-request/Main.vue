@@ -4,15 +4,13 @@
     <base-container>
       <el-row :gutter="50">
         <el-col :span="12">
-          <h5>Test Drive Request</h5>
+          <h5>{{ $t("menu.test-drive-request") }}</h5>
           <p>
-            Interested in trying a Wuling car? fill in the form below, choose
-            the car you want, select the nearest dealer from your location, and
-            arrange a test drive schedule for your dream Wuling car.
+            {{ $t("dashboard.test-drive-request-description") }}
           </p>
-          <el-form-item label="Select Wuling Car">
+          <el-form-item :label="$t('form.label-select-car')">
             <el-select
-              placeholder="Interested Product"
+              :placeholder="$t('form.placeholder-interested-product')"
               v-model="ruleForm.productName"
             >
               <el-option
@@ -23,7 +21,10 @@
                 @click="setSelectedProduct(product.slug)"
               ></el-option>
             </el-select>
-            <el-select placeholder="Interested Type" v-model="ruleForm.type">
+            <el-select
+              :placeholder="$t('form.placeholder-interested-product')"
+              v-model="ruleForm.type"
+            >
               <template v-if="selectedProduct">
                 <el-option
                   v-for="size in selectedProductSizes.carSize"
@@ -36,7 +37,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <h5>Fill in the details</h5>
+          <h5>{{ $t("form.fill-the-details") }}</h5>
           <el-form
             label-position="top"
             :model="ruleForm"
@@ -66,51 +67,51 @@
                 v-model="ruleForm.lastName"
               ></base-input>
             </el-form-item>
-            <el-form-item label="Email" prop="email">
+            <el-form-item :label="$t('auth.email')" prop="email">
               <base-input
-                placeholder="Email"
+                :placeholder="$t('auth.email')"
                 v-model="ruleForm.email"
               ></base-input>
             </el-form-item>
-            <el-form-item label="Phone Number" prop="phone">
+            <el-form-item :label="$t('form.label-phone-number')" prop="phone">
               <base-input
-                placeholder="Phone Number"
+                :placeholder="$t('form.label-phone-number')"
                 v-model="ruleForm.phone"
               ></base-input>
             </el-form-item>
-            <el-form-item label="Schedule Date" prop="date">
+            <el-form-item :label="$t('form.label-schedule-date')" prop="date">
               <el-date-picker
                 class="date-input"
                 type="date"
-                placeholder="Please select the date"
+                :placeholder="$t('form.placeholder-select-date')"
                 v-model="ruleForm.date"
               />
             </el-form-item>
-            <el-form-item label="Schedule Time" prop="time">
+            <el-form-item :label="$t('form.label-schedule-time')" prop="time">
               <el-time-picker
                 class="date-input"
-                placeholder="Please select the time"
+                :placeholder="$t('form.placeholder-select-time')"
                 v-model="ruleForm.time"
               />
             </el-form-item>
             <el-form-item prop="checked">
               <el-checkbox
-                label="I agree to the terms of data collection and storage."
+                :label="$t('form.accept-data-collection')"
                 v-model="ruleForm.checked"
               ></el-checkbox>
             </el-form-item>
             <el-form-item>
-              <base-button @click="submit">Submit</base-button>
+              <base-button @click="submit">{{ $t("btn.submit") }}</base-button>
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
       <template v-if="!isLoggedIn">
         <el-divider></el-divider>
-        <p class="have-an-account">Already have an account?</p>
-        <base-button :login="true" @click="$router.push('/login')"
-          >Log in</base-button
-        >
+        <p class="have-an-account">{{ $t("form.already-have-an-account") }}</p>
+        <base-button :login="true" @click="$router.push('/login')">{{
+          $t("btn.login")
+        }}</base-button>
       </template>
     </base-container>
   </div>
@@ -240,7 +241,7 @@ export default {
       if (!this.ruleForm.productName || !this.ruleForm.type) {
         ElNotification({
           title: "Error",
-          message: "Please select a product and a product type",
+          message: this.$t("form.product-required"),
           type: "error",
         });
         return;

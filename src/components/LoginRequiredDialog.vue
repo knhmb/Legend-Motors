@@ -7,18 +7,19 @@
     >
       <div class="top">
         <img src="../assets//icon-center-20px.png" alt="" />
-        <h4>Login Required</h4>
+        <h4>{{ $t("auth.login-required") }}</h4>
       </div>
       <p>
-        Please log in to continue the action. Kindly provide your login
-        credentials to proceed.
+        {{ $t("auth.login-required-description") }}
       </p>
       <template #footer>
         <span class="dialog-footer">
-          <el-button class="cancel" @click="$emit('closeDialog')"
-            >Cancel</el-button
-          >
-          <el-button type="primary" @click="redirect"> Confirm </el-button>
+          <el-button class="cancel" @click="$emit('closeDialog')">{{
+            $t("btn.cancel")
+          }}</el-button>
+          <el-button type="primary" @click="redirect">
+            {{ $t("btn.confirm") }}
+          </el-button>
         </span>
       </template>
     </el-dialog>

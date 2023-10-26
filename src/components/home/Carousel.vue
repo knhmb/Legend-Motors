@@ -11,10 +11,9 @@
           {{ getBanner }}
           <!-- <img src="../../assets/About-Us-banner.png" /> -->
           <div>
-            <h3>Air EV</h3>
+            <h3>{{ $t("dashboard.product-name") }}</h3>
             <p>
-              Get an Environmentally Friendly Driving Experience with Wuling Air
-              ev - Drive For A Green Life!
+              {{ $t("dashboard.product-description") }}
             </p>
             <base-button @click="$router.push('/cart')">{{
               $t("btn.booking-now")

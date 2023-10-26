@@ -7,7 +7,7 @@
         :src="`${url}api/v1/system/uploads/${getBanner}`"
         alt=""
       />
-      <h3>Product</h3>
+      <h3>{{ $t("dashboard.products") }}</h3>
     </div>
   </section>
 </template>

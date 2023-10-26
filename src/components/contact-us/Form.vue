@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="contact-us-form">
-    <h4>Contact Us</h4>
+    <h4>{{ $t("menu.contact-us") }}</h4>
     <el-form
       label-position="top"
       :model="ruleForm"
@@ -28,38 +28,41 @@
           v-model="ruleForm.lastName"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Company Name (if applicable)" prop="company">
+      <el-form-item :label="$t('form.label-company-name')" prop="company">
         <base-input
-          placeholder="Company Name"
+          :placeholder="$t('form.label-company-name')"
           v-model="ruleForm.company"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Email" prop="email">
-        <base-input placeholder="Email" v-model="ruleForm.email"></base-input>
-      </el-form-item>
-      <el-form-item label="Phone Number" prop="phoneNumber">
+      <el-form-item :label="$t('auth.email')" prop="email">
         <base-input
-          placeholder="Phone Number"
+          :placeholder="$t('auth.email')"
+          v-model="ruleForm.email"
+        ></base-input>
+      </el-form-item>
+      <el-form-item :label="$t('form.label-phone-number')" prop="phoneNumber">
+        <base-input
+          :placeholder="$t('form.label-phone-number')"
           v-model.number="ruleForm.phoneNumber"
           @keypress="isNumber($event)"
         ></base-input>
       </el-form-item>
-      <el-form-item label="Messages" prop="message">
+      <el-form-item :label="$t('form.label-message')" prop="message">
         <base-input
           type="textarea"
           rows="5"
-          placeholder="Messages"
+          :placeholder="$t('form.label-message')"
           v-model="ruleForm.message"
         ></base-input>
       </el-form-item>
       <el-form-item prop="checked">
         <el-checkbox
           v-model="ruleForm.checked"
-          label="I agree to the terms of data collection and storage."
+          :label="$t('form.accept-data-collection')"
         ></el-checkbox>
       </el-form-item>
       <el-form-item>
-        <base-button @click="inquire">Send</base-button>
+        <base-button @click="inquire">{{ $t("btn.send") }}</base-button>
       </el-form-item>
     </el-form>
   </div>
@@ -161,7 +164,7 @@ export default {
       if (!keysAllowed.includes(keyPressed)) {
         evt.preventDefault();
         ElMessage({
-          message: "Please enter numbers only",
+          message: this.$t("form.numbers-validation"),
           type: "error",
         });
       }
@@ -185,7 +188,7 @@ export default {
               this.closeLoading();
               ElNotification({
                 title: "Success",
-                message: "Message has been sent",
+                message: this.$t("form.message-sent"),
                 type: "success",
               });
               this.$refs.ruleFormRef.resetFields();

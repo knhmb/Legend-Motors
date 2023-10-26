@@ -2,7 +2,7 @@
 <template>
   <div class="feature">
     <base-container>
-      <h3>Feature</h3>
+      <h3>{{ $t("dashboard.feature") }}</h3>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane
           v-for="feature in productDetail.feature"

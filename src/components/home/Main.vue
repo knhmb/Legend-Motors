@@ -2,7 +2,7 @@
 <template>
   <div class="main">
     <base-container>
-      <h3>Products</h3>
+      <h3>{{ $t("dashboard.products") }}</h3>
 
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="setProduct">
         <el-tab-pane
@@ -17,13 +17,15 @@
             </el-col>
             <el-col :span="12">
               <h4>{{ product.name }}</h4>
-              <small>Highlighted Specifications</small>
+              <small>{{ $t("dashboard.highlighted-specifications") }}</small>
               <ul>
                 <li v-for="feature in product.feature" :key="feature">
                   {{ feature.name }}
                 </li>
               </ul>
-              <base-button @click="goToCart(product)">Booking now</base-button>
+              <base-button @click="goToCart(product)">{{
+                $t("btn.booking-now")
+              }}</base-button>
               <base-button :login="true" @click="selectProduct(product)">{{
                 $t("btn.explore")
               }}</base-button>

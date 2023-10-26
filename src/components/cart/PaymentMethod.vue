@@ -1,6 +1,6 @@
 <template>
   <div class="payment-method">
-    <h3>Payment Method</h3>
+    <h3>{{ $t("dashboard.payment-method") }}</h3>
     <el-radio-group v-model="radio1">
       <el-radio label="1" size="large" border class="flex">
         <div class="image-border">
@@ -25,7 +25,9 @@
           <img src="../../assets/icons/WeChat.png" alt="" />
         </div>
       </el-radio>
-      <el-radio label="5" size="large" border> Other Options </el-radio>
+      <el-radio label="5" size="large" border>
+        {{ $t("dashboard.other-options") }}
+      </el-radio>
     </el-radio-group>
   </div>
 </template>
