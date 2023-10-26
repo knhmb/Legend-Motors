@@ -146,9 +146,10 @@ export default {
           productSlug: this.productDetail.slug,
           productSize: this.selectedProductDetails.size,
         });
-      } else {
-        this.dialogVisible = true;
+        return;
       }
+      // } else {
+      this.dialogVisible = true;
     },
     selectColor(option) {
       console.log(option);

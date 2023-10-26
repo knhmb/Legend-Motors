@@ -6,7 +6,7 @@
       <el-collapse-item
         v-for="(order, index) in orders"
         :key="order.id"
-        :title="`Order ${index + 1}`"
+        :title="`${$t('dashboard.order')} ${index + 1}`"
         :name="order.id"
       >
         <div class="item">
@@ -198,6 +198,16 @@ export default {
     return {
       activeName: "1",
     };
+  },
+  watch: {
+    $i18n: {
+      deep: true,
+      async handler() {
+        this.$store.dispatch("auth/getOrders", this.currentUser.id).then(() => {
+          this.orders;
+        });
+      },
+    },
   },
   computed: {
     orders() {

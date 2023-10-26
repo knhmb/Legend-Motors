@@ -117,7 +117,7 @@
 
 <script>
 import { ArrowDown, Search } from "@element-plus/icons-vue";
-import { setLanguageHeader } from "@/axios";
+// import { setLanguageHeader } from "@/axios";
 
 export default {
   components: {
@@ -144,7 +144,7 @@ export default {
   methods: {
     setLang(lang) {
       this.$i18n.locale = lang;
-      setLanguageHeader(lang);
+      // setLanguageHeader();
     },
     toggleBurgerIcon() {
       const button = document.querySelector(".burger-button");

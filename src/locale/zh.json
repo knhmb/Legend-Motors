@@ -153,6 +153,7 @@
     "request-received": "我們已收到您的請求",
     "request-processing-message": "感謝您的要求。我們將盡快<br>處理您的申請。",
     "waiting-for-payment": "等待付款",
-    "waiting-for-payment-message": "謝謝您的訂單！我們目前正在等待您的付款。請確保您已完成付款流程。一旦我們收到您的付款確認，您的訂單將被處理。如果您有任何疑問，請與我們聯絡。"
+    "waiting-for-payment-message": "謝謝您的訂單！我們目前正在等待您的付款。請確保您已完成付款流程。一旦我們收到您的付款確認，您的訂單將被處理。如果您有任何疑問，請與我們聯絡。",
+    "order": "命令"
   }
 }

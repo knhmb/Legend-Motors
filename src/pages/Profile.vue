@@ -52,12 +52,12 @@ export default {
   computed: {
     pageTitle() {
       return this.$route.path === "/profile/edit-profile"
-        ? "Edit Profile"
+        ? this.$t("auth.edit-profile")
         : this.$route.path === "/profile/change-password"
-        ? "Change Password"
+        ? this.$t("form.change-password")
         : this.$route.path === "/profile/order-history"
-        ? "Order History"
-        : "Profile";
+        ? this.$t("dashboard.order-history")
+        : this.$t("dashboard.profile");
     },
     banners() {
       return this.$store.getters["dashboard/banners"];

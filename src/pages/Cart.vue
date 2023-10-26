@@ -4,7 +4,7 @@
     <base-container>
       <h3>{{ $t("dashboard.your-cart") }}</h3>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="product" label="Product" width="400">
+        <el-table-column prop="product" :label="$t('menu.product')" width="400">
           <template #default="scope">
             <div class="product-content">
               <img crossorigin="anonymous" :src="scope.row.product" alt="" />
@@ -28,7 +28,7 @@
         <el-table-column
           width="100"
           prop="reservationFee"
-          label="Reservation Fee"
+          :label="$t('dashboard.reservation-fee')"
         />
       </el-table>
       <div class="total-price-info">

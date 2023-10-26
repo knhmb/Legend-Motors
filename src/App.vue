@@ -14,8 +14,8 @@
 import TheHeader from "@/components/common/TheHeader";
 import TheFooter from "@/components/common/TheFooter";
 import * as tokenData from "@/utils/checkToken";
-import { setLanguageHeader } from "./axios";
-import i18n from "./i18n";
+// import { setLanguageHeader } from "./axios";
+// import i18n from "./i18n";
 
 export default {
   components: { TheHeader, TheFooter },
@@ -24,16 +24,28 @@ export default {
       loadData: false,
     };
   },
-  created() {
-    const { locale } = i18n.global;
-    setLanguageHeader(locale);
-    tokenData.checkAccessToken(false);
+  watch: {
+    $i18n: {
+      deep: true,
+      async handler() {
+        this.getData();
+      },
+    },
+  },
+  methods: {
+    async getData() {
+      await tokenData.checkAccessToken(false);
 
-    this.$store.dispatch("product/getProducts");
-    this.$store.dispatch("dashboard/getCMS");
-    this.$store.dispatch("dashboard/getBanners").then(() => {
-      this.loadData = true;
-    });
+      this.$store.dispatch("product/getProducts");
+      this.$store.dispatch("dashboard/getCMS");
+      this.$store.dispatch("dashboard/getBanners").then(() => {
+        this.loadData = true;
+      });
+    },
+  },
+  async created() {
+    // setLanguageHeader();
+    this.getData();
 
     // const token = localStorage.getItem("accessToken");
 

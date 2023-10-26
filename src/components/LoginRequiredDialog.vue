@@ -1,10 +1,6 @@
 <template>
   <div class="auth-dialog">
-    <el-dialog
-      :model-value="dialogVisible"
-      width="30%"
-      :before-close="handleClose"
-    >
+    <el-dialog :model-value="dialogVisible" width="30%">
       <div class="top">
         <img src="../assets//icon-center-20px.png" alt="" />
         <h4>{{ $t("auth.login-required") }}</h4>
@@ -31,6 +27,7 @@ export default {
   props: ["dialogVisible"],
   methods: {
     redirect() {
+      this.$emit("closeDialog");
       this.$router.replace("/login");
     },
   },

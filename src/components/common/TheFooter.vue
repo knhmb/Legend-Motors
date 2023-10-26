@@ -39,7 +39,7 @@
           </div>
         </el-col>
         <el-col :span="7">
-          <p>Office</p>
+          <p>{{ $t("footer.office") }}</p>
           <div class="list icons">
             <img src="../../assets/location.png" alt="" />
             <p>
