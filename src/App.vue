@@ -14,8 +14,6 @@
 import TheHeader from "@/components/common/TheHeader";
 import TheFooter from "@/components/common/TheFooter";
 import * as tokenData from "@/utils/checkToken";
-// import { setLanguageHeader } from "./axios";
-// import i18n from "./i18n";
 
 export default {
   components: { TheHeader, TheFooter },
@@ -44,31 +42,7 @@ export default {
     },
   },
   async created() {
-    // setLanguageHeader();
     this.getData();
-
-    // const token = localStorage.getItem("accessToken");
-
-    // setLanguageHeader();
-
-    // this.$store
-    //   .dispatch("auth/validateUser", token)
-    //   .then(() => {
-    //     // this.$router.replace('/projects')
-    //   })
-    //   .catch(() => {
-    //     // this.$router.replace("/");
-    //   });
-
-    // this.$store
-    //   .dispatch("auth/validateUser")
-    //   .then(() => {
-    //     // this.$store.commit("auth/LOGIN");
-    //   })
-    //   .catch(() => {
-    //     this.$store.commit("auth/LOGOUT");
-    //     // this.$router.replace("/");
-    //   });
   },
 };
 </script>
