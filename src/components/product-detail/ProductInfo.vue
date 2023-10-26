@@ -3,7 +3,12 @@
     <base-container>
       <el-row>
         <el-col :span="14">
-          <img :src="productBlobImage" alt="" />
+          <img
+            crossorigin="anonymous"
+            :src="`${url}api/v1/system/uploads/${carImg}`"
+            alt=""
+          />
+          <!-- <img :src="productBlobImage" alt="" /> -->
         </el-col>
         <el-col :span="10">
           <h3>{{ productDetail.name }}</h3>
@@ -81,6 +86,7 @@
 import { ElNotification } from "element-plus";
 import * as tokenData from "@/utils/checkToken";
 import LoginRequiredDialog from "../LoginRequiredDialog.vue";
+import { url } from "@/url";
 
 export default {
   components: {
@@ -88,6 +94,7 @@ export default {
   },
   data() {
     return {
+      url,
       radio: "standard-range",
       selectedColor: "",
       retailPrice: "",
@@ -105,6 +112,9 @@ export default {
     },
     productBlobImage() {
       return this.$store.getters["dashboard/productBlobImage"];
+    },
+    selectedProductDetails() {
+      return this.$store.getters["product/selectedProductDetails"];
     },
     // singleProduct() {
     //   return this.productDetail.find(
@@ -127,18 +137,24 @@ export default {
         this.$router.push(`/cart`);
         this.$store.commit("product/STORE_CART_ITEMS", {
           id: this.productDetail.id,
-          product: this.productBlobImage,
-          price: this.reservationFee,
-          total: this.reservationFee,
+          product: `${url}api/v1/system/uploads/${this.carImg}`,
+          // product: this.productBlobImage,
+          retailPrice: this.productDetail.retailPrice,
+          reservationFee: this.selectedProductDetails.price,
+          productColor: this.selectedProductDetails.color,
+          productName: this.productDetail.name,
+          productSlug: this.productDetail.slug,
+          productSize: this.selectedProductDetails.size,
         });
       } else {
         this.dialogVisible = true;
       }
     },
     selectColor(option) {
+      console.log(option);
       this.selectedColor = option.color;
       this.carImg = option.thumbnail;
-      this.$store.dispatch("dashboard/fetchProductBlobImage", option.thumbnail);
+      // this.$store.dispatch("dashboard/fetchProductBlobImage", option.thumbnail);
 
       this.$store.commit("product/SET_SELECTED_PRODUCT_DETAILS", {
         size: this.radio,

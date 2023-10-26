@@ -25,6 +25,7 @@ import BookingTermsConditions from "@/pages/BookingTermsConditions.vue";
 import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 import Product from "@/pages/Product.vue";
 import AfterSales from "@/pages/AfterSales.vue";
+import PaymentWaiting from "@/pages/PaymentWaiting.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -87,6 +88,17 @@ const router = createRouter({
     {
       path: "/order-confirmed",
       component: PaymentSuccessful,
+      beforeEnter(to, from, next) {
+        if (store.getters["auth/isLoggedIn"]) {
+          next();
+        } else {
+          next("/");
+        }
+      },
+    },
+    {
+      path: "/waiting-payment",
+      component: PaymentWaiting,
       beforeEnter(to, from, next) {
         if (store.getters["auth/isLoggedIn"]) {
           next();

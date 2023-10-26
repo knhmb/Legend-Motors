@@ -27,4 +27,7 @@ export default {
       URL.createObjectURL(response.data)
     );
   },
+  async order(_, payload) {
+    await axios.post("api/v1/histories/order", payload);
+  },
 };

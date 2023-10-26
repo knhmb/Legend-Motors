@@ -81,7 +81,7 @@
                 <el-dropdown-item @click="setLang('en-US')"
                   >English</el-dropdown-item
                 >
-                <el-dropdown-item @click="setLang('zh')"
+                <el-dropdown-item @click="setLang('zh-Hant-HK')"
                   >Chinese</el-dropdown-item
                 >
               </el-dropdown-menu>

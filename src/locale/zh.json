@@ -115,7 +115,9 @@
     "password-changed": "密碼已更改",
     "password-constraint": "密碼至少需要一個大寫字母、小寫字母、數字。",
     "information-updated": "資訊更新",
-    "otp-sent": "OTP 已傳送到您的電子郵件"
+    "otp-sent": "OTP 已傳送到您的電子郵件",
+    "payment-method-required": "請選擇付款方式",
+    "cart-items-required": "請先將商品加入購物車"
   },
   "dashboard": {
     "payment-method": "付款方式",
@@ -149,6 +151,8 @@
     "order-confirmed-message": "謝謝您的訂單。我們已確認您的訂單訊息，並將盡快處理。如果您有任何疑問，請與我們聯絡。",
     "profile": "輪廓",
     "request-received": "我們已收到您的請求",
-    "request-processing-message": "感謝您的要求。我們將盡快<br>處理您的申請。"
+    "request-processing-message": "感謝您的要求。我們將盡快<br>處理您的申請。",
+    "waiting-for-payment": "等待付款",
+    "waiting-for-payment-message": "謝謝您的訂單！我們目前正在等待您的付款。請確保您已完成付款流程。一旦我們收到您的付款確認，您的訂單將被處理。如果您有任何疑問，請與我們聯絡。"
   }
 }

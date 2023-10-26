@@ -1,46 +1,56 @@
 <template>
   <div class="order-history">
-    <template v-if="orders.length > 0">
-      <h3>{{ $t("dashboard.order-history") }}</h3>
-      <el-collapse v-model="activeName" accordion>
-        <el-collapse-item
-          v-for="(order, index) in orders"
-          :key="order.id"
-          :title="`Order ${index + 1}`"
-          :name="order.id"
-        >
-          <div class="item">
-            <div class="left">{{ $t("dashboard.order-date") }}</div>
-            <div class="right">{{ formatDate(order.updatedAt) }}</div>
+    <!-- <template v-if="orders.length > 0"> -->
+    <h3>{{ $t("dashboard.order-history") }}</h3>
+    <el-collapse v-model="activeName" accordion>
+      <el-collapse-item
+        v-for="(order, index) in orders"
+        :key="order.id"
+        :title="`Order ${index + 1}`"
+        :name="order.id"
+      >
+        <div class="item">
+          <div class="left">{{ $t("dashboard.order-date") }}</div>
+          <div class="right">{{ formatDate(order.updatedAt) }}</div>
+        </div>
+        <div class="item">
+          <div class="left">{{ $t("dashboard.item-name") }}</div>
+          <div class="right">
+            {{ order.productItems ? order.productItems[0].productName : "N/A" }}
+            -
+            {{ order.productItems ? order.productItems[0].productSize : "N/A" }}
+            ({{
+              order.productItems ? order.productItems[0].productColor : "N/A"
+            }})
           </div>
-          <div class="item">
-            <div class="left">{{ $t("dashboard.item-name") }}</div>
-            <div class="right">
-              {{ order.productItems[0].productName }} -
-              {{ order.productItems[0].productSize }} ({{
-                order.productItems[0].productColor
-              }})
-            </div>
+        </div>
+        <div class="item">
+          <div class="left">{{ $t("dashboard.quantity") }}</div>
+          <div class="right">
+            {{ order.productItems ? order.productItems.length : "N/A" }}
           </div>
-          <div class="item">
-            <div class="left">{{ $t("dashboard.quantity") }}</div>
-            <div class="right">{{ order.productItems.length }}</div>
+        </div>
+        <div class="item">
+          <div class="left">{{ $t("dashboard.retail-price") }}</div>
+          <div class="right">
+            {{ order.productItems ? order.productItems[0].retailPrice : "N/A" }}
           </div>
-          <div class="item">
-            <div class="left">{{ $t("dashboard.retail-price") }}</div>
-            <div class="right">1,000,000</div>
+        </div>
+        <div class="item">
+          <div class="left">{{ $t("dashboard.reservation-fee") }}</div>
+          <div class="right">
+            {{
+              order.productItems ? order.productItems[0].reservationFee : "N/A"
+            }}
           </div>
-          <div class="item">
-            <div class="left">{{ $t("dashboard.reservation-fee") }}</div>
-            <div class="right">1,000</div>
-          </div>
-          <div class="item">
-            <div class="left">{{ $t("dashboard.status") }}</div>
-            <div class="right process">{{ order.status }}</div>
-          </div>
-        </el-collapse-item>
+        </div>
+        <div class="item">
+          <div class="left">{{ $t("dashboard.status") }}</div>
+          <div class="right process">{{ order.status }}</div>
+        </div>
+      </el-collapse-item>
 
-        <!-- <el-collapse-item title="Order 5" name="1">
+      <!-- <el-collapse-item title="Order 5" name="1">
         <div class="item">
           <div class="left">Order Date</div>
           <div class="right">2023-05-12</div>
@@ -170,14 +180,14 @@
           <div class="right process">Proccessing</div>
         </div>
       </el-collapse-item> -->
-      </el-collapse>
-    </template>
-    <template v-else>
+    </el-collapse>
+    <!-- </template> -->
+    <!-- <template v-else>
       <h3>{{ $t("dashboard.empty-orders") }}</h3>
       <base-button @click="$router.push('/product')">{{
         $t("btn.order-now")
       }}</base-button>
-    </template>
+    </template> -->
   </div>
 </template>
 
@@ -214,9 +224,11 @@ export default {
   async created() {
     await checkAccessToken(true);
     if (valid) {
-      this.$store.dispatch("auth/getOrders", this.currentUser.id);
+      this.$store.dispatch("auth/getOrders", this.currentUser.id).then(() => {
+        this.orders;
+      });
     } else {
-      this.$router.replace("/login");
+      this.$router.replace("/");
     }
   },
 };

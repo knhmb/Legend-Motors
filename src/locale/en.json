@@ -115,7 +115,9 @@
     "password-changed": "Password changed",
     "password-constraint": "Password requires at least one upper-case alphabet, lower-case alphabet, numberic.",
     "information-updated": "Information Updated",
-    "otp-sent": "OTP sent to your email"
+    "otp-sent": "OTP sent to your email",
+    "payment-method-required": "Please select a payment method",
+    "cart-items-required": "Please add items to the cart first"
   },
   "dashboard": {
     "payment-method": "Payment Method",
@@ -149,6 +151,8 @@
     "order-confirmed-message": "Thank you for your order. We have confirmed your order information and will process it as soon as possible. If you have any questions, please contact us.",
     "profile": "Profile",
     "request-received": "We have received your request",
-    "request-processing-message": "Thank you for your request. We will process your application as <br> soon as possible."
+    "request-processing-message": "Thank you for your request. We will process your application as <br> soon as possible.",
+    "waiting-for-payment": "Waiting for Payment",
+    "waiting-for-payment-message": "Thank you for your order! We are currently waiting for your payment. Please ensure that you have completed the payment process on your end. Once we receive confirmation of your payment, your order will be processed. If you have any questions, please contact us."
   }
 }

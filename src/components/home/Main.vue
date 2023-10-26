@@ -13,7 +13,11 @@
         >
           <el-row :gutter="40">
             <el-col :span="12">
-              <img :src="productBlobImage" alt="" />
+              <img
+                crossorigin="anonymous"
+                :src="`${url}api/v1/system/uploads/${product.thumbnail}`"
+                alt=""
+              />
             </el-col>
             <el-col :span="12">
               <h4>{{ product.name }}</h4>
@@ -78,6 +82,7 @@
 <script>
 import LoginRequiredDialog from "../LoginRequiredDialog.vue";
 import * as tokenData from "@/utils/checkToken";
+import { url } from "@/url";
 
 export default {
   components: {
@@ -85,6 +90,7 @@ export default {
   },
   data() {
     return {
+      url,
       activeName: "",
       img: null,
       isImageLoaded: false,
@@ -109,12 +115,17 @@ export default {
     async goToCart(product) {
       console.log(product);
       // await tokenData.checkAccessToken(false);
+
       if (tokenData.valid) {
         this.$store.commit("product/STORE_CART_ITEMS", {
           id: product.id,
-          product: this.productBlobImage,
-          price: product.carSize[0].reservationFee,
-          total: product.carSize[0].reservationFee,
+          product: `${url}api/v1/system/uploads/${product.thumbnail}`,
+          retailPrice: product.carSize[0].retailPrice,
+          reservationFee: product.carSize[0].reservationFee,
+          productColor: product.colorVariant[0].color,
+          productName: product.name,
+          productSlug: product.slug,
+          productSize: product.carSize[0].name,
         });
         this.$router.push(`/cart`);
       } else {

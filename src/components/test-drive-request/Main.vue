@@ -295,10 +295,10 @@ export default {
     },
   },
   async created() {
-    this.openLoading();
+    // this.openLoading();
     await tokenData.checkAccessToken(false);
     this.loadData = true;
-    this.closeLoading();
+    // this.closeLoading();
 
     console.log(this.currentUser);
     if (tokenData.valid) {

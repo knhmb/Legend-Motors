@@ -1,8 +1,8 @@
 <template>
   <div class="payment-method">
     <h3>{{ $t("dashboard.payment-method") }}</h3>
-    <el-radio-group v-model="radio1">
-      <el-radio label="1" size="large" border class="flex">
+    <el-radio-group @change="setPaymentMethod" v-model="radio">
+      <el-radio label="Visa / MasterCard" size="large" border class="flex">
         <div class="image-border">
           <img src="../../assets/icons/visa-logo.png" alt="" />
         </div>
@@ -10,22 +10,22 @@
           <img src="../../assets/icons/Mastercard.png" alt="" />
         </div>
       </el-radio>
-      <el-radio label="2" size="large" border>
+      <el-radio label="Union" size="large" border>
         <div class="image-border">
           <img src="../../assets/icons/UnionPay.png" alt="" />
         </div>
       </el-radio>
-      <el-radio label="3" size="large" border>
+      <el-radio label="Alipay" size="large" border>
         <div class="image-border">
           <img src="../../assets/icons/Alipay.png" alt="" />
         </div>
       </el-radio>
-      <el-radio label="4" size="large" border>
+      <el-radio label="WeChatpay" size="large" border>
         <div class="image-border">
           <img src="../../assets/icons/WeChat.png" alt="" />
         </div>
       </el-radio>
-      <el-radio label="5" size="large" border>
+      <el-radio label="Other Payment" size="large" border>
         {{ $t("dashboard.other-options") }}
       </el-radio>
     </el-radio-group>
@@ -36,8 +36,16 @@
 export default {
   data() {
     return {
-      radio1: "",
+      radio: "",
     };
+  },
+  methods: {
+    setPaymentMethod() {
+      this.$emit("setPayment", this.radio);
+    },
+  },
+  created() {
+    console.log(this.paymentMethod);
   },
 };
 </script>

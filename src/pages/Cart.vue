@@ -7,7 +7,7 @@
         <el-table-column prop="product" label="Product" width="400">
           <template #default="scope">
             <div class="product-content">
-              <img :src="scope.row.product" alt="" />
+              <img crossorigin="anonymous" :src="scope.row.product" alt="" />
               <div class="product-info">
                 <p class="name">{{ productDetail.name }}</p>
                 <small>{{ selectedProductDetails.size }}</small>
@@ -25,8 +25,11 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="Price" />
-        <el-table-column prop="total" label="Total" />
+        <el-table-column
+          width="100"
+          prop="reservationFee"
+          label="Reservation Fee"
+        />
       </el-table>
       <div class="total-price-info">
         <div class="sub-total">
@@ -42,10 +45,13 @@
       </div>
       <el-row :gutter="50">
         <el-col :span="12">
-          <PaymentMethod />
+          <PaymentMethod
+            @setPayment="paymentMethodHandler"
+            :payment-method="paymentMethod"
+          />
         </el-col>
         <el-col :span="12">
-          <CartForm />
+          <CartForm :payment-method="paymentMethod" />
         </el-col>
       </el-row>
     </base-container>
@@ -64,6 +70,7 @@ export default {
   },
   data() {
     return {
+      paymentMethod: "",
       tableData: [
         {
           product: require("../assets/Rectangle-73.png"),
@@ -95,7 +102,7 @@ export default {
     totalPrice() {
       if (this.cartItems.length > 0) {
         const sum = this.cartItems.reduce((accumulator, object) => {
-          return +accumulator + +object.total;
+          return +accumulator + +object.reservationFee;
         }, 0);
         return sum;
       }
@@ -107,6 +114,9 @@ export default {
       console.log(id);
       this.$store.commit("product/UPDATE_CART", id);
       this.tableData = this.cartItems;
+    },
+    paymentMethodHandler(payment) {
+      this.paymentMethod = payment;
     },
   },
   created() {
