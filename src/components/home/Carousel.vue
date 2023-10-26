@@ -2,36 +2,48 @@
 <template>
   <div class="carousel" v-if="isDataLoaded">
     <el-carousel indicator-position="inside" arrow="never">
-      <el-carousel-item v-for="item in 4" :key="item">
+      <el-carousel-item v-for="product in products" :key="product.id">
         <div class="img-content">
           <img
             crossorigin="anonymous"
-            :src="`${url}api/v1/system/uploads/${getBanner.thumbnail}`"
+            :src="`${url}api/v1/system/uploads/${product.thumbnail}`"
           />
-          {{ getBanner }}
           <!-- <img src="../../assets/About-Us-banner.png" /> -->
           <div>
-            <h3>{{ $t("dashboard.product-name") }}</h3>
+            <h3>{{ product.name }}</h3>
             <p>
               {{ $t("dashboard.product-description") }}
             </p>
-            <base-button @click="$router.push('/cart')">{{
+            <base-button @click="goToCart(product)">{{
               $t("btn.booking-now")
+            }}</base-button>
+            <base-button :login="true" @click="selectProduct(product)">{{
+              $t("btn.explore")
             }}</base-button>
           </div>
         </div>
       </el-carousel-item>
     </el-carousel>
+    <LoginRequiredDialog
+      @closeDialog="dialogVisible = false"
+      :dialog-visible="dialogVisible"
+    />
   </div>
 </template>
 
 <script>
 import { url } from "../../url";
+import LoginRequiredDialog from "../LoginRequiredDialog.vue";
+import * as tokenData from "@/utils/checkToken";
 
 export default {
+  components: {
+    LoginRequiredDialog,
+  },
   data() {
     return {
       img: null,
+      dialogVisible: false,
       url,
     };
   },
@@ -50,6 +62,31 @@ export default {
     },
     blobImage() {
       return this.$store.getters["dashboard/blobImage"];
+    },
+    products() {
+      return this.$store.getters["product/products"];
+    },
+  },
+  methods: {
+    goToCart(product) {
+      if (tokenData.valid) {
+        this.$store.commit("product/STORE_CART_ITEMS", {
+          id: product.id,
+          product: `${url}api/v1/system/uploads/${product.thumbnail}`,
+          retailPrice: product.carSize[0].retailPrice,
+          reservationFee: product.carSize[0].reservationFee,
+          productColor: product.colorVariant[0].color,
+          productName: product.name,
+          productSlug: product.slug,
+          productSize: product.carSize[0].name,
+        });
+        this.$router.push(`/cart`);
+      } else {
+        this.dialogVisible = true;
+      }
+    },
+    selectProduct(product) {
+      this.$router.push(`/product/${product.slug}`);
     },
   },
   mounted() {
@@ -102,6 +139,12 @@ p {
 
 .el-button {
   border-color: #384967;
+}
+
+.carousel .el-button.is-login {
+  width: fit-content;
+  border: 1px solid #ffffff;
+  color: #ffffff;
 }
 
 :deep(.el-carousel__container) {
