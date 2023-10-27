@@ -1,9 +1,13 @@
 <template>
   <theHeader />
   <main>
-    <div class="whats-app-content">
+    <a
+      :href="`https://wa.me/${whatsAppNumber}`"
+      target="_blank"
+      class="whats-app-content"
+    >
       <img src="./assets/whatsapp.png" alt="" />
-    </div>
+    </a>
     <router-view></router-view>
   </main>
   <!-- <router-view v-if="loadData"></router-view> -->
@@ -28,6 +32,16 @@ export default {
       async handler() {
         this.getData();
       },
+    },
+  },
+  computed: {
+    cms() {
+      return this.$store.getters["dashboard/cms"];
+    },
+    whatsAppNumber() {
+      const content = this.cms.find((item) => item.slug === "cms-contact-us");
+      const phoneNumber = content.phone.replace("+", "");
+      return phoneNumber.replaceAll(" ", "");
     },
   },
   methods: {
@@ -74,6 +88,7 @@ main .whats-app-content {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 main .whats-app-content img {
