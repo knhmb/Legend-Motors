@@ -88,6 +88,7 @@
             </template>
           </el-dropdown>
           <el-input
+            @keyup.enter="handleEnterKey"
             v-model="search"
             :placeholder="$t('menu.search:placeholder')"
           >
@@ -117,6 +118,7 @@
 
 <script>
 import { ArrowDown, Search } from "@element-plus/icons-vue";
+import { ElNotification } from "element-plus";
 
 export default {
   components: {
@@ -139,6 +141,9 @@ export default {
     cartItems() {
       return this.$store.getters["product/cartItems"];
     },
+    products() {
+      return this.$store.getters["product/products"];
+    },
   },
   methods: {
     setLang(lang) {
@@ -148,6 +153,24 @@ export default {
       const button = document.querySelector(".burger-button");
       console.log(button);
       button.classList.toggle("change");
+    },
+    handleEnterKey() {
+      if (this.search === "") return;
+      const result = this.search.toLowerCase();
+      const searchResult = this.products.find(
+        (product) => product.name.toLowerCase() === result
+      );
+      console.log(searchResult);
+      if (searchResult) {
+        this.$router.push(`/product/${searchResult.slug}`);
+        this.search = "";
+      } else {
+        ElNotification({
+          title: "Error",
+          message: this.$t("dashboard.product-does-not-exist"),
+          type: "error",
+        });
+      }
     },
   },
 };

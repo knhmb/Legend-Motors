@@ -154,6 +154,7 @@
     "request-processing-message": "Thank you for your request. We will process your application as <br> soon as possible.",
     "waiting-for-payment": "Waiting for Payment",
     "waiting-for-payment-message": "Thank you for your order! We are currently waiting for your payment. Please ensure that you have completed the payment process on your end. Once we receive confirmation of your payment, your order will be processed. If you have any questions, please contact us.",
-    "order": "Order"
+    "order": "Order",
+    "product-does-not-exist": "Product does not exist"
   }
 }
