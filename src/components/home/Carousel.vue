@@ -2,24 +2,24 @@
 <template>
   <div class="carousel" v-if="isDataLoaded">
     <el-carousel indicator-position="inside" arrow="never">
-      <el-carousel-item v-for="product in products" :key="product.id">
+      <el-carousel-item v-for="banner in banners" :key="banner.id">
         <div class="img-content">
           <img
             crossorigin="anonymous"
-            :src="`${url}api/v1/system/uploads/${product.thumbnail}`"
+            :src="`${url}api/v1/system/uploads/${banner.thumbnail}`"
           />
           <!-- <img src="../../assets/About-Us-banner.png" /> -->
           <div>
-            <h3>{{ product.name }}</h3>
+            <h3>{{ $t("dashboard.product-name") }}</h3>
             <p>
               {{ $t("dashboard.product-description") }}
             </p>
-            <base-button @click="goToCart(product)">{{
+            <!-- <base-button @click="goToCart(product)">{{
               $t("btn.booking-now")
             }}</base-button>
             <base-button :login="true" @click="selectProduct(product)">{{
               $t("btn.explore")
-            }}</base-button>
+            }}</base-button> -->
           </div>
         </div>
       </el-carousel-item>
