@@ -1,9 +1,98 @@
 <template>
   <header>
+    <div class="mobile-menu" v-if="isBurgerIconVisible">
+      <div class="menu-list">
+        <span
+          @click="navigate('/home')"
+          :class="{ 'is-selected': $route.path === '/home' }"
+          >{{ $t("menu.home") }}</span
+        >
+        <span
+          @click="navigate('/about-us')"
+          :class="{ 'is-selected': $route.path === '/about-us' }"
+          >{{ $t("menu.about-us") }}</span
+        >
+        <span
+          @click="navigate('/product')"
+          :class="{
+            'is-selected':
+              $route.path === '/product' || $route.path === '/product-detail',
+          }"
+          >{{ $t("menu.product") }}</span
+        >
+        <span
+          @click="navigate('/test-drive-request')"
+          :class="{ 'is-selected': $route.path.includes('/test-drive') }"
+          >{{ $t("menu.test-drive-request") }}</span
+        >
+        <div class="img-content" @click="navigate('/cart')">
+          <img
+            v-if="$route.path === '/cart' || $route.path === '/order-confirmed'"
+            src="../../assets/shopping-cart-2.png"
+            alt=""
+          />
+          <img v-else src="../../assets/shopping-cart.png" alt="" />
+          <div class="pill" v-if="cartItems.length > 0">
+            {{ cartItems.length }}{{ cartItems.length > 99 ? "+" : "" }}
+          </div>
+        </div>
+      </div>
+      <div class="authentication">
+        <template v-if="!isLoggedIn">
+          <span
+            @click="navigate('/register')"
+            :class="{ 'is-selected': $route.path === '/register' }"
+            >{{ $t("menu.sign-up") }}</span
+          >
+          <span
+            @click="navigate('/login')"
+            :class="{ 'is-selected': $route.path === '/login' }"
+            >{{ $t("menu.login") }}</span
+          >
+        </template>
+        <template v-else>
+          <p @click="navigate('/profile')">
+            {{ $t("menu.hi") }}, {{ currentUser.username }}
+          </p>
+          <div class="icon-content">
+            <img src="../../assets/user.png" alt="" />
+          </div>
+        </template>
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            <img src="../../assets/global.png" alt="" />
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="setLang('en-US')"
+                >English</el-dropdown-item
+              >
+              <el-dropdown-item @click="setLang('zh-Hant-HK')"
+                >Chinese</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+    </div>
+    <div class="search-menu" v-if="isSearchMenu">
+      <el-input
+        @keyup.enter="handleEnterKey"
+        v-model="search"
+        :placeholder="$t('menu.search:placeholder')"
+      >
+        <template #prefix>
+          <el-icon class="el-input__icon"><search /></el-icon>
+        </template>
+      </el-input>
+    </div>
     <base-container>
       <img
         class="logo"
-        @click="$router.push('/')"
+        @click="navigate('/')"
         src="../../assets/logo.png"
         alt=""
       />
@@ -47,20 +136,20 @@
           </div>
         </div>
         <div class="authentication">
-          <temlate v-if="!isLoggedIn">
+          <template v-if="!isLoggedIn">
             <span
-              @click="$router.push('/register')"
+              @click="navigate('/register')"
               :class="{ 'is-selected': $route.path === '/register' }"
               >{{ $t("menu.sign-up") }}</span
             >
             <span
-              @click="$router.push('/login')"
+              @click="navigate('/login')"
               :class="{ 'is-selected': $route.path === '/login' }"
               >{{ $t("menu.login") }}</span
             >
-          </temlate>
+          </template>
           <template v-else>
-            <p @click="$router.push('/profile')">
+            <p @click="navigate('/profile')">
               {{ $t("menu.hi") }}, {{ currentUser.username }}
             </p>
             <div class="icon-content">
@@ -96,15 +185,18 @@
               <el-icon class="el-input__icon"><search /></el-icon>
             </template>
           </el-input>
-          <div
-            v-if="isBurgerIconVisible"
-            class="burger-button"
-            @click="toggleBurgerIcon()"
-          >
+          <img
+            @click="toggleSearchMenu"
+            class="search-icon"
+            src="../../assets/icons/interactive-button.png"
+            alt=""
+          />
+          <div class="burger-button" @click="toggleBurgerIcon">
             <div class="burger-icon bar1"></div>
             <div class="burger-icon bar2"></div>
             <div class="burger-icon bar3"></div>
           </div>
+
           <!-- <div class="burger">
             <span></span>
             <span></span>
@@ -129,6 +221,7 @@ export default {
     return {
       search: "",
       isBurgerIconVisible: false,
+      isSearchMenu: false,
     };
   },
   computed: {
@@ -149,10 +242,26 @@ export default {
     setLang(lang) {
       this.$i18n.locale = lang;
     },
+    removeClass() {
+      const button = document.querySelector(".burger-button");
+      button.classList.remove("change");
+    },
     toggleBurgerIcon() {
       const button = document.querySelector(".burger-button");
-      console.log(button);
       button.classList.toggle("change");
+      this.isBurgerIconVisible = !this.isBurgerIconVisible;
+      this.isSearchMenu = false;
+    },
+    toggleSearchMenu() {
+      this.isSearchMenu = !this.isSearchMenu;
+      this.removeClass();
+      this.isBurgerIconVisible = false;
+    },
+    navigate(path) {
+      this.$router.push(path);
+      this.removeClass();
+      this.isBurgerIconVisible = false;
+      this.isSearchMenu = false;
     },
     handleEnterKey() {
       if (this.search === "") return;
@@ -163,6 +272,9 @@ export default {
       console.log(searchResult);
       if (searchResult) {
         this.$router.push(`/product/${searchResult.slug}`);
+        this.removeClass();
+        this.isBurgerIconVisible = false;
+        this.isSearchMenu = false;
         this.search = "";
       } else {
         ElNotification({
@@ -179,6 +291,7 @@ export default {
 <style scoped>
 header {
   background: #697187;
+  position: relative;
 }
 
 header .container {
@@ -344,9 +457,44 @@ span,
 
 /* Styles for the button container */
 .burger-button {
-  display: block;
+  display: none;
   cursor: pointer;
   margin-left: 1rem;
+}
+
+.mobile-menu {
+  position: absolute;
+  background: #697187;
+  color: #fff;
+  left: 0;
+  bottom: -19.5rem;
+  width: 100%;
+  min-height: 8rem;
+  max-height: 20rem;
+  z-index: 1;
+  padding: 1rem 4rem;
+  border-top: 1px solid #f2f3f5;
+  overflow-y: auto;
+}
+
+.search-menu {
+  position: absolute;
+  background: #697187;
+  color: #fff;
+  left: 0;
+  bottom: -4rem;
+  width: 100%;
+  min-height: 4rem;
+  max-height: 20rem;
+  z-index: 1;
+  padding: 1rem 4rem;
+  border-top: 1px solid #f2f3f5;
+}
+
+img.search-icon {
+  display: none;
+  width: 2rem;
+  margin-right: 0.5rem;
 }
 
 :deep(.el-dropdown-link.el-tooltip__trigger.el-tooltip__trigger) {
@@ -367,4 +515,55 @@ span,
 :deep(.el-input__inner) {
   color: #fff;
 }
+
+@media only screen and (min-width: 200px) and (max-width: 1300px) {
+  .burger-button,
+  img.search-icon {
+    display: block;
+  }
+
+  .mobile-menu .menu-list,
+  .mobile-menu .authentication {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border: none;
+  }
+
+  .mobile-menu .menu-list span {
+    margin-bottom: 2rem;
+  }
+
+  .mobile-menu .authentication {
+    margin-top: 1rem;
+    border-top: 1px solid #f2f3f5;
+    padding: 1rem 0 0 0;
+  }
+
+  .mobile-menu .authentication span {
+    display: block;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+
+  .authentication,
+  .menu-list,
+  .search .el-dropdown,
+  .search .el-input {
+    display: none;
+  }
+}
+
+/* @media only screen and (min-width: 200px) {
+  .burger-button {
+    display: block;
+  }
+
+  .authentication,
+  .menu-list,
+  .search .el-dropdown,
+  .search .el-input {
+    display: none;
+  }
+} */
 </style>
