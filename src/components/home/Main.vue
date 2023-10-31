@@ -12,14 +12,14 @@
           :key="product"
         >
           <el-row :gutter="40">
-            <el-col :span="12">
+            <el-col :md="24" :lg="12">
               <img
                 crossorigin="anonymous"
                 :src="`${url}api/v1/system/uploads/${product.thumbnail}`"
                 alt=""
               />
             </el-col>
-            <el-col :span="12">
+            <el-col :md="24" :lg="12">
               <h4>{{ product.name }}</h4>
               <small>{{ $t("dashboard.highlighted-specifications") }}</small>
               <ul>
@@ -248,5 +248,11 @@ li {
 
 .main .el-button.is-login {
   width: fit-content;
+}
+
+@media only screen and (max-width: 1199px) {
+  h4 {
+    margin: 1rem 0;
+  }
 }
 </style>

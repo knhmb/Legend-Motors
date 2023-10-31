@@ -2,10 +2,10 @@
   <footer>
     <base-container>
       <el-row justify="space-between">
-        <el-col :span="4">
+        <el-col :md="24" :lg="4">
           <img class="logo" src="../../assets/logo.png" alt="" />
         </el-col>
-        <el-col :span="6">
+        <el-col :md="24" :lg="6">
           <p>{{ $t("footer.company") }}</p>
           <div class="list">
             <p @click="$router.push('/home')">{{ $t("menu.home") }}</p>
@@ -24,7 +24,7 @@
             </p>
           </div>
         </el-col>
-        <el-col :span="5">
+        <el-col :md="24" :lg="5">
           <p>{{ $t("footer.service") }}</p>
           <div class="list">
             <p @click="$router.push('/product')">{{ $t("menu.product") }}</p>
@@ -38,7 +38,7 @@
             <p @click="$router.push('/cart')">{{ $t("menu.shopping-cart") }}</p>
           </div>
         </el-col>
-        <el-col :span="7">
+        <el-col :md="24" :lg="7">
           <p>{{ $t("footer.office") }}</p>
           <div class="list icons">
             <img src="../../assets/location.png" alt="" />
@@ -108,5 +108,12 @@ p {
 .list.icons img {
   width: 1.5rem;
   margin-right: 1rem;
+}
+
+@media only screen and (max-width: 1199px) {
+  img.logo {
+    margin: 1rem auto;
+    display: block;
+  }
 }
 </style>

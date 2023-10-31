@@ -133,7 +133,7 @@ p {
   font-weight: 350;
   font-size: 32px;
   line-height: 49px;
-  width: 470px;
+  max-width: 470px;
   margin: 1rem 0;
 }
 
@@ -162,5 +162,8 @@ p {
   bottom: 2rem;
   left: 4rem;
   transform: translateX(0);
+}
+
+@media only screen and (max-width: 550px) {
 }
 </style>
