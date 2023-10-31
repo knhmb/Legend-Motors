@@ -2,7 +2,7 @@
   <div class="product-info">
     <base-container>
       <el-row>
-        <el-col :span="14">
+        <el-col :md="24" :lg="14">
           <img
             crossorigin="anonymous"
             :src="`${url}api/v1/system/uploads/${carImg}`"
@@ -10,7 +10,7 @@
           />
           <!-- <img :src="productBlobImage" alt="" /> -->
         </el-col>
-        <el-col :span="10">
+        <el-col :md="24" :lg="10">
           <h3>{{ productDetail.name }}</h3>
           <div class="price">
             <div>
@@ -359,5 +359,12 @@ h3 {
 
 .el-button {
   margin-top: 1.5rem;
+}
+
+@media only screen and (max-width: 1199px) {
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>

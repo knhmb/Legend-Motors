@@ -51,11 +51,20 @@
           >
         </template>
         <template v-else>
-          <p @click="navigate('/profile')">
-            {{ $t("menu.hi") }}, {{ currentUser.username }}
-          </p>
-          <div class="icon-content">
-            <img src="../../assets/user.png" alt="" />
+          <div class="profile">
+            <p @click="navigate('/profile')">
+              {{ $t("menu.hi") }}, {{ currentUser.username }}
+            </p>
+            <img
+              class="user-img"
+              crossorigin="anonymous"
+              v-if="currentUser.thumbnail"
+              :src="`${url}api/v1/system/uploads/${currentUser.thumbnail}`"
+              alt=""
+            />
+            <div v-else class="icon-content">
+              <img src="../../assets/user.png" alt="" />
+            </div>
           </div>
         </template>
         <el-dropdown>
@@ -211,6 +220,7 @@
 <script>
 import { ArrowDown, Search } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
+import { url } from "@/url";
 
 export default {
   components: {
@@ -219,6 +229,7 @@ export default {
   },
   data() {
     return {
+      url,
       search: "",
       isBurgerIconVisible: false,
       isSearchMenu: false,
@@ -497,6 +508,14 @@ img.search-icon {
   margin-right: 0.5rem;
 }
 
+img.user-img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
 :deep(.el-dropdown-link.el-tooltip__trigger.el-tooltip__trigger) {
   display: flex;
   align-items: center;
@@ -544,6 +563,12 @@ img.search-icon {
     display: block;
     margin-bottom: 1.5rem;
     width: fit-content;
+  }
+
+  .mobile-menu .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
   .authentication,

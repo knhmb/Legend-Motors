@@ -49,145 +49,7 @@
           <div class="right process">{{ order.status }}</div>
         </div>
       </el-collapse-item>
-
-      <!-- <el-collapse-item title="Order 5" name="1">
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">2023-05-12</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">Air ev - Standard Range (Pristine White)</div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">1</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">Proccessing</div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Order 4" name="2">
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">2023-05-12</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">Air ev - Standard Range (Pristine White)</div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">1</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">Proccessing</div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Order 3" name="3">
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">2023-05-12</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">Air ev - Standard Range (Pristine White)</div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">1</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">Proccessing</div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Order 2" name="4">
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">2023-05-12</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">Air ev - Standard Range (Pristine White)</div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">1</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">Proccessing</div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Order 1" name="5">
-        <div class="item">
-          <div class="left">Order Date</div>
-          <div class="right">2023-05-12</div>
-        </div>
-        <div class="item">
-          <div class="left">Item Name</div>
-          <div class="right">Air ev - Standard Range (Pristine White)</div>
-        </div>
-        <div class="item">
-          <div class="left">Quantity</div>
-          <div class="right">1</div>
-        </div>
-        <div class="item">
-          <div class="left">Retail Price</div>
-          <div class="right">1,000,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Reservation Fee</div>
-          <div class="right">1,000</div>
-        </div>
-        <div class="item">
-          <div class="left">Status</div>
-          <div class="right process">Proccessing</div>
-        </div>
-      </el-collapse-item> -->
     </el-collapse>
-    <!-- </template> -->
-    <!-- <template v-else>
-      <h3>{{ $t("dashboard.empty-orders") }}</h3>
-      <base-button @click="$router.push('/product')">{{
-        $t("btn.order-now")
-      }}</base-button>
-    </template> -->
   </div>
 </template>
 
@@ -252,6 +114,8 @@ export default {
   align-items: center;
   width: fit-content;
   margin: 0 auto;
+  min-width: 20rem;
+  max-width: 35rem;
 }
 
 h3 {
@@ -301,6 +165,7 @@ h3 {
   border: 0.5px solid #e5e6eb;
   border-top: none;
   border-radius: 4px;
+  display: flex;
 }
 
 .item:first-of-type {
@@ -337,5 +202,11 @@ h3 {
 
 .item .right.process {
   color: #4cd263;
+}
+
+@media only screen and (max-width: 600px) {
+  .el-collapse {
+    width: 100%;
+  }
 }
 </style>

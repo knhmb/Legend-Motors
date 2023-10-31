@@ -1,6 +1,6 @@
 <template>
   <div class="auth-dialog">
-    <el-dialog :model-value="dialogVisible" width="30%">
+    <el-dialog :model-value="dialogVisible">
       <div class="top">
         <img src="../assets//icon-center-20px.png" alt="" />
         <h4>{{ $t("auth.login-required") }}</h4>
@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style scoped>
+:deep(.el-dialog) {
+  width: 30%;
+}
 .top {
   display: flex;
   align-items: center;
@@ -90,6 +93,18 @@ p {
 
 .el-button.cancel:hover {
   background: #f2f3f541;
+}
+
+@media only screen and (max-width: 1199px) {
+  :deep(.el-dialog) {
+    width: 23rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  :deep(.el-dialog) {
+    width: 90%;
+  }
 }
 </style>
 

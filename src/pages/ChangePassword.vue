@@ -186,6 +186,12 @@ export default {
   align-items: center;
   width: fit-content;
   margin: 0 auto;
+  min-width: 20rem;
+  max-width: 25rem;
+}
+
+.el-form {
+  width: 100%;
 }
 
 h3 {
@@ -215,5 +221,11 @@ h3 {
 .el-button {
   display: flex;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 1199px) {
+  .el-input {
+    width: 100%;
+  }
 }
 </style>

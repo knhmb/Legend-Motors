@@ -112,6 +112,11 @@ img {
   justify-content: center;
   align-items: center;
   margin-bottom: 3rem;
+  overflow-x: auto;
+}
+
+.profile-menu::-webkit-scrollbar {
+  display: none;
 }
 
 .profile-menu span {
@@ -131,5 +136,11 @@ img {
 
 .profile-menu span:not(:last-of-type) {
   margin-right: 2rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .profile-menu {
+    justify-content: flex-start;
+  }
 }
 </style>

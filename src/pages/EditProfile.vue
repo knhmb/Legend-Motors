@@ -248,6 +248,8 @@ export default {
   align-items: center;
   width: fit-content;
   margin: 0 auto;
+  min-width: 20rem;
+  max-width: 25rem;
 }
 
 h3 {
@@ -346,5 +348,12 @@ img.user-img {
   object-fit: cover;
   border-radius: 4px;
   margin-right: 0.7rem;
+}
+
+@media only screen and (max-width: 1199px) {
+  .el-input,
+  .el-select {
+    width: 100%;
+  }
 }
 </style>

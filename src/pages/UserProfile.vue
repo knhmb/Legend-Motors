@@ -123,4 +123,10 @@ img.user-img {
   object-fit: cover;
   border-radius: 4px;
 }
+
+@media only screen and (max-width: 500px) {
+  p.address {
+    font-size: 0.76rem;
+  }
+}
 </style>
