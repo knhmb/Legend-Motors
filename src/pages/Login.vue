@@ -199,4 +199,14 @@ p.forgot-password {
   margin: 0;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 500px) {
+  .el-input {
+    width: 100%;
+  }
+
+  .login .container {
+    align-items: normal;
+  }
+}
 </style>

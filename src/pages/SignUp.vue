@@ -316,7 +316,8 @@ p {
 }
 
 .sign-up .el-select {
-  width: 100%;
+  width: 23.6rem;
+  /* width: 100%; */
 }
 
 .sign-up :deep(.el-select .el-input__wrapper) {
@@ -324,5 +325,16 @@ p {
   box-shadow: inset 0px 0px 0px 1px #878787;
   border-radius: 4px;
   padding: 0.5rem 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .el-input,
+  .sign-up .el-select {
+    width: 100%;
+  }
+
+  .sign-up .container {
+    align-items: normal;
+  }
 }
 </style>

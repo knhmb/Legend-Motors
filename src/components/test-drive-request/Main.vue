@@ -3,7 +3,7 @@
   <div class="form-content" v-if="loadData">
     <base-container>
       <el-row :gutter="50">
-        <el-col :span="12">
+        <el-col :md="24" :lg="12">
           <h5>{{ $t("menu.test-drive-request") }}</h5>
           <p>
             {{ $t("dashboard.test-drive-request-description") }}
@@ -36,7 +36,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :md="24" :lg="12">
           <h5>{{ $t("form.fill-the-details") }}</h5>
           <el-form
             label-position="top"
@@ -428,5 +428,12 @@ p.have-an-account {
     .el-input.el-input--prefix.el-input--suffix.el-date-editor.el-date-editor--time.date-input.el-tooltip__trigger.el-tooltip__trigger
   ) {
   height: inherit;
+}
+
+@media only screen and (max-width: 1199px) {
+  .form-content .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 </style>

@@ -240,7 +240,7 @@ h3 {
 }
 
 :deep(.el-checkbox__label) {
-  width: 23rem;
+  max-width: 23rem;
   white-space: break-spaces;
   font-family: "Avenir";
   font-style: normal;
@@ -286,5 +286,11 @@ h3 {
 :deep(.el-radio.is-checked .el-radio__label),
 :deep(.el-checkbox.is-checked .el-checkbox__label) {
   color: #384967;
+}
+
+@media only screen and (max-width: 1199px) {
+  h3 {
+    margin: 1rem 0 2rem 0;
+  }
 }
 </style>

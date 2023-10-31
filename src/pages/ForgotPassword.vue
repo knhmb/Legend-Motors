@@ -282,4 +282,14 @@ p.info {
   color: #ea0029;
   vertical-align: middle;
 }
+
+@media only screen and (max-width: 500px) {
+  .el-input {
+    width: 100%;
+  }
+
+  .forgot-password .container {
+    align-items: normal;
+  }
+}
 </style>

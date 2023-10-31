@@ -471,7 +471,7 @@ span,
   width: 100%;
   min-height: 8rem;
   max-height: 20rem;
-  z-index: 1;
+  z-index: 99;
   padding: 1rem 4rem;
   border-top: 1px solid #f2f3f5;
   overflow-y: auto;

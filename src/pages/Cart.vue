@@ -44,13 +44,13 @@
         </div>
       </div>
       <el-row :gutter="50">
-        <el-col :span="12">
+        <el-col :md="24" :lg="12">
           <PaymentMethod
             @setPayment="paymentMethodHandler"
             :payment-method="paymentMethod"
           />
         </el-col>
-        <el-col :span="12">
+        <el-col :md="24" :lg="12">
           <CartForm :payment-method="paymentMethod" />
         </el-col>
       </el-row>
@@ -316,5 +316,12 @@ p.remove {
   font-size: 20px;
   line-height: 31px;
   color: #262f36;
+}
+
+@media only screen and (max-width: 1199px) {
+  .cart .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 </style>

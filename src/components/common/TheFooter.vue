@@ -112,7 +112,7 @@ p {
 
 @media only screen and (max-width: 1199px) {
   img.logo {
-    margin: 1rem auto;
+    margin: 1rem auto 2rem auto;
     display: block;
   }
 }

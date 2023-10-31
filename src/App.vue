@@ -95,4 +95,10 @@ main .whats-app-content img {
   width: 70%;
   height: 70%;
 }
+
+@media only screen and (max-width: 700px) {
+  main .whats-app-content {
+    display: none;
+  }
+}
 </style>
